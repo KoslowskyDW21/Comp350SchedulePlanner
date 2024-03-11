@@ -22,6 +22,8 @@ public class User {
         this.gradReqs = new ArrayList<>();
     }
 
+    //TODO: Check that there are no schedule conflicts or something
+
     public void changeName(String newName) {
 
     }
