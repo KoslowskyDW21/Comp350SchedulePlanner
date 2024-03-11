@@ -2,6 +2,7 @@ package edu.gcc.comp350.smartest;
 
 import java.time.LocalTime;
 
+// hi guys!!
 public class Course {
     private final String courseCode;
     private final String name;
