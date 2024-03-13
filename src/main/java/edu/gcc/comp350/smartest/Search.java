@@ -1,5 +1,6 @@
 package edu.gcc.comp350.smartest;
 import java.util.ArrayList;
+import java.io.*;
 
 public class Search {
     private String userInput;
@@ -29,21 +30,25 @@ public class Search {
         parseDatabase();
     }
 
-    public void addFilter(Filter filter) {
+
+
+    public void modifyFilter(Filter filter) {
         activeFilters = filter;
         parseDatabase();
     }
 
-    public void removeFilter(Filter filter){
 
-        parseDatabase();
-    }
+    private ArrayList<Course> parseDatabase() {
+        results.clear();
 
-    public ArrayList<Course> parseDatabase() {
         for (Course course : Course.database) {
-            //if (course.)
+            if (course.getCourseCode().contains(userInput) // search by code
+                    || course.getName().contains(userInput)) { // search by name
+                results.add(course);
+            }
+            //else if (course)
         }
-        return null;
+        return results;
     }
 
 }
