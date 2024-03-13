@@ -4,32 +4,44 @@ import java.util.ArrayList;
 public class Search {
     private String userInput;
     private ArrayList<Course> results;
-    private ArrayList<Filter> activeFilters;
+    private Filter activeFilters;
 
     public Search() {
         this.userInput = "";
         this.results = new ArrayList<Course>();
-        this.activeFilters = new ArrayList<>();
+        this.activeFilters = new Filter();
     }
 
-    public ArrayList<Course> modifyQuery(String input) {
+    public String getUserInput() {
+        return userInput;
+    }
+
+    public ArrayList<Course> getResults() {
+        return results;
+    }
+
+    public Filter getActiveFilters() {
+        return activeFilters;
+    }
+
+    public void modifyQuery(String input) {
         userInput = input;
-        return parseDatabase();
+        parseDatabase();
     }
 
-    public ArrayList<Course> addFilter(Filter filter) {
-        activeFilters.add(filter);
-        return parseDatabase();
+    public void addFilter(Filter filter) {
+        activeFilters = filter;
+        parseDatabase();
     }
 
-    public ArrayList<Course> removeFilter(Filter filter){
-        activeFilters.remove(filter);
-        return parseDatabase();
+    public void removeFilter(Filter filter){
+
+        parseDatabase();
     }
 
     public ArrayList<Course> parseDatabase() {
         for (Course course : Course.database) {
-
+            //if (course.)
         }
         return null;
     }
