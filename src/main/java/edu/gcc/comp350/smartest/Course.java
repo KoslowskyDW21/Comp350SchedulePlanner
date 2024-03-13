@@ -5,6 +5,8 @@ import java.time.LocalTime;
 // hi guys!!
 public class Course {
     private final String courseCode;
+    private final String department;
+    private final int level;
     private final String name;
     private final String professor;
     private String color;
@@ -46,4 +48,39 @@ public class Course {
 
     }
 
+    public String getCourseCode() {
+        return courseCode;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getProfessor() {
+        return professor;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public int[] getStartTimes() {
+        return startTimes;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public int getNumCredits() {
+        return numCredits;
+    }
 }
