@@ -52,10 +52,12 @@ public class Course {
     public Course(String excelLine) {
         String[] tokens = excelLine.split(",");
         courseCode = tokens[2] + tokens[3] + tokens[4];
+        department = tokens[2];
+        level = Integer.parseInt(tokens[3]);
         name = tokens[5];
         professor = tokens[17] + " " + tokens[16];
         color = "white";
-        if(tokens.length >= 20) {
+        if (tokens.length >= 20) {
             description = tokens[19];
         } else {
             description = "";
@@ -67,12 +69,12 @@ public class Course {
         startTime = tokens[14];
         endTime = tokens[15];
         days = tokens[9] + tokens[10] + tokens[11] + tokens[12] + tokens[13];
-        if(Integer.parseInt(tokens[1]) == 10) {
+        if (Integer.parseInt(tokens[1]) == 10) {
             semester = "Fall";
         } else { //tokens[5] == 30
             semester = "Spring";
         }
- 
+
     }
 
     private void changeColor(String color) {
@@ -103,8 +105,8 @@ public class Course {
         return color;
     }
 
-    public int[] getStartTimes() {
-        return startTimes;
+    public String getStartTimes() {
+        return startTime;
     }
 
     public String getDescription() {
@@ -115,3 +117,4 @@ public class Course {
         return numCredits;
     }
 }
+
