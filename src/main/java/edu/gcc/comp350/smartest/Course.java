@@ -30,9 +30,11 @@ public class Course {
         return coReqs;
     }
 
-    public Course(String courseCode, String name, String professor, String color, LocalTime[] timeSlot,
+    public Course(String courseCode, String department, int level, String name, String professor, String color, LocalTime[] timeSlot,
                   String description, int numCredits, Course[] preReqs, Course[]coReqs) {
         this.courseCode = courseCode;
+        this.department = department;
+        this.level = level;
         this.name = name;
         this.professor = professor;
         this.color = color;
