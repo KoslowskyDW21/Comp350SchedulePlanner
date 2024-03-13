@@ -24,9 +24,10 @@ public class Main {
     private static void ParseClasses() throws IOException {
         Scanner scn = new Scanner(new File("2020-2021.csv"));
         scn.nextLine();
-        while(scn.hasNext()) {
+        while (scn.hasNext()) {
             courseList.add(new Course(scn.nextLine()));
         }
+    }
     public static void addDepartmentFilter(Search search, String department) {
         Filter departmentFilter = search.getActiveFilters();
         departmentFilter.setDepartment(department);
