@@ -14,23 +14,23 @@ public class Search {
 
     public ArrayList<Course> modifyQuery(String input) {
         userInput = input;
-        parseDatabase();
-        return null;
+        return parseDatabase();
     }
 
     public ArrayList<Course> addFilter(Filter filter) {
         activeFilters.add(filter);
-        parseDatabase();
-        return null;
+        return parseDatabase();
     }
 
     public ArrayList<Course> removeFilter(Filter filter){
         activeFilters.remove(filter);
-        parseDatabase();
-        return null;
+        return parseDatabase();
     }
 
     public ArrayList<Course> parseDatabase() {
+        for (Course course : Course.database) {
+
+        }
         return null;
     }
 
