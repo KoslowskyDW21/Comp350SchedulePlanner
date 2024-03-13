@@ -25,7 +25,8 @@ public class Main {
         Scanner scn = new Scanner(new File("2020-2021.csv"));
         scn.nextLine();
         while (scn.hasNext()) {
-            courseList.add(new Course(scn.nextLine()));
+            //courseList.add(new Course(scn.nextLine()));
+            Course.database.add(new Course(scn.nextLine()));
         }
     }
     public static void addDepartmentFilter(Search search, String department) {
