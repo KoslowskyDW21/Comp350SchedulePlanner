@@ -4,6 +4,7 @@ import java.io.*;
 
 public class Search {
     private String userInput;
+    // TODO: get rid of spaces
     private ArrayList<Course> results;
     private Filter activeFilters;
 

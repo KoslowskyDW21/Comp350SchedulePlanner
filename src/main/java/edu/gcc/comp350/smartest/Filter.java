@@ -9,7 +9,6 @@ public class Filter {
     int levelMin;
     int levelMax;
     String profName;
-    String courseCode;
     String department;
 
 
@@ -21,7 +20,6 @@ public class Filter {
         this.levelMin = 100;
         this.levelMax = 400;
         this.profName = "";
-        this.courseCode = "";
         this.department = "";
     }
 
@@ -71,14 +69,6 @@ public class Filter {
 
     public void setProfName(String profName) {
         this.profName = profName;
-    }
-
-    public String getCourseCode() {
-        return courseCode;
-    }
-
-    public void setCourseCode(String courseCode) {
-        this.courseCode = courseCode;
     }
 
     public String getDepartment() {
