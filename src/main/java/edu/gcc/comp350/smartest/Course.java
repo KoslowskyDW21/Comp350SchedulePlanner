@@ -1,9 +1,11 @@
 package edu.gcc.comp350.smartest;
+import java.util.ArrayList;
 
 import java.time.LocalTime;
 
 // hi guys!!
 public class Course {
+    public static ArrayList<Course> database;
     private final String courseCode;
     private final String department;
     private final int level;
