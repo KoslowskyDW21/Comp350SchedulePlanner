@@ -1,11 +1,15 @@
 package edu.gcc.comp350.smartest;
+import java.util.ArrayList;
 
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Course {
+    public static ArrayList<Course> database;
     private final String courseCode;
+    private final String department;
+    private final int level;
     private final String name;
     private final String professor;
     private String color;
@@ -26,6 +30,7 @@ public class Course {
     public ArrayList<Course[]> getCoReqs() {
         return coReqs;
     }
+
 
 //    public Course(String courseCode, String name, String professor, String color, String description,
 //                  int numCredits, ArrayList<Course[]> preReqs, ArrayList<Course[]> coReqs,
@@ -67,10 +72,46 @@ public class Course {
         } else { //tokens[5] == 30
             semester = "Spring";
         }
+ 
     }
 
     private void changeColor(String color) {
 
     }
 
+    public String getCourseCode() {
+        return courseCode;
+    }
+
+    public String getDepartment() {
+        return department;
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getProfessor() {
+        return professor;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public int[] getStartTimes() {
+        return startTimes;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public int getNumCredits() {
+        return numCredits;
+    }
 }

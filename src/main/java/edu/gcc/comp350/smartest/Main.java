@@ -9,6 +9,7 @@ public class Main {
     public static ArrayList<Course> courseList;
 
     public static void main(String[] args) {
+        Search search = new Search();
         courseList = new ArrayList<>();
 
         try {
@@ -26,5 +27,14 @@ public class Main {
         while(scn.hasNext()) {
             courseList.add(new Course(scn.nextLine()));
         }
+    public static void addDepartmentFilter(Search search, String department) {
+        Filter departmentFilter = search.getActiveFilters();
+        departmentFilter.setDepartment(department);
+        search.modifyFilter(departmentFilter);
+    }
+    public static void removeDepartmentFilter(Search search) {
+        Filter departmentFilter = search.getActiveFilters();
+        departmentFilter.setDepartment("");
+        search.modifyFilter(departmentFilter);
     }
 }
