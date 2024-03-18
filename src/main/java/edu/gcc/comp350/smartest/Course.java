@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Course {
-    public static ArrayList<Course> database;
+    public static ArrayList<Course> database = new ArrayList<>();
     private final String courseCode;
     private final String department;
     private final int level;
