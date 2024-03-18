@@ -39,5 +39,11 @@ public class Main {
         departmentFilter.setDepartment("");
         search.modifyFilter(departmentFilter);
     }
+
+    public static void addDaysFilter(Search search, String days) {
+        Filter daysFilter = search.getActiveFilters();
+        //daysFilter.setDays(days);
+        search.modifyFilter(daysFilter);
+    }
 }
 
