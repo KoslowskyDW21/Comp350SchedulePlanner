@@ -49,6 +49,13 @@ public class Search {
             }
             //else if (course)
         }
+        for(Course result: results) {
+            String department = activeFilters.getDepartment();
+            if(department.isEmpty() && result.getDepartment().equals(department)) {
+                results.remove(result);
+            }
+        }
+
         return results;
     }
 
