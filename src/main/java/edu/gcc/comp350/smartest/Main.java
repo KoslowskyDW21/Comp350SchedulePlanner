@@ -12,7 +12,7 @@ public class Main {
         Search search = new Search();
         courseList = new ArrayList<>();
 
-        System.out.println("test");
+        System.out.println("Test");
 
         try {
             ParseClasses();
