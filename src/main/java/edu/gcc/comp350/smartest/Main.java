@@ -21,10 +21,14 @@ public class Main {
         } catch (IOException e) {
             System.out.println("IOException: " + e);
         }
+        //System.out.println();
 
-        for (Course course : courseList) {
-            System.out.println(course.getName());
+        for (Course course : Course.database) {
+            //System.out.println("hello?");
+            //System.out.println(course.getName());
         }
+        //System.out.println("meep");
+        akSearchTest();
     }
 
     private static void ParseClasses() throws IOException {
@@ -51,6 +55,16 @@ public class Main {
         Filter daysFilter = search.getActiveFilters();
         //daysFilter.setDays(days);
         search.modifyFilter(daysFilter);
+    }
+
+    public static void akSearchTest() {
+        Search search = new Search();
+        String input = "";
+        search.modifyQuery(input);
+        ArrayList<Course> results = search.getResults();
+        for (Course course : results) {
+            System.out.println(course.getName());
+        }
     }
 }
 
