@@ -47,6 +47,17 @@ public class Main {
         search.modifyFilter(departmentFilter);
     }
 
+    public static void addProfessorFilter(Search search, String professor) {
+        Filter professorFilter = search.getActiveFilters();
+        professorFilter.setProfName(professor);
+        search.modifyFilter(professorFilter);
+    }
+    public static void removeProfessorFilter(Search search) {
+        Filter professorFilter = search.getActiveFilters();
+        professorFilter.setProfName("");
+        search.modifyFilter(professorFilter);
+    }
+
     public static void addDaysFilter(Search search, String days) {
         Filter daysFilter = search.getActiveFilters();
         //daysFilter.setDays(days);

@@ -78,9 +78,15 @@ public class Search {
 
     private boolean matchesFilters(Course course) {
         String department = activeFilters.getDepartment();
+        String professor = activeFilters.getProfName();
+
         if((!department.isEmpty()) && (!course.getDepartment().equals(department))) {
             return false;
         }
+        if((!professor.isEmpty()) && (!course.getProfessor().equals(professor))) {
+            return false;
+        }
+
         return true;
     }
 }
