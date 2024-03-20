@@ -47,16 +47,11 @@ public class Search {
             String codeConverted = convertString(course.getCourseCode());
             String nameConverted = convertString(course.getName());
             if (codeConverted.contains(userInput) // search by code
-                    || nameConverted.contains(userInput)) { // search by name
+                    || nameConverted.contains(userInput) // search by name
+                    && matchesFilters(course)) { // matches course with current filters
                 results.add(course);
             }
             //else if (course)
-        }
-        for(Course result: results) {
-            String department = activeFilters.getDepartment();
-            if(department.isEmpty() && result.getDepartment().equals(department)) {
-                results.remove(result);
-            }
         }
 
         return results;
@@ -79,5 +74,13 @@ public class Search {
     private static boolean isPunctuation(char c) {
         Pattern pattern = Pattern.compile("\\p{Punct}");
         return pattern.matcher(Character.toString(c)).matches();
+    }
+
+    private boolean matchesFilters(Course course) {
+        String department = activeFilters.getDepartment();
+        if((!department.isEmpty()) && (!course.getDepartment().equals(department))) {
+            return false;
+        }
+        return true;
     }
 }
