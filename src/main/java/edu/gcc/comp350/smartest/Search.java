@@ -44,8 +44,10 @@ public class Search {
         results.clear();
 
         for (Course course : Course.database) {
-            if (course.getCourseCode().contains(userInput) // search by code
-                    || course.getName().contains(userInput)) { // search by name
+            String codeConverted = convertString(course.getCourseCode());
+            String nameConverted = convertString(course.getName());
+            if (codeConverted.contains(userInput) // search by code
+                    || nameConverted.contains(userInput)) { // search by name
                 results.add(course);
             }
             //else if (course)
