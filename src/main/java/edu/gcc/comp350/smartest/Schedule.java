@@ -17,7 +17,17 @@ public class Schedule {
         return totalCredits;
     }
 
-    public void addCourse(Course course) {
+    public void addCourse(Course course) throws Exception {
+        for (Course crs : currentCourses) {
+            int crsStart = Integer.parseInt(crs.getStartTimes());
+            int courseStart = Integer.parseInt(crs.getStartTimes());
+            int crsEnd = Integer.parseInt(crs.getEndTimes());
+            int courseEnd = Integer.parseInt(crs.getEndTimes());
+            if((courseStart >= crsStart && courseStart <= crsEnd) || (courseEnd <= crsEnd && courseEnd >= crsStart)){
+                throw new Exception("Course Overlaps with one already in Schedule"); //replace with popup in GUI
+            }
+        }
+        currentCourses.add(course);
 
     }
 
