@@ -1,6 +1,7 @@
 package edu.gcc.comp350.smartest;
 import java.util.ArrayList;
 import java.io.*;
+import java.util.regex.Pattern;
 
 public class Search {
     private String userInput;
@@ -26,7 +27,7 @@ public class Search {
     }
 
     public void modifyQuery(String input) {
-        input = input.toLowerCase().replace(" ", "");
+        input = convertString(input);
         userInput = input;
         parseDatabase();
     }
@@ -59,4 +60,22 @@ public class Search {
         return results;
     }
 
+    public static String convertString(String input) {
+        if (input == null || input.isEmpty()) {
+            return input;
+        }
+
+        StringBuilder result = new StringBuilder();
+        for (char c : input.toCharArray()) {
+            if (!(Character.isWhitespace(c) || isPunctuation(c))) {
+                result.append(Character.toLowerCase(c));
+            }
+        }
+        return result.toString();
+    }
+
+    private static boolean isPunctuation(char c) {
+        Pattern pattern = Pattern.compile("\\p{Punct}");
+        return pattern.matcher(Character.toString(c)).matches();
+    }
 }
