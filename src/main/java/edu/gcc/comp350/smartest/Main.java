@@ -6,11 +6,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    public static ArrayList<Course> courseList;
+    //public static ArrayList<Course> courseList;
+
 
     public static void main(String[] args) {
         Search search = new Search();
-        courseList = new ArrayList<>();
+        //courseList = new ArrayList<>();
 
         System.out.println("Test");
 
@@ -21,14 +22,9 @@ public class Main {
         } catch (IOException e) {
             System.out.println("IOException: " + e);
         }
-        //System.out.println();
 
-        for (Course course : Course.database) {
-            //System.out.println("hello?");
-            //System.out.println(course.getName());
-        }
-        //System.out.println("meep");
-        akSearchTest();
+        //akSearchTest();
+        consoleSoftwareLoop();
     }
 
     private static void ParseClasses() throws IOException {
@@ -59,12 +55,90 @@ public class Main {
 
     public static void akSearchTest() {
         Search search = new Search();
-        String input = "";
+        String input = "3 50";
         search.modifyQuery(input);
         ArrayList<Course> results = search.getResults();
         for (Course course : results) {
             System.out.println(course.getName());
         }
     }
+
+
+
+    public static void consoleSoftwareLoop() {
+        Scanner scnIn = new Scanner(System.in);
+        boolean userInfo = false;
+        boolean schedule = false;
+        boolean courseSearch = false;
+        String currInput = "";
+
+        System.out.println("Welcome to GCC Scheduling. Type 'exit' anytime to leave.");
+        System.out.println("Where would you like to go? User Info/Schedule/Course Search [ui/s/cs]");
+
+
+
+        while (true) {
+            System.out.print(":");
+            currInput = scnIn.nextLine();
+            if (userInfo) {
+                if (currInput.toLowerCase().equals("v")) {
+                    System.out.println("VIEW INFO");
+                }
+                else if (currInput.toLowerCase().equals("e")) {
+                    System.out.println("EDIT INFO");
+                }
+            }
+            else if (schedule) {
+                if (currInput.toLowerCase().equals("v")) {
+                    System.out.println("VIEW SCHEDULE");
+                }
+                else if (currInput.toLowerCase().equals("g")) {
+                    System.out.println("GENERATE SCHEDULE");
+                }
+            }
+            else if (courseSearch) {
+                if (currInput.toLowerCase().equals("s")) {
+                    System.out.println("SEARCH");
+                }
+                else if (currInput.toLowerCase().equals("f")) {
+                    System.out.println("FILTERS");
+                }
+            }
+
+            if (currInput.toLowerCase().equals("exit")) {
+                System.out.println("EXITING");
+                break;
+            }
+            else if (currInput.toLowerCase().equals("ui")) {
+                userInfo = true;
+                schedule = false;
+                courseSearch = false;
+                System.out.println("USER INFO");
+                System.out.println("Would you like to view or edit your user info? [v/e]");
+            }
+            else if (currInput.toLowerCase().equals("s")) {
+                userInfo = false;
+                schedule = true;
+                courseSearch = false;
+                System.out.println("SCHEDULE");
+                System.out.println("Would you like to view or generate your schedule? [v/g]");
+            }
+            else if (currInput.toLowerCase().equals("cs")) {
+                userInfo = false;
+                schedule = false;
+                courseSearch = true;
+                System.out.println("COURSE SEARCH");
+                System.out.println("Would you like to search or apply filters? [s/f]");
+            }
+            else if (currInput.toLowerCase().equals("\n")) {
+                // loop again (do nothing)
+            }
+            /*else {
+                System.out.println("Command not recognized. Please try again.");
+            }*/
+        }
+
+    }
+
 }
 
