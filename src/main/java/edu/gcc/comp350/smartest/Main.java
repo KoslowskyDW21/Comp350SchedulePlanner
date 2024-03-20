@@ -83,6 +83,7 @@ public class Main {
             if (userInfo) {
                 if (currInput.toLowerCase().equals("v")) {
                     System.out.println("VIEW INFO");
+                    System.out.print("");
                 }
                 else if (currInput.toLowerCase().equals("e")) {
                     System.out.println("EDIT INFO");
