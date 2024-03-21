@@ -74,7 +74,24 @@ public class Course {
         } else { //tokens[5] == 30
             semester = "Spring";
         }
+    }
 
+    public Course(String line, boolean differentiate) {
+        String[] tokens = line.split(",");
+        courseCode = tokens[0];
+        department = tokens[1];
+        level = Integer.parseInt(tokens[2]);
+        name = tokens[3];
+        professor = tokens[4];
+        startTime = tokens[5];
+        endTime = tokens[6];
+        description = tokens[7];
+        numCredits = Integer.parseInt(tokens[8]);
+        numSeats = Integer.parseInt(tokens[9]);
+        days = tokens[9];
+        semester = tokens[10];
+        preReqs = new ArrayList<>();
+        coReqs = new ArrayList<>();
     }
 
     private void changeColor(String color) {
@@ -109,12 +126,28 @@ public class Course {
         return startTime;
     }
 
+    public String getEndTimes() {
+        return endTime;
+    }
+
     public String getDescription() {
         return description;
     }
 
+    public String getDays() {
+        return days;
+    }
+
+    public String getSemester() {
+        return semester;
+    }
+
     public int getNumCredits() {
         return numCredits;
+    }
+
+    public int getNumSeats() {
+        return numSeats;
     }
 }
 

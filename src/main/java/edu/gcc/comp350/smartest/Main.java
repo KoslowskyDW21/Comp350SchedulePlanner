@@ -11,9 +11,11 @@ public class Main {
 
     public static void main(String[] args) {
         Search search = new Search();
-        //courseList = new ArrayList<>();
 
-        System.out.println("Test");
+        System.out.println("Loading saved schedule...");
+        Schedule currentSchedule = new Schedule();
+        currentSchedule.loadCoursesFromFile();
+        System.out.println("Schedule successfully loaded!");
 
         try {
             ParseClasses();
