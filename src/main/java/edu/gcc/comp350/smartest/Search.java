@@ -47,7 +47,8 @@ public class Search {
             String codeConverted = convertString(course.getCourseCode());
             String nameConverted = convertString(course.getName());
             if (codeConverted.contains(userInput) // search by code
-                    || nameConverted.contains(userInput)) { // search by name
+                    || nameConverted.contains(userInput) // search by name
+                    && matchesFilters(course)) { // matches course with current filters
                 results.add(course);
             }
             //else if (course)
@@ -89,4 +90,18 @@ public class Search {
         return res;
     }
 
+
+    private boolean matchesFilters(Course course) {
+        String department = activeFilters.getDepartment();
+        String professor = activeFilters.getProfName();
+
+        if((!department.isEmpty()) && (!course.getDepartment().equals(department))) {
+            return false;
+        }
+        if((!professor.isEmpty()) && (!course.getProfessor().equals(professor))) {
+            return false;
+        }
+
+        return true;
+    }
 }
