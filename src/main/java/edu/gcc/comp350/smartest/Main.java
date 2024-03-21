@@ -27,7 +27,7 @@ public class Main {
         consoleSoftwareLoop();
     }
 
-    private static void ParseClasses() throws IOException {
+    public static void ParseClasses() throws IOException {
         Scanner scn = new Scanner(new File("2020-2021.csv"));
         scn.nextLine();
         while (scn.hasNext()) {

@@ -46,8 +46,8 @@ public class Search {
         for (Course course : Course.database) {
             String codeConverted = convertString(course.getCourseCode());
             String nameConverted = convertString(course.getName());
-            if (codeConverted.contains(userInput) // search by code
-                    || nameConverted.contains(userInput) // search by name
+            if ((codeConverted.contains(userInput) // search by code
+                    || nameConverted.contains(userInput)) // search by name
                     && matchesFilters(course)) { // matches course with current filters
                 results.add(course);
             }
