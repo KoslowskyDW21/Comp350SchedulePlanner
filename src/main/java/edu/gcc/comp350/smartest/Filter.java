@@ -78,4 +78,19 @@ public class Filter {
     public void setDepartment(String department) {
         this.department = department;
     }
+
+    public String filterToString() {
+        String filterVals = "";
+
+        filterVals += "Credits: " + getCredits() + " ";
+        filterVals += "Start Time: " + getStartTime() + " ";
+        filterVals += "End Time: " + getEndTime() + " ";
+        filterVals += "Level Min: " + getLevelMin() + " ";
+        filterVals += "Level Max: " + getLevelMax() + " ";
+        filterVals += "Prof Name: " + getProfName() + " ";
+        filterVals += "Department: " + getDepartment() + " ";
+
+        return filterVals;
+    }
+
 }

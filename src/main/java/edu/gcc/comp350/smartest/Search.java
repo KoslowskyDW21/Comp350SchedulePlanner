@@ -80,4 +80,13 @@ public class Search {
         Pattern pattern = Pattern.compile("\\p{Punct}");
         return pattern.matcher(Character.toString(c)).matches();
     }
+
+    public String resultsToString() {
+        String res = "";
+        for (Course course : results) {
+            res += course.getCourseCode() + "\n";
+        }
+        return res;
+    }
+
 }
