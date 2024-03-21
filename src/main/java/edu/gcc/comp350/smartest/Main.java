@@ -66,43 +66,70 @@ public class Main {
 
 
     public static void consoleSoftwareLoop() {
+        User user = new User();
         Scanner scnIn = new Scanner(System.in);
         boolean userInfo = false;
         boolean schedule = false;
         boolean courseSearch = false;
         String currInput = "";
 
-        System.out.println("Welcome to GCC Scheduling. Type 'exit' anytime to leave.");
+        System.out.println("Welcome to GCC Scheduling. Type 'exit' anytime to leave, " +
+                "or 'back' to return to home.");
         System.out.println("Where would you like to go? User Info/Schedule/Course Search [ui/s/cs]");
-
 
 
         while (true) {
             System.out.print(":");
             currInput = scnIn.nextLine();
+
             if (userInfo) {
-                if (currInput.toLowerCase().equals("v")) {
-                    System.out.println("VIEW INFO");
-                    System.out.print("");
-                }
-                else if (currInput.toLowerCase().equals("e")) {
-                    System.out.println("EDIT INFO");
+                switch (currInput.toLowerCase()) {
+                    case "v":
+                        System.out.println("VIEW INFO");
+                        System.out.println("Name: " + user.getName());
+                        System.out.println("Major: " + user.getMajor());
+                        System.out.print("Grad Reqs: ");
+                        for (Course gradReq : user.getGradReqs()) {
+                            System.out.print(gradReq.getName() + ", ");
+                        }
+                        System.out.println();
+                        break;
+                    case "e":
+                        System.out.println("EDIT INFO");
+                        System.out.println("Would you like to edit name or major? [n/m]");
+                        currInput = scnIn.nextLine();
+                        switch (currInput.toLowerCase()) {
+                            case "n":
+                                System.out.print("Enter new name: ");
+                                user.setName(scnIn.nextLine());
+                                break;
+                            case "m":
+                                System.out.print("Enter new major: ");
+                                user.setMajor(scnIn.nextLine());
+                                break;
+                        }
+                        break;
                 }
             }
             else if (schedule) {
-                if (currInput.toLowerCase().equals("v")) {
-                    System.out.println("VIEW SCHEDULE");
+                switch (currInput.toLowerCase()) {
+                    case "v":
+                        System.out.println("VIEW SCHEDULE");
+                        break;
+                    case "g":
+                        System.out.println("GENERATE SCHEDULE");
+                        break;
                 }
-                else if (currInput.toLowerCase().equals("g")) {
-                    System.out.println("GENERATE SCHEDULE");
-                }
+
             }
             else if (courseSearch) {
-                if (currInput.toLowerCase().equals("s")) {
-                    System.out.println("SEARCH");
-                }
-                else if (currInput.toLowerCase().equals("f")) {
-                    System.out.println("FILTERS");
+                switch (currInput.toLowerCase()) {
+                    case "s":
+                        System.out.println("SEARCH");
+                        break;
+                    case "f":
+                        System.out.println("FILTERS");
+                        break;
                 }
             }
 
@@ -110,36 +137,38 @@ public class Main {
                 System.out.println("EXITING");
                 break;
             }
-            else if (currInput.toLowerCase().equals("ui")) {
-                userInfo = true;
-                schedule = false;
-                courseSearch = false;
-                System.out.println("USER INFO");
-                System.out.println("Would you like to view or edit your user info? [v/e]");
+            else if (currInput.toLowerCase().equals("back")) {
+                System.out.println("Where would you like to go? User Info/Schedule/Course Search [ui/s/cs]");
             }
-            else if (currInput.toLowerCase().equals("s")) {
-                userInfo = false;
-                schedule = true;
-                courseSearch = false;
-                System.out.println("SCHEDULE");
-                System.out.println("Would you like to view or generate your schedule? [v/g]");
+            switch (currInput.toLowerCase()) {
+                case "ui":
+                    userInfo = true;
+                    schedule = false;
+                    courseSearch = false;
+                    System.out.println("USER INFO");
+                    System.out.println("Would you like to view or edit your user info? [v/e]");
+                    break;
+                case "s":
+                    userInfo = false;
+                    schedule = true;
+                    courseSearch = false;
+                    System.out.println("SCHEDULE");
+                    System.out.println("Would you like to view or generate your schedule? [v/g]");
+                    break;
+                case "cs":
+                    userInfo = false;
+                    schedule = false;
+                    courseSearch = true;
+                    System.out.println("COURSE SEARCH");
+                    System.out.println("Would you like to search or apply filters? [s/f]");
+                    break;
+                case "\n":
+                    break;
+                default:
+                    //System.out.println("Command not recognized. Please try again.");
+                    break;
             }
-            else if (currInput.toLowerCase().equals("cs")) {
-                userInfo = false;
-                schedule = false;
-                courseSearch = true;
-                System.out.println("COURSE SEARCH");
-                System.out.println("Would you like to search or apply filters? [s/f]");
-            }
-            else if (currInput.toLowerCase().equals("\n")) {
-                // loop again (do nothing)
-            }
-            /*else {
-                System.out.println("Command not recognized. Please try again.");
-            }*/
         }
-
     }
-
 }
 
