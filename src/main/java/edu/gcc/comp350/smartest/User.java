@@ -5,10 +5,23 @@ public class User {
     private final int userID;
     private String name;
     private String major;
+
     private ArrayList<Course> gradReqs;
 
     public String getMajor() {
         return major;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setMajor(String major) {
+        this.major = major;
     }
 
     public ArrayList<Course> getGradReqs() {
@@ -19,6 +32,13 @@ public class User {
         this.userID = userID;
         this.name = name;
         this.major = major;
+        this.gradReqs = new ArrayList<>();
+    }
+
+    public User() {
+        this.userID = 000000;
+        this.name = "";
+        this.major = "";
         this.gradReqs = new ArrayList<>();
     }
 

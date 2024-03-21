@@ -9,15 +9,43 @@ import java.util.ArrayList;
 
 public class SearchTest {
     @Test
-    void testInput() {
+    void testConverterWorks() {
         Search search = new Search();
         String ogInput = "Hello World!";
         search.modifyQuery(ogInput);
-        Assertions.assertEquals("helloworld!", search.getUserInput());
+        Assertions.assertEquals("helloworld", search.getUserInput());
+    }
+
+    @Test
+    void testConverterDidNothing() {
+        Search search = new Search();
+        String ogInput = "Hello World!";
+        search.modifyQuery(ogInput);
         Assertions.assertNotEquals("Hello World!", search.getUserInput());
+    }
+
+    @Test
+    void testConverterTookSpaces() {
+        Search search = new Search();
+        String ogInput = "Hello World!";
+        search.modifyQuery(ogInput);
         Assertions.assertNotEquals("HelloWorld!", search.getUserInput());
+    }
+
+    @Test
+    void testConverterTookCapitals() {
+        Search search = new Search();
+        String ogInput = "Hello World!";
+        search.modifyQuery(ogInput);
         Assertions.assertNotEquals("hello world!", search.getUserInput());
-        Assertions.assertNotEquals("helloworld", search.getUserInput());
+    }
+
+    @Test
+    void testConverterTookPunctuation() {
+        Search search = new Search();
+        String ogInput = "Hello World!";
+        search.modifyQuery(ogInput);
+        Assertions.assertNotEquals("Hello World", search.getUserInput());
     }
 
     @Test
