@@ -30,7 +30,7 @@ public class FiltersTest {
             assertEquals(department, course.getDepartment());
         }
 
-        department = "RIZZ";
+        department = "FAKE";
         Main.addDepartmentFilter(search, department);
         courses.clear();
         courses = search.getResults();
