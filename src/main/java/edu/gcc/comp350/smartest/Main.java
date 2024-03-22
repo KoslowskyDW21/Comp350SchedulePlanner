@@ -58,6 +58,20 @@ public class Main {
         search.modifyFilter(professorFilter);
     }
 
+    public static void addLevelFilter(Search search, int upper, int lower) {
+        Filter levelFilter = search.getActiveFilters();
+        levelFilter.setLevelMax(upper);
+        levelFilter.setLevelMin(lower);
+        search.modifyFilter(levelFilter);
+    }
+
+    public static void removeLevelFilter(Search search) {
+        Filter levelFilter = search.getActiveFilters();
+        levelFilter.setLevelMax(600);
+        levelFilter.setLevelMin(100);
+        search.modifyFilter(levelFilter);
+    }
+
     public static void addDaysFilter(Search search, String days) {
         Filter daysFilter = search.getActiveFilters();
         //daysFilter.setDays(days);

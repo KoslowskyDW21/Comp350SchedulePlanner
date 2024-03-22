@@ -88,11 +88,16 @@ public class Search {
     private boolean matchesFilters(Course course) {
         String department = activeFilters.getDepartment();
         String professor = activeFilters.getProfName();
+        int levelMin = activeFilters.getLevelMin();
+        int levelMax = activeFilters.getLevelMax();
 
         if((!department.isEmpty()) && (!course.getDepartment().equals(department))) {
             return false;
         }
         if((!professor.isEmpty()) && (!course.getProfessor().equals(professor))) {
+            return false;
+        }
+        if(course.getLevel() < levelMin || course.getLevel() > levelMax) {
             return false;
         }
 

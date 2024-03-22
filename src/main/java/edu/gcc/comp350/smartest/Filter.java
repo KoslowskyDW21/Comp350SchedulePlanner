@@ -18,7 +18,7 @@ public class Filter {
         this.startTime = 800;
         this.endTime = 2100;
         this.levelMin = 100;
-        this.levelMax = 400;
+        this.levelMax = 600;
         this.profName = "";
         this.department = "";
     }
