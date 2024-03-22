@@ -7,6 +7,10 @@ public class Schedule {
     private ArrayList<String> filledTimeslots;
     private ArrayList<Course> currentCourses;
 
+    public ArrayList<Course> getCurrentCourses() {
+        return currentCourses;
+    }
+
     public Schedule() {
         this.totalCredits = 0;
         this.filledTimeslots = new ArrayList<>();

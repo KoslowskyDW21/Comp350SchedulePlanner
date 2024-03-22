@@ -76,6 +76,15 @@ public class Search {
         return pattern.matcher(Character.toString(c)).matches();
     }
 
+    public String resultsToString() {
+        String res = "";
+        for (Course course : results) {
+            res += course.getCourseCode() + "\n";
+        }
+        return res;
+    }
+
+
     private boolean matchesFilters(Course course) {
         String department = activeFilters.getDepartment();
         String professor = activeFilters.getProfName();
