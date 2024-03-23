@@ -118,6 +118,7 @@ public class Main {
 //                courseSearchAction(currInput, search);
 //            }
 
+            // TODO: add to switch
             if (currInput.toLowerCase().equals("exit")) {
                 System.out.println("EXITING");
                 break;
@@ -130,6 +131,7 @@ public class Main {
                 case "ui":
                     System.out.println("USER INFO");
                     System.out.println("Would you like to view or edit your user info? [v/e]");
+                    System.out.print(":");
                     userInfoAction(user);
                     break;
                 case "s":
@@ -163,6 +165,8 @@ public class Main {
             case "e":
                 editInfo(user);
                 break;
+            default:
+                break;
         }
     }
 
@@ -177,6 +181,7 @@ public class Main {
                 sched.createRecommendedSchedule();
             case "v":
                 System.out.println("VIEW SCHEDULE");
+            default: // view schedule
                 ArrayList<Course> currCourses = sched.getCurrentCourses();
                 for (Course course : currCourses) {
                     System.out.println(course.getCourseCode() + " ---- " + course.getStartTimes());
@@ -185,6 +190,7 @@ public class Main {
         }
     }
 
+    // TODO: add "view filter"
     public static void courseSearchAction(Search search) {
         String currInput = scnIn.nextLine();
 
@@ -212,7 +218,10 @@ public class Main {
                 System.out.println("Department: " + activeFilters.getDepartment());*/
 
                 editFilters(scnIn, activeFilters, search);
-
+                break;
+            default:
+                // do nothing
+                break;
         }
     }
 
@@ -241,6 +250,8 @@ public class Main {
                 System.out.print("Enter new major: ");
                 user.setMajor(scnIn.nextLine());
                 break;
+            default:
+                break;
         }
     }
 
@@ -251,6 +262,7 @@ public class Main {
             System.out.println("Which filter would you like to edit or remove? [cr/st/et/lv/pr/dp]");
             System.out.print(":");
             String filterAttr = scnIn.nextLine();
+            // TODO: put in switch
             if (filterAttr.toLowerCase().equals("back") || filterAttr.toLowerCase().equals("exit")) {
                 break;
             }
@@ -259,6 +271,7 @@ public class Main {
                 case "cr":
                     creditsFilter(editOrRemove, activeFilters);
                     break;
+                    // TODO: combine start and end times once method implemented
                 case "st":
                     startTimeFilter(editOrRemove, activeFilters);
                     break;
@@ -273,6 +286,8 @@ public class Main {
                     break;
                 case "dp":
                     departmentFilter(editOrRemove, activeFilters, search);
+                    break;
+                default:
                     break;
             }
             //break;
@@ -294,7 +309,8 @@ public class Main {
                 break;
             case "r":
                 break;
-
+            default:
+                break;
         }
     }
 
@@ -313,7 +329,8 @@ public class Main {
                 break;
             case "r":
                 break;
-
+            default:
+                break;
         }
     }
 
@@ -332,7 +349,8 @@ public class Main {
                 break;
             case "r":
                 break;
-
+            default:
+                break;
         }
     }
 
@@ -357,7 +375,8 @@ public class Main {
                 removeLevelFilter(search);
                 System.out.println("Level filter successfully removed.");
                 break;
-
+            default:
+                break;
         }
     }
 
@@ -374,7 +393,8 @@ public class Main {
                 removeProfessorFilter(search);
                 System.out.println("Professor filter successfully removed.");
                 break;
-
+            default:
+                break;
         }
     }
 
@@ -391,7 +411,8 @@ public class Main {
                 removeDepartmentFilter(search);
                 System.out.println("Department filter successfully removed.");
                 break;
-
+            default:
+                break;
         }
     }
 

@@ -79,7 +79,7 @@ public class Search {
     public String resultsToString() {
         String res = "";
         for (Course course : results) {
-            res += course.getCourseCode() + "\n";
+            res += course.getCourseCode() + " --- " + course.getName() + "\n";
         }
         return res;
     }
