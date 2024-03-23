@@ -8,6 +8,8 @@ import java.util.Scanner;
 public class Main {
     //public static ArrayList<Course> courseList;
 
+    public static Scanner scnIn;
+    //public static Search search;
 
     public static void main(String[] args) {
         Search search = new Search();
@@ -94,10 +96,7 @@ public class Main {
         User user = new User();
         Schedule sched = new Schedule();
         Search search = new Search();
-        Scanner scnIn = new Scanner(System.in);
-        boolean userInfo = false;
-        boolean schedule = false;
-        boolean courseSearch = false;
+        scnIn = new Scanner(System.in);
         String currInput = "";
 
         System.out.println("Welcome to GCC Scheduling. Type 'exit' anytime to leave, " +
@@ -109,15 +108,15 @@ public class Main {
             System.out.print(":");
             currInput = scnIn.nextLine();
 
-            if (userInfo) {
-                userInfoAction(currInput, user, scnIn);
-            }
-            else if (schedule) {
-                scheduleAction(currInput, sched);
-            }
-            else if (courseSearch) {
-                courseSearchAction(currInput, search, scnIn);
-            }
+//            if (userInfo) {
+//                userInfoAction(currInput, user);
+//            }
+//            else if (schedule) {
+//                scheduleAction(currInput, sched);
+//            }
+//            else if (courseSearch) {
+//                courseSearchAction(currInput, search);
+//            }
 
             if (currInput.toLowerCase().equals("exit")) {
                 System.out.println("EXITING");
@@ -129,25 +128,21 @@ public class Main {
 
             switch (currInput.toLowerCase()) {
                 case "ui":
-                    userInfo = true;
-                    schedule = false;
-                    courseSearch = false;
                     System.out.println("USER INFO");
                     System.out.println("Would you like to view or edit your user info? [v/e]");
+                    userInfoAction(user);
                     break;
                 case "s":
-                    userInfo = false;
-                    schedule = true;
-                    courseSearch = false;
                     System.out.println("SCHEDULE");
                     System.out.println("Would you like to view or generate your schedule? [v/g]");
+                    System.out.print(":");
+                    scheduleAction(sched);
                     break;
                 case "cs":
-                    userInfo = false;
-                    schedule = false;
-                    courseSearch = true;
                     System.out.println("COURSE SEARCH");
                     System.out.println("Would you like to search or apply filters? [s/f]");
+                    System.out.print(":");
+                    courseSearchAction(search);
                     break;
                 case "\n":
                     break;
@@ -158,37 +153,23 @@ public class Main {
         }
     }
 
-    public static void userInfoAction(String currInput, User user, Scanner scnIn) {
+    public static void userInfoAction(User user) {
+        String currInput = scnIn.nextLine();
+
         switch (currInput.toLowerCase()) {
             case "v":
-                System.out.println("VIEW INFO");
-                System.out.println("Name: " + user.getName());
-                System.out.println("Major: " + user.getMajor());
-                System.out.print("Grad Reqs: ");
-                for (Course gradReq : user.getGradReqs()) {
-                    System.out.print(gradReq.getName() + ", ");
-                }
-                System.out.println();
+                viewInfo(user);
                 break;
             case "e":
-                System.out.println("EDIT INFO");
-                System.out.println("Would you like to edit name or major? [n/m]");
-                currInput = scnIn.nextLine();
-                switch (currInput.toLowerCase()) {
-                    case "n":
-                        System.out.print("Enter new name: ");
-                        user.setName(scnIn.nextLine());
-                        break;
-                    case "m":
-                        System.out.print("Enter new major: ");
-                        user.setMajor(scnIn.nextLine());
-                        break;
-                }
+                editInfo(user);
                 break;
         }
     }
 
-    public static void scheduleAction(String currInput, Schedule sched) {
+    // TODO: CHANGE
+    public static void scheduleAction(Schedule sched) {
+        String currInput = scnIn.nextLine();
+
         switch (currInput.toLowerCase()) {
             case "g":
                 System.out.println("GENERATE SCHEDULE");
@@ -204,7 +185,9 @@ public class Main {
         }
     }
 
-    public static void courseSearchAction(String currInput, Search search, Scanner scnIn) {
+    public static void courseSearchAction(Search search) {
+        String currInput = scnIn.nextLine();
+
         switch (currInput.toLowerCase()) {
             case "s":
                 System.out.println("SEARCH");
@@ -228,81 +211,190 @@ public class Main {
                 System.out.println("Prof. Name: " + activeFilters.getProfName());
                 System.out.println("Department: " + activeFilters.getDepartment());*/
 
-                editFilters(scnIn, activeFilters);
+                editFilters(scnIn, activeFilters, search);
 
         }
     }
 
-    public static void editFilters(Scanner scnIn, Filter activeFilters) {
+
+    public static void viewInfo(User user) {
+        System.out.println("VIEW INFO");
+        System.out.println("Name: " + user.getName());
+        System.out.println("Major: " + user.getMajor());
+        System.out.print("Grad Reqs: ");
+        for (Course gradReq : user.getGradReqs()) {
+            System.out.print(gradReq.getName() + ", ");
+        }
+        System.out.println();
+    }
+
+    public static void editInfo(User user) {
+        System.out.println("EDIT INFO");
+        System.out.println("Would you like to edit name or major? [n/m]");
+        String currInput = scnIn.nextLine();
+        switch (currInput.toLowerCase()) {
+            case "n":
+                System.out.print("Enter new name: ");
+                user.setName(scnIn.nextLine());
+                break;
+            case "m":
+                System.out.print("Enter new major: ");
+                user.setMajor(scnIn.nextLine());
+                break;
+        }
+    }
+
+    public static void editFilters(Scanner scnIn, Filter activeFilters, Search search) {
+        System.out.println("Would you like to edit/add or remove a filter? [e/r]");
+        String editOrRemove = scnIn.nextLine();
         while (true) {
-            System.out.println("Which filter would you like to edit? [cr/st/et/mn/mx/pr/dp]");
+            System.out.println("Which filter would you like to edit or remove? [cr/st/et/lv/pr/dp]");
             System.out.print(":");
             String filterAttr = scnIn.nextLine();
-            if (filterAttr.toLowerCase().equals("back")) {
+            if (filterAttr.toLowerCase().equals("back") || filterAttr.toLowerCase().equals("exit")) {
                 break;
             }
+
             switch (filterAttr.toLowerCase()) {
                 case "cr":
-                    System.out.print("Enter credits: ");
-                    String credStr = scnIn.nextLine();
-                    int creds = Integer.parseInt(credStr);
-                    if (0 <= creds && creds <= 4) {
-                        activeFilters.setCredits(creds);
-                        System.out.println("Credit filter successfully changed.");
-                    }
+                    creditsFilter(editOrRemove, activeFilters);
                     break;
                 case "st":
-                    System.out.print("Enter start time (format HHMM): ");
-                    String startStr = scnIn.nextLine();
-                    int start = Integer.parseInt(startStr);
-                    if (800 <= start && start <= 1900) {
-                        activeFilters.setStartTime(start);
-                        System.out.println("Start time filter successfully changed.");
-                    }
+                    startTimeFilter(editOrRemove, activeFilters);
                     break;
                 case "et":
-                    System.out.print("Enter end time (format HHMM): ");
-                    String endStr = scnIn.nextLine();
-                    int end = Integer.parseInt(endStr);
-                    if (900 <= end && end <= 2100) {
-                        activeFilters.setEndTime(end);
-                        System.out.println("End time filter successfully changed.");
-                    }
+                    endTimeFilter(editOrRemove, activeFilters);
                     break;
-                case "mn":
-                    System.out.print("Enter minimum level (format 000): ");
-                    String minStr = scnIn.nextLine();
-                    int min = Integer.parseInt(minStr);
-                    if (100 <= min && min <= 400) {
-                        activeFilters.setLevelMin(min);
-                        System.out.println("Minimum level filter successfully changed.");
-                    }
-                    break;
-                case "mx":
-                    System.out.print("Enter maximum level (format 000): ");
-                    String maxStr = scnIn.nextLine();
-                    int max = Integer.parseInt(maxStr);
-                    if (100 <= max && max <= 400) {
-                        activeFilters.setLevelMax(max);
-                        System.out.println("Maximum level filter successfully changed.");
-                    }
+                case "lv":
+                    levelFilter(editOrRemove, activeFilters, search);
                     break;
                 case "pr":
-                    System.out.print("Enter professor last name: ");
-                    String prof = scnIn.nextLine();
-                    activeFilters.setProfName(prof);
-                    System.out.println("Professor filter successfully changed.");
+                    professorFilter(editOrRemove, activeFilters, search);
                     break;
                 case "dp":
-                    System.out.print("Enter department code: ");
-                    String deptCode = scnIn.nextLine();
-                    activeFilters.setDepartment(deptCode);
-                    System.out.println("Department filter successfully changed.");
+                    departmentFilter(editOrRemove, activeFilters, search);
                     break;
             }
             //break;
         }
     }
 
+    // TODO: change to calling edit/remove credits methods
+    public static void creditsFilter(String editOrRemove, Filter activeFilters) {
+        switch (editOrRemove) {
+            case "e":
+                System.out.print("Enter credits: ");
+                String credStr = scnIn.nextLine();
+                int creds = Integer.parseInt(credStr);
+                if (0 <= creds && creds <= 4) {
+                    activeFilters.setCredits(creds);
+                    System.out.println("Credit filter successfully changed to "
+                            + activeFilters.getCredits() + "'.");
+                }
+                break;
+            case "r":
+                break;
+
+        }
+    }
+
+    // TODO: change to calling edit/remove start time methods
+    public static void startTimeFilter(String editOrRemove, Filter activeFilters) {
+        switch (editOrRemove) {
+            case "e":
+                System.out.print("Enter start time (format HHMM): ");
+                String startStr = scnIn.nextLine();
+                int start = Integer.parseInt(startStr);
+                if (800 <= start && start <= 1900) {
+                    activeFilters.setStartTime(start);
+                    System.out.println("Start time filter successfully changed to "
+                            + activeFilters.getStartTime() + "'.");
+                }
+                break;
+            case "r":
+                break;
+
+        }
+    }
+
+    // TODO: change to calling edit/remove end time methods
+    public static void endTimeFilter(String editOrRemove, Filter activeFilters) {
+        switch (editOrRemove) {
+            case "e":
+                System.out.print("Enter end time (format HHMM): ");
+                String endStr = scnIn.nextLine();
+                int end = Integer.parseInt(endStr);
+                if (900 <= end && end <= 2100) {
+                    activeFilters.setEndTime(end);
+                    System.out.println("End time filter successfully changed to "
+                            + activeFilters.getEndTime() + "'.");
+                }
+                break;
+            case "r":
+                break;
+
+        }
+    }
+
+    public static void levelFilter(String editOrRemove, Filter activeFilters, Search search) {
+        switch (editOrRemove) {
+            case "e":
+                System.out.print("Enter maximum level (format 000): ");
+                String maxStr = scnIn.nextLine();
+                int max = Integer.parseInt(maxStr);
+                System.out.print("Enter minimum level (format 000): ");
+                String minStr = scnIn.nextLine();
+                int min = Integer.parseInt(minStr);
+                if ((100 <= min && min <= 600) && (100 <= max && max <= 600)) {
+                    addLevelFilter(search, max, min);
+                }
+                System.out.println("Level max filter successfully changed to '"
+                        + activeFilters.getLevelMax() + "'.");
+                System.out.println("Level min filter successfully changed to '"
+                        + activeFilters.getLevelMin() + "'.");
+                break;
+            case "r":
+                removeLevelFilter(search);
+                System.out.println("Level filter successfully removed.");
+                break;
+
+        }
+    }
+
+    public static void professorFilter(String editOrRemove, Filter activeFilters, Search search) {
+        switch (editOrRemove) {
+            case "e":
+                System.out.print("Enter professor last name: ");
+                String prof = scnIn.nextLine();
+                addProfessorFilter(search, prof);
+                System.out.println("Professor filter successfully changed to '"
+                        + activeFilters.getProfName() + "'.");
+                break;
+            case "r":
+                removeProfessorFilter(search);
+                System.out.println("Professor filter successfully removed.");
+                break;
+
+        }
+    }
+
+    public static void departmentFilter(String editOrRemove, Filter activeFilters, Search search) {
+        switch (editOrRemove) {
+            case "e":
+                System.out.print("Enter department code: ");
+                String deptCode = scnIn.nextLine();
+                addDepartmentFilter(search, deptCode);
+                System.out.println("Department filter successfully changed to '"
+                        + activeFilters.getDepartment() + "'.");
+                break;
+            case "r":
+                removeDepartmentFilter(search);
+                System.out.println("Department filter successfully removed.");
+                break;
+
+        }
+    }
+
 }
+
 
