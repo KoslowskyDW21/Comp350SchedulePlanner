@@ -40,7 +40,7 @@ public class FiltersTest {
 
     @Test
     public void testRemoveDepartment() throws IOException {
-        Main.ParseClasses();
+        //Main.ParseClasses();
         Search search = new Search();
 
         String department = "COMP";
