@@ -19,6 +19,8 @@ public class User {
         return name;
     }
 
+    public int getUserID() {return userID;}
+
     public void setName(String name) {
         this.name = name;
     }
@@ -41,8 +43,8 @@ public class User {
 
     public User() {
         this.userID = 0;
-        this.name = "";
-        this.major = "";
+        this.name = "John Student";
+        this.major = "Computer Science";
         this.gradReqs = new ArrayList<>();
         this.savedSchedules = new ArrayList<>();
     }
