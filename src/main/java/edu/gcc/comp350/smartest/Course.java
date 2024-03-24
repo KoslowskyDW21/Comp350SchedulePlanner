@@ -74,7 +74,16 @@ public class Course {
         } else { //tokens[5] == 30
             semester = "Spring";
         }
+    }
 
+    // Method to find a course in the database by course code
+    public static Course findCourse(String courseCode) {
+        for (Course course : database) {
+            if (course.getCourseCode().equals(courseCode)) {
+                return course;
+            }
+        }
+        return null; // Course not found
     }
 
     private void changeColor(String color) {

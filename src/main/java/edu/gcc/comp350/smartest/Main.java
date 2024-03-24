@@ -6,16 +6,12 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    //public static ArrayList<Course> courseList;
-
     public static Scanner scnIn;
-    //public static Search search;
 
     public static void main(String[] args) {
+        User.mainUser = new User(0, "John Smith", "Computer Science");
         Search search = new Search();
         //courseList = new ArrayList<>();
-
-        System.out.println("Test");
 
         try {
             ParseClasses();
