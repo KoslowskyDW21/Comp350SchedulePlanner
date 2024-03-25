@@ -22,11 +22,11 @@ public class Schedule {
     }
 
     public void addCourse(Course course) {
-
+        currentCourses.add(course);
     }
 
     public void removeCourse(Course course) {
-
+        currentCourses.remove(course);
     }
 
     public boolean testInSchedule(Course course) {
