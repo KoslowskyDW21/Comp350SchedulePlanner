@@ -51,7 +51,6 @@ public class Search {
                     && matchesFilters(course)) { // matches course with current filters
                 results.add(course);
             }
-            //else if (course)
         }
 
         return results;
