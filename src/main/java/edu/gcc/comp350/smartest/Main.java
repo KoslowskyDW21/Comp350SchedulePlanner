@@ -74,6 +74,30 @@ public class Main {
         search.modifyFilter(levelFilter);
     }
 
+    public static void addStartTimeFilter(Search search, int startTime) {
+        Filter startTimeFilter = search.getActiveFilters();
+        startTimeFilter.setStartTime(startTime);
+        search.modifyFilter(startTimeFilter);
+    }
+
+    public static void removeStartTimeFilter(Search search) {
+        Filter startTimeFilter = search.getActiveFilters();
+        startTimeFilter.setEndTime(800);
+        search.modifyFilter(startTimeFilter);
+    }
+
+    public static void addEndTimeFilter(Search search, int endTime) {
+        Filter endTimeFilter = search.getActiveFilters();
+        endTimeFilter.setEndTime(endTime);
+        search.modifyFilter(endTimeFilter);
+    }
+
+    public static void removeEndTimeFilter(Search search) {
+        Filter endTimeFilter = search.getActiveFilters();
+        endTimeFilter.setEndTime(2100);
+        search.modifyFilter(endTimeFilter);
+    }
+
     public static void addDaysFilter(Search search, String days) {
         Filter daysFilter = search.getActiveFilters();
         //daysFilter.setDays(days);
@@ -273,7 +297,7 @@ public class Main {
                     break;
                     // TODO: combine start and end times once method implemented
                 case "st":
-                    startTimeFilter(editOrRemove, activeFilters);
+                    startTimeFilter(editOrRemove, activeFilters, search);
                     break;
                 case "et":
                     endTimeFilter(editOrRemove, activeFilters);
@@ -315,16 +339,30 @@ public class Main {
     }
 
     // TODO: change to calling edit/remove start time methods
-    public static void startTimeFilter(String editOrRemove, Filter activeFilters) {
+    public static void startTimeFilter(String editOrRemove, Filter activeFilters, Search search) {
         switch (editOrRemove) {
             case "e":
-                System.out.print("Enter start time (format HHMM): ");
-                String startStr = scnIn.nextLine();
-                int start = Integer.parseInt(startStr);
-                if (800 <= start && start <= 1900) {
-                    activeFilters.setStartTime(start);
-                    System.out.println("Start time filter successfully changed to "
-                            + activeFilters.getStartTime() + "'.");
+                int start;
+                while(true) {
+                    System.out.print("Enter start time (format HHMM): ");
+                    String startStr = scnIn.nextLine();
+                    try {
+                        start = Integer.parseInt(startStr);
+
+                        if (800 <= start && start <= 1900) {
+                            addStartTimeFilter(search, start);
+                            System.out.println("Start time filter successfully changed to "
+                                    + activeFilters.getStartTime() + "'.");
+                        }
+                        else {
+                            throw new Exception(String.valueOf(start));
+                        }
+                        break;
+                    } catch (NumberFormatException e) {
+                        System.out.println("Incorrect format, try again.");
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage() + " is not a valid start time, try again.");
+                    }
                 }
                 break;
             case "r":
