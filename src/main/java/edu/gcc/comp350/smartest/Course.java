@@ -138,6 +138,8 @@ public class Course {
         return startTime;
     }
 
+    public String getEndTimes() {return endTime;}
+
     public String getDescription() {
         return description;
     }
