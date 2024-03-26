@@ -1,15 +1,21 @@
 package edu.gcc.comp350.smartest;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class FiltersTest {
+    @BeforeAll
+    public static void parse() throws IOException {
+        Main.ParseClasses();
+    }
+
     @Test
     public void testAddDepartment() throws IOException {
-        Main.ParseClasses();
         Search search = new Search();
 
         String department = "COMP";
@@ -40,7 +46,6 @@ public class FiltersTest {
 
     @Test
     public void testRemoveDepartment() throws IOException {
-        //Main.ParseClasses();
         Search search = new Search();
 
         String department = "COMP";
