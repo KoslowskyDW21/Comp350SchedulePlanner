@@ -82,13 +82,13 @@ public class Filter {
     public String filterToString() {
         String filterVals = "";
 
-        filterVals += "Credits: " + getCredits() + " ";
-        filterVals += "Start Time: " + getStartTime() + " ";
-        filterVals += "End Time: " + getEndTime() + " ";
-        filterVals += "Level Min: " + getLevelMin() + " ";
-        filterVals += "Level Max: " + getLevelMax() + " ";
-        filterVals += "Prof Name: " + getProfName() + " ";
-        filterVals += "Department: " + getDepartment() + " ";
+        filterVals += "Credits: " + getCredits() + " \n";
+        filterVals += "Start Time: " + getStartTime() + " \n";
+        filterVals += "End Time: " + getEndTime() + " \n";
+        filterVals += "Level Min: " + getLevelMin() + " \n";
+        filterVals += "Level Max: " + getLevelMax() + " \n";
+        filterVals += "Prof Name: " + getProfName() + " \n";
+        filterVals += "Department: " + getDepartment() + " \n";
 
         return filterVals;
     }

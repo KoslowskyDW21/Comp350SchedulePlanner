@@ -6,19 +6,16 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    //public static ArrayList<Course> courseList;
-
     public static Scanner scnIn;
-    //public static Search search;
+    public static User mainUser;
 
     public static void main(String[] args) {
+        User.LoadCoursesFromFile();
         Search search = new Search();
         //courseList = new ArrayList<>();
 
-        System.out.println("Test");
-
         try {
-            ParseClasses();
+            Search.ParseClasses();
         } catch (FileNotFoundException e) {
             System.out.println("File not found: " + e);
         } catch (IOException e) {
@@ -38,6 +35,7 @@ public class Main {
             Course.database.add(new Course(scn.nextLine()));
         }
     }
+  
     public static void addDepartmentFilter(Search search, String department) {
         Filter departmentFilter = search.getActiveFilters();
         departmentFilter.setDepartment(department);
@@ -66,7 +64,6 @@ public class Main {
         levelFilter.setLevelMin(lower);
         search.modifyFilter(levelFilter);
     }
-
     public static void removeLevelFilter(Search search) {
         Filter levelFilter = search.getActiveFilters();
         levelFilter.setLevelMax(600);
@@ -132,26 +129,14 @@ public class Main {
             System.out.print(":");
             currInput = scnIn.nextLine();
 
-//            if (userInfo) {
-//                userInfoAction(currInput, user);
-//            }
-//            else if (schedule) {
-//                scheduleAction(currInput, sched);
-//            }
-//            else if (courseSearch) {
-//                courseSearchAction(currInput, search);
-//            }
-
-            // TODO: add to switch
-            if (currInput.toLowerCase().equals("exit")) {
-                System.out.println("EXITING");
-                break;
-            }
-            else if (currInput.toLowerCase().equals("back")) {
-                System.out.println("Where would you like to go? User Info/Schedule/Course Search [ui/s/cs]");
-            }
 
             switch (currInput.toLowerCase()) {
+                case "exit":
+                    System.out.println("EXITING");
+                    return;
+                case "back":
+                    System.out.println("Where would you like to go? User Info/Schedule/Course Search [ui/s/cs]");
+                    break;
                 case "ui":
                     System.out.println("USER INFO");
                     System.out.println("Would you like to view or edit your user info? [v/e]");
@@ -166,7 +151,7 @@ public class Main {
                     break;
                 case "cs":
                     System.out.println("COURSE SEARCH");
-                    System.out.println("Would you like to search or apply filters? [s/f]");
+                    System.out.println("Would you like to search, apply, or view current filters? [s/a/v]");
                     System.out.print(":");
                     courseSearchAction(search);
                     break;
@@ -184,11 +169,18 @@ public class Main {
 
         switch (currInput.toLowerCase()) {
             case "v":
+                System.out.println("VIEW INFO");
                 viewInfo(user);
                 break;
             case "e":
+                System.out.println("EDIT INFO");
+                System.out.println("Would you like to edit name or major? [n/m]");
+                System.out.print(":");
                 editInfo(user);
                 break;
+            case "exit":
+            case "back":
+                return;
             default:
                 break;
         }
@@ -200,21 +192,18 @@ public class Main {
 
         switch (currInput.toLowerCase()) {
             case "g":
-                System.out.println("GENERATE SCHEDULE");
-                System.out.println("GENERATING...");
-                sched.createRecommendedSchedule();
+                generateSchedule(sched);
             case "v":
-                System.out.println("VIEW SCHEDULE");
+                System.out.println("SCHEDULE");
+            case "exit":
+            case "back":
+                return;
             default: // view schedule
-                ArrayList<Course> currCourses = sched.getCurrentCourses();
-                for (Course course : currCourses) {
-                    System.out.println(course.getCourseCode() + " ---- " + course.getStartTimes());
-                }
+                viewSchedule(sched);
                 break;
         }
     }
 
-    // TODO: add "view filter"
     public static void courseSearchAction(Search search) {
         String currInput = scnIn.nextLine();
 
@@ -222,27 +211,25 @@ public class Main {
             case "s":
                 System.out.println("SEARCH");
                 System.out.print("Enter query: ");
-                String query = scnIn.nextLine();
-                search.modifyQuery(query);
-                String resStr = search.resultsToString();
-                System.out.println(resStr);
+                searchDatabase(search);
                 break;
-            case "f":
+            case "a":
                 Filter activeFilters = search.getActiveFilters();
-                System.out.println("FILTERS");
+                System.out.println("APPLY FILTERS");
                 String filStr = activeFilters.filterToString();
                 System.out.println(filStr);
-                /*System.out.println("Current filters are: ");
-                System.out.println("Credits: " + activeFilters.getCredits());
-                System.out.println("Start Time: " + activeFilters.getStartTime());
-                System.out.println("End Time: " + activeFilters.getEndTime());
-                System.out.println("Level Min: " + activeFilters.getLevelMin());
-                System.out.println("Level Max: " + activeFilters.getLevelMax());
-                System.out.println("Prof. Name: " + activeFilters.getProfName());
-                System.out.println("Department: " + activeFilters.getDepartment());*/
 
+                System.out.println("Would you like to edit/add or remove a filter? [e/r]");
+                System.out.print(":");
                 editFilters(scnIn, activeFilters, search);
-                break;
+            case "v":
+                Filter activeFilters2 = search.getActiveFilters();
+                System.out.println("CURRENT FILTERS");
+                String filStr2 = activeFilters2.filterToString();
+                System.out.println(filStr2);
+            case "exit":
+            case "back":
+                return;
             default:
                 // do nothing
                 break;
@@ -251,7 +238,6 @@ public class Main {
 
 
     public static void viewInfo(User user) {
-        System.out.println("VIEW INFO");
         System.out.println("Name: " + user.getName());
         System.out.println("Major: " + user.getMajor());
         System.out.print("Grad Reqs: ");
@@ -262,8 +248,6 @@ public class Main {
     }
 
     public static void editInfo(User user) {
-        System.out.println("EDIT INFO");
-        System.out.println("Would you like to edit name or major? [n/m]");
         String currInput = scnIn.nextLine();
         switch (currInput.toLowerCase()) {
             case "n":
@@ -274,22 +258,41 @@ public class Main {
                 System.out.print("Enter new major: ");
                 user.setMajor(scnIn.nextLine());
                 break;
+            case "exit":
+            case "back":
+                return;
             default:
                 break;
         }
     }
 
+    public static void generateSchedule(Schedule sched) {
+        System.out.println("GENERATE SCHEDULE");
+        System.out.println("GENERATING...");
+        sched.createRecommendedSchedule();
+    }
+
+    public static void viewSchedule(Schedule sched) {
+        ArrayList<Course> currCourses = sched.getCurrentCourses();
+        for (Course course : currCourses) {
+            System.out.println(course.getCourseCode() + " ---- " + course.getStartTimes());
+        }
+        //System.out.println(sched.toString()); // USE THIS ONCE TOSTRING IMPLEMENTED
+    }
+
+    public static void searchDatabase(Search search) {
+        String query = scnIn.nextLine();
+        search.modifyQuery(query);
+        String resStr = search.resultsToString();
+        System.out.println(resStr);
+    }
+
     public static void editFilters(Scanner scnIn, Filter activeFilters, Search search) {
-        System.out.println("Would you like to edit/add or remove a filter? [e/r]");
         String editOrRemove = scnIn.nextLine();
         while (true) {
             System.out.println("Which filter would you like to edit or remove? [cr/st/et/lv/pr/dp]");
             System.out.print(":");
             String filterAttr = scnIn.nextLine();
-            // TODO: put in switch
-            if (filterAttr.toLowerCase().equals("back") || filterAttr.toLowerCase().equals("exit")) {
-                break;
-            }
 
             switch (filterAttr.toLowerCase()) {
                 case "cr":
@@ -310,6 +313,9 @@ public class Main {
                 case "dp":
                     departmentFilter(editOrRemove, activeFilters, search);
                     break;
+                case "exit":
+                case "back":
+                    return;
                 default:
                     break;
             }
