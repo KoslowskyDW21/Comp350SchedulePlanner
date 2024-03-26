@@ -116,5 +116,13 @@ public class Course {
     public int getNumCredits() {
         return numCredits;
     }
+
+    public int getStartTime() {
+        return Integer.parseInt(startTime);
+    }
+
+    public int getEndTime() {
+        return Integer.parseInt(endTime);
+    }
 }
 

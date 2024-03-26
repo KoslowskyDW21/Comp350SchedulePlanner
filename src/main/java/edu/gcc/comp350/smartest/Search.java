@@ -90,6 +90,8 @@ public class Search {
         String professor = activeFilters.getProfName();
         int levelMin = activeFilters.getLevelMin();
         int levelMax = activeFilters.getLevelMax();
+        int startTime = activeFilters.getStartTime();
+        int endTime = activeFilters.getEndTime();
 
         if((!department.isEmpty()) && (!course.getDepartment().equals(department))) {
             return false;
@@ -98,6 +100,9 @@ public class Search {
             return false;
         }
         if(course.getLevel() < levelMin || course.getLevel() > levelMax) {
+            return false;
+        }
+        if(startTime > course.getStartTime() || endTime < course.getEndTime()) {
             return false;
         }
 

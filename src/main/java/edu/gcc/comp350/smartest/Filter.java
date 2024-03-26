@@ -3,13 +3,13 @@ package edu.gcc.comp350.smartest;
 public class Filter {
     // filter class with apply to results method that all filters inherit from
 
-    int credits;
-    int startTime;
-    int endTime;
-    int levelMin;
-    int levelMax;
-    String profName;
-    String department;
+    private int credits;
+    private int startTime;
+    private int endTime;
+    private int levelMin;
+    private int levelMax;
+    private String profName;
+    private String department;
 
 
 
