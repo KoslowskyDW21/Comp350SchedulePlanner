@@ -19,10 +19,29 @@ public class Schedule {
 
     public void addCourse(Course course) throws Exception {
         for (Course crs : currentCourses) {
-            int crsStart = Integer.parseInt(crs.getStartTimes());
-            int courseStart = Integer.parseInt(crs.getStartTimes());
-            int crsEnd = Integer.parseInt(crs.getEndTimes());
-            int courseEnd = Integer.parseInt(crs.getEndTimes());
+            String[] crsArr = crs.getStartTimes().split(":");
+            float crsStart = Integer.parseInt(crsArr[0]) % 12;
+            if(Integer.parseInt(crsArr[1]) != 0){
+                crsStart += ((float) Integer.parseInt(crsArr[1])) /60;
+            }
+
+            String[] courseArr = course.getStartTimes().split(":");
+            float courseStart = Integer.parseInt(courseArr[0]) % 12;
+            if(Integer.parseInt(courseArr[1]) != 0){
+                courseStart += ((float) Integer.parseInt(courseArr[1])) /60;
+            }
+
+            String[] crsEndArr = crs.getEndTimes().split(":");
+            float crsEnd = Integer.parseInt(crsEndArr[0]) %12;
+            if(Integer.parseInt(crsEndArr[1]) != 0){
+                crsEnd += ((float) Integer.parseInt(crsEndArr[1])) /60;
+            }
+
+            String[] courseEndArr = course.getEndTimes().split(":");
+            float courseEnd = Integer.parseInt(courseEndArr[0]) %12;
+            if(Integer.parseInt(courseArr[1]) != 0){
+                courseEnd += ((float) Integer.parseInt(courseEndArr[1])) /60;
+            }
             if((courseStart >= crsStart && courseStart <= crsEnd) || (courseEnd <= crsEnd && courseEnd >= crsStart)){
                 throw new Exception("Course Overlaps with one already in Schedule"); //replace with popup in GUI
             }
@@ -32,7 +51,7 @@ public class Schedule {
     }
 
     public void removeCourse(Course course) {
-
+        currentCourses.remove(course);
     }
 
     public boolean testInSchedule(Course course) {
