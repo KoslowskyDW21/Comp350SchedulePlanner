@@ -7,14 +7,15 @@ import java.util.Scanner;
 
 public class Main {
     public static Scanner scnIn;
+    public static User mainUser;
 
     public static void main(String[] args) {
-        User.mainUser = new User(0, "John Smith", "Computer Science");
+        User.LoadCoursesFromFile();
         Search search = new Search();
         //courseList = new ArrayList<>();
 
         try {
-            ParseClasses();
+            Search.ParseClasses();
         } catch (FileNotFoundException e) {
             System.out.println("File not found: " + e);
         } catch (IOException e) {
@@ -25,15 +26,6 @@ public class Main {
         consoleSoftwareLoop();
     }
 
-    private static void ParseClasses() throws IOException {
-        Scanner scn = new Scanner(new File("2020-2021.csv"));
-        scn.nextLine();
-        while (scn.hasNext()) {
-            //Course temp = new Course(scn.nextLine());
-            //courseList.add(new Course(scn.nextLine()));
-            Course.database.add(new Course(scn.nextLine()));
-        }
-    }
     public static void addDepartmentFilter(Search search, String department) {
         Filter departmentFilter = search.getActiveFilters();
         departmentFilter.setDepartment(department);
@@ -104,6 +96,9 @@ public class Main {
             System.out.print(":");
             currInput = scnIn.nextLine();
 
+
+
+
             switch (currInput.toLowerCase()) {
                 case "exit":
                     System.out.println("EXITING");
@@ -111,6 +106,7 @@ public class Main {
                 case "back":
                     System.out.println("Where would you like to go? User Info/Schedule/Course Search [ui/s/cs]");
                     break;
+
                 case "ui":
                     System.out.println("USER INFO");
                     System.out.println("Would you like to view or edit your user info? [v/e]");
@@ -240,6 +236,7 @@ public class Main {
         }
     }
 
+    // GET RID OF
     public static void generateSchedule(Schedule sched) {
         System.out.println("GENERATE SCHEDULE");
         System.out.println("GENERATING...");
@@ -259,6 +256,7 @@ public class Main {
         String resStr = search.resultsToString();
         System.out.println(resStr);
     }
+    // STOP GET RID OF
 
     public static void editFilters(Scanner scnIn, Filter activeFilters, Search search) {
         String editOrRemove = scnIn.nextLine();

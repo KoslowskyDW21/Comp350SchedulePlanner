@@ -32,7 +32,7 @@ public class Course {
     }
 
     public Course() {
-        this.courseCode = "000000";
+        this.courseCode = "TEST000A";
         this.name = "Test Course";
         this.professor = "Mr. Instructor";
         this.color = "white";
