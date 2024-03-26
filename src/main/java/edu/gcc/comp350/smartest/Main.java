@@ -26,6 +26,16 @@ public class Main {
         consoleSoftwareLoop();
     }
 
+    public static void ParseClasses() throws IOException {
+        Scanner scn = new Scanner(new File("2020-2021.csv"));
+        scn.nextLine();
+        while (scn.hasNext()) {
+            //Course temp = new Course(scn.nextLine());
+            //courseList.add(new Course(scn.nextLine()));
+            Course.database.add(new Course(scn.nextLine()));
+        }
+    }
+  
     public static void addDepartmentFilter(Search search, String department) {
         Filter departmentFilter = search.getActiveFilters();
         departmentFilter.setDepartment(department);
@@ -59,6 +69,30 @@ public class Main {
         levelFilter.setLevelMax(600);
         levelFilter.setLevelMin(100);
         search.modifyFilter(levelFilter);
+    }
+
+    public static void addStartTimeFilter(Search search, int startTime) {
+        Filter startTimeFilter = search.getActiveFilters();
+        startTimeFilter.setStartTime(startTime);
+        search.modifyFilter(startTimeFilter);
+    }
+
+    public static void removeStartTimeFilter(Search search) {
+        Filter startTimeFilter = search.getActiveFilters();
+        startTimeFilter.setEndTime(800);
+        search.modifyFilter(startTimeFilter);
+    }
+
+    public static void addEndTimeFilter(Search search, int endTime) {
+        Filter endTimeFilter = search.getActiveFilters();
+        endTimeFilter.setEndTime(endTime);
+        search.modifyFilter(endTimeFilter);
+    }
+
+    public static void removeEndTimeFilter(Search search) {
+        Filter endTimeFilter = search.getActiveFilters();
+        endTimeFilter.setEndTime(2100);
+        search.modifyFilter(endTimeFilter);
     }
 
     public static void addDaysFilter(Search search, String days) {
@@ -263,12 +297,12 @@ public class Main {
             switch (filterAttr.toLowerCase()) {
                 case "cr":
                     creditsFilter(editOrRemove, activeFilters);
-                    break; // TODO: combine start and end times once method implemented (nvm?)
+                    break;
                 case "st":
-                    startTimeFilter(editOrRemove, activeFilters);
+                    startTimeFilter(editOrRemove, activeFilters, search);
                     break;
                 case "et":
-                    endTimeFilter(editOrRemove, activeFilters);
+                    endTimeFilter(editOrRemove, activeFilters, search);
                     break;
                 case "lv":
                     levelFilter(editOrRemove, activeFilters, search);
@@ -309,40 +343,70 @@ public class Main {
         }
     }
 
-    // TODO: change to calling edit/remove start time methods
-    public static void startTimeFilter(String editOrRemove, Filter activeFilters) {
+    public static void startTimeFilter(String editOrRemove, Filter activeFilters, Search search) {
         switch (editOrRemove) {
             case "e":
-                System.out.print("Enter start time (format HHMM): ");
-                String startStr = scnIn.nextLine();
-                int start = Integer.parseInt(startStr);
-                if (800 <= start && start <= 1900) {
-                    activeFilters.setStartTime(start);
-                    System.out.println("Start time filter successfully changed to "
-                            + activeFilters.getStartTime() + "'.");
+                while(true) {
+                    System.out.print("Enter start time (format HHMM): ");
+                    String startStr = scnIn.nextLine();
+                    try {
+                        int start = Integer.parseInt(startStr);
+
+                        if (800 <= start && start <= 1900) {
+                            addStartTimeFilter(search, start);
+                            System.out.println("Start time filter successfully changed to "
+                                    + activeFilters.getStartTime() + "'.");
+                        }
+                        else {
+                            throw new Exception(String.valueOf(start));
+                        }
+                        break;
+                    } catch (NumberFormatException e) {
+                        System.out.println("Incorrect format, try again.");
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage() + " is not a valid start time, try again.");
+                    }
                 }
                 break;
             case "r":
+                removeStartTimeFilter(search);
+                System.out.println("Start time filter successfully removed.");
                 break;
             default:
                 break;
         }
     }
 
-    // TODO: change to calling edit/remove end time methods
-    public static void endTimeFilter(String editOrRemove, Filter activeFilters) {
+    public static void endTimeFilter(String editOrRemove, Filter activeFilters, Search search) {
         switch (editOrRemove) {
             case "e":
-                System.out.print("Enter end time (format HHMM): ");
-                String endStr = scnIn.nextLine();
-                int end = Integer.parseInt(endStr);
-                if (900 <= end && end <= 2100) {
-                    activeFilters.setEndTime(end);
-                    System.out.println("End time filter successfully changed to "
-                            + activeFilters.getEndTime() + "'.");
+                while(true) {
+                    System.out.print("Enter end time (format HHMM): ");
+                    String endStr = scnIn.nextLine();
+                    try {
+                        int end = Integer.parseInt(endStr);
+
+                        if (850 <= end && end <= 2100) {
+                            addEndTimeFilter(search, end);
+                            System.out.println("End time filter successfully changed to "
+                                    + activeFilters.getEndTime() + "'.");
+                        }
+                        else {
+                            throw new Exception(String.valueOf(end));
+                        }
+                        break;
+                    }
+                    catch (NumberFormatException e) {
+                        System.out.println("Incorrect format, try again.");
+                    }
+                    catch (Exception e) {
+                        System.out.println(e.getMessage() + " is not a valid end time, try again.");
+                    }
                 }
                 break;
             case "r":
+                removeEndTimeFilter(search);
+                System.out.println("End time filter successfully removed.");
                 break;
             default:
                 break;
@@ -352,19 +416,47 @@ public class Main {
     public static void levelFilter(String editOrRemove, Filter activeFilters, Search search) {
         switch (editOrRemove) {
             case "e":
-                System.out.print("Enter maximum level (format 000): ");
-                String maxStr = scnIn.nextLine();
-                int max = Integer.parseInt(maxStr);
-                System.out.print("Enter minimum level (format 000): ");
-                String minStr = scnIn.nextLine();
-                int min = Integer.parseInt(minStr);
-                if ((100 <= min && min <= 600) && (100 <= max && max <= 600)) {
-                    addLevelFilter(search, max, min);
+                int min = -1;
+                int max = -1;
+                while(true) {
+                    if(min == -1) {
+                        try {
+                            System.out.print("Enter minimum level (format 000): ");
+                            String minStr = scnIn.nextLine();
+                            min = Integer.parseInt(minStr);
+                            if(!(100 <= min && min <= 600)) {
+                                throw new Exception(String.valueOf(min));
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Incorrect format, try again.");
+                            continue;
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage() + " is not a valid minimum level, try again.");
+                            min = -1;
+                            continue;
+                        }
+                    }
+                    if(max == -1) {
+                        try {
+                            System.out.print("Enter maximum level (format 000): ");
+                            String maxStr = scnIn.nextLine();
+                            max = Integer.parseInt(maxStr);
+                            if(!(100 <= max && max <= 600)) {
+                                throw new Exception(String.valueOf(max));
+                            }
+                        } catch (NumberFormatException e) {
+                            System.out.println("Incorrect format, try again.");
+                            continue;
+                        } catch (Exception e) {
+                            System.out.println(e.getMessage() + " is not a valid maximum level, try again.");
+                            max = -1;
+                            continue;
+                        }
+                    }
+                    break;
                 }
-                System.out.println("Level max filter successfully changed to '"
-                        + activeFilters.getLevelMax() + "'.");
-                System.out.println("Level min filter successfully changed to '"
-                        + activeFilters.getLevelMin() + "'.");
+
+                addLevelFilter(search, max, min);
                 break;
             case "r":
                 removeLevelFilter(search);
