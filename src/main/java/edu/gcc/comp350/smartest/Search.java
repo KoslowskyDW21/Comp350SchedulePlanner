@@ -80,6 +80,9 @@ public class Search {
         for (Course course : results) {
             res += course.getCourseCode() + " --- " + course.getName() + "\n";
         }
+        if (res.isEmpty()) {
+            System.out.println("Sorry, Course '" + userInput + "' does not exist. ");
+        }
         return res;
     }
 

@@ -257,9 +257,6 @@ public class Main {
         String query = scnIn.nextLine();
         search.modifyQuery(query);
         String resStr = search.resultsToString();
-        if (resStr.isEmpty()) {
-            System.out.println("Sorry, Course '" + query + "' does not exist. ");
-        }
         System.out.println(resStr);
     }
 
