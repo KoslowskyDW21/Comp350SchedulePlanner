@@ -3,21 +3,55 @@ package edu.gcc.comp350.smartest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.io.InputStream;
+import java.util.Scanner;
 
 public class SearchTest {
     @Test
-    void testInput() {
+    void testConverterWorks() {
         Search search = new Search();
         String ogInput = "Hello World!";
         search.modifyQuery(ogInput);
-        Assertions.assertEquals("helloworld!", search.getUserInput());
+        Assertions.assertEquals("helloworld", search.getUserInput());
+    }
+
+    @Test
+    void testConverterDidNothing() {
+        Search search = new Search();
+        String ogInput = "Hello World!";
+        search.modifyQuery(ogInput);
         Assertions.assertNotEquals("Hello World!", search.getUserInput());
+    }
+
+    @Test
+    void testConverterTookSpaces() {
+        Search search = new Search();
+        String ogInput = "Hello World!";
+        search.modifyQuery(ogInput);
         Assertions.assertNotEquals("HelloWorld!", search.getUserInput());
-        Assertions.assertNotEquals("hello world!", search.getUserInput());
-        Assertions.assertNotEquals("helloworld", search.getUserInput());
+    }
+
+    @Test
+    void testConverterTookCapitals() {
+        Search search = new Search();
+        String ogInput = "Hello World!";
+        search.modifyQuery(ogInput);
+        assertNotEquals("hello world!", search.getUserInput());
+    }
+
+    @Test
+    void testConverterTookPunctuation() {
+        Search search = new Search();
+        String ogInput = "Hello World!";
+        search.modifyQuery(ogInput);
+        Assertions.assertNotEquals("Hello World", search.getUserInput());
     }
 
     @Test
@@ -32,4 +66,18 @@ public class SearchTest {
             //System.console().printf(course.getName());
         }
     }
+
+    /*@Test
+    void courseDoesNotExist() {
+        Search search = new Search();
+        String input1 = "s";
+        String ogInput = "i aM nOt a coUrSe!!";
+        InputStream in = new ByteArrayInputStream(input1.getBytes());
+        System.setIn(in);
+        assertEquals(input1, new Scanner(System.in).nextLine());
+
+        search.modifyQuery(ogInput);
+
+    }*/
+
 }

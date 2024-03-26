@@ -1,6 +1,8 @@
 package edu.gcc.comp350.smartest;
 import java.util.ArrayList;
 import java.io.*;
+import java.util.Scanner;
+import java.util.regex.Pattern;
 
 public class Search {
     private String userInput;
@@ -11,6 +13,16 @@ public class Search {
         this.userInput = "";
         this.results = new ArrayList<Course>();
         this.activeFilters = new Filter();
+    }
+
+    static void ParseClasses() throws IOException {
+        Scanner scn = new Scanner(new File("2020-2021.csv"));
+        scn.nextLine();
+        while (scn.hasNext()) {
+            //Course temp = new Course(scn.nextLine());
+            //courseList.add(new Course(scn.nextLine()));
+            Course.database.add(new Course(scn.nextLine()));
+        }
     }
 
     public String getUserInput() {
@@ -26,7 +38,7 @@ public class Search {
     }
 
     public void modifyQuery(String input) {
-        input = input.toLowerCase().replace(" ", "");
+        input = convertString(input);
         userInput = input;
         parseDatabase();
     }
@@ -43,20 +55,65 @@ public class Search {
         results.clear();
 
         for (Course course : Course.database) {
-            if (course.getCourseCode().contains(userInput) // search by code
-                    || course.getName().contains(userInput)) { // search by name
+            String codeConverted = convertString(course.getCourseCode());
+            String nameConverted = convertString(course.getName());
+            if (codeConverted.contains(userInput) // search by code
+                    || nameConverted.contains(userInput) // search by name
+                    && matchesFilters(course)) { // matches course with current filters
                 results.add(course);
-            }
-            //else if (course)
-        }
-        for(Course result: results) {
-            String department = activeFilters.getDepartment();
-            if(department.isEmpty() && result.getDepartment().equals(department)) {
-                results.remove(result);
             }
         }
 
         return results;
     }
 
+    public static String convertString(String input) {
+        if (input == null || input.isEmpty()) {
+            return input;
+        }
+
+        StringBuilder result = new StringBuilder();
+        for (char c : input.toCharArray()) {
+            if (!(Character.isWhitespace(c) || isPunctuation(c))) {
+                result.append(Character.toLowerCase(c));
+            }
+        }
+        return result.toString();
+    }
+
+    private static boolean isPunctuation(char c) {
+        Pattern pattern = Pattern.compile("\\p{Punct}");
+        return pattern.matcher(Character.toString(c)).matches();
+    }
+
+    public String resultsToString() {
+        String res = "";
+        for (Course course : results) {
+            res += course.getCourseCode() + " --- " + course.getName() + "\n";
+        }
+        if (res.isEmpty()) {
+            System.out.println("Sorry, Course '" + userInput + "' does not exist. ");
+        }
+        return res;
+    }
+
+
+    private boolean matchesFilters(Course course) {
+        String department = activeFilters.getDepartment();
+        String professor = activeFilters.getProfName();
+        int levelMin = activeFilters.getLevelMin();
+        int levelMax = activeFilters.getLevelMax();
+
+        if((!department.isEmpty()) && (!course.getDepartment().equals(department))) {
+            return false;
+        }
+        if((!professor.isEmpty()) && (!course.getProfessor().equals(professor))) {
+            return false;
+        }
+        if(course.getLevel() < levelMin || course.getLevel() > levelMax) {
+            return false;
+        }
+
+        return true;
+    }
 }

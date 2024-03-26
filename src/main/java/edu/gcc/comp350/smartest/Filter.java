@@ -18,7 +18,7 @@ public class Filter {
         this.startTime = 800;
         this.endTime = 2100;
         this.levelMin = 100;
-        this.levelMax = 400;
+        this.levelMax = 600;
         this.profName = "";
         this.department = "";
     }
@@ -78,4 +78,19 @@ public class Filter {
     public void setDepartment(String department) {
         this.department = department;
     }
+
+    public String filterToString() {
+        String filterVals = "";
+
+        filterVals += "Credits: " + getCredits() + " \n";
+        filterVals += "Start Time: " + getStartTime() + " \n";
+        filterVals += "End Time: " + getEndTime() + " \n";
+        filterVals += "Level Min: " + getLevelMin() + " \n";
+        filterVals += "Level Max: " + getLevelMax() + " \n";
+        filterVals += "Prof Name: " + getProfName() + " \n";
+        filterVals += "Department: " + getDepartment() + " \n";
+
+        return filterVals;
+    }
+
 }
