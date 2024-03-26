@@ -62,7 +62,6 @@ public class Search {
                     && matchesFilters(course)) { // matches course with current filters
                 results.add(course);
             }
-            //else if (course)
         }
 
         return results;
@@ -91,6 +90,9 @@ public class Search {
         String res = "";
         for (Course course : results) {
             res += course.getCourseCode() + " --- " + course.getName() + "\n";
+        }
+        if (res.isEmpty()) {
+            System.out.println("Sorry, Course '" + userInput + "' does not exist. ");
         }
         return res;
     }
