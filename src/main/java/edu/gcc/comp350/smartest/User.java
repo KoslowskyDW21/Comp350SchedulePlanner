@@ -3,7 +3,6 @@ package edu.gcc.comp350.smartest;
 import java.io.*;
 import java.util.ArrayList;
 public class User {
-    public static User mainUser;
     private int userID;
     private String name;
     private String major;
@@ -94,7 +93,7 @@ public class User {
         try (BufferedReader reader = new BufferedReader(new FileReader("SavedCourses.txt"))) {
             // Check that information has been saved to the file
             if(!reader.ready()) {
-                mainUser = new User();
+                Main.mainUser = new User();
                 return;
             }
 
@@ -102,7 +101,7 @@ public class User {
             int userID = Integer.parseInt(reader.readLine());
             String name = reader.readLine();
             String major = reader.readLine();
-            mainUser = new User(userID, name, major);
+            Main.mainUser = new User(userID, name, major);
 
             // Read each saved Schedule from the file
             String line;
@@ -117,7 +116,7 @@ public class User {
                         System.out.println("Course not found in database: " + courseCode);
                     }
                 }
-                mainUser.savedSchedules.add(schedule);
+                Main.mainUser.savedSchedules.add(schedule);
             }
         } catch (IOException e) {
             e.printStackTrace();

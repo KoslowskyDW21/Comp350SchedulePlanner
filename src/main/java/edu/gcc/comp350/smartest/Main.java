@@ -1,5 +1,4 @@
 package edu.gcc.comp350.smartest;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,14 +6,15 @@ import java.util.Scanner;
 
 public class Main {
     public static Scanner scnIn;
+    public static User mainUser;
 
     public static void main(String[] args) {
-        User.mainUser = new User(0, "John Smith", "Computer Science");
+        User.LoadCoursesFromFile();
         Search search = new Search();
         //courseList = new ArrayList<>();
 
         try {
-            ParseClasses();
+            Search.ParseClasses();
         } catch (FileNotFoundException e) {
             System.out.println("File not found: " + e);
         } catch (IOException e) {
@@ -25,15 +25,6 @@ public class Main {
         consoleSoftwareLoop();
     }
 
-    private static void ParseClasses() throws IOException {
-        Scanner scn = new Scanner(new File("2020-2021.csv"));
-        scn.nextLine();
-        while (scn.hasNext()) {
-            //Course temp = new Course(scn.nextLine());
-            //courseList.add(new Course(scn.nextLine()));
-            Course.database.add(new Course(scn.nextLine()));
-        }
-    }
     public static void addDepartmentFilter(Search search, String department) {
         Filter departmentFilter = search.getActiveFilters();
         departmentFilter.setDepartment(department);
@@ -116,6 +107,7 @@ public class Main {
 
             // TODO: add to switch
             if (currInput.toLowerCase().equals("exit")) {
+                mainUser.SaveToFile();
                 System.out.println("EXITING");
                 break;
             }
