@@ -54,7 +54,6 @@ public class Main {
         levelFilter.setLevelMin(lower);
         search.modifyFilter(levelFilter);
     }
-
     public static void removeLevelFilter(Search search) {
         Filter levelFilter = search.getActiveFilters();
         levelFilter.setLevelMax(600);
@@ -97,8 +96,6 @@ public class Main {
             currInput = scnIn.nextLine();
 
 
-
-
             switch (currInput.toLowerCase()) {
                 case "exit":
                     System.out.println("EXITING");
@@ -106,7 +103,6 @@ public class Main {
                 case "back":
                     System.out.println("Where would you like to go? User Info/Schedule/Course Search [ui/s/cs]");
                     break;
-
                 case "ui":
                     System.out.println("USER INFO");
                     System.out.println("Would you like to view or edit your user info? [v/e]");
@@ -236,7 +232,6 @@ public class Main {
         }
     }
 
-    // GET RID OF
     public static void generateSchedule(Schedule sched) {
         System.out.println("GENERATE SCHEDULE");
         System.out.println("GENERATING...");
@@ -248,6 +243,7 @@ public class Main {
         for (Course course : currCourses) {
             System.out.println(course.getCourseCode() + " ---- " + course.getStartTimes());
         }
+        //System.out.println(sched.toString()); // USE THIS ONCE TOSTRING IMPLEMENTED
     }
 
     public static void searchDatabase(Search search) {
@@ -256,7 +252,6 @@ public class Main {
         String resStr = search.resultsToString();
         System.out.println(resStr);
     }
-    // STOP GET RID OF
 
     public static void editFilters(Scanner scnIn, Filter activeFilters, Search search) {
         String editOrRemove = scnIn.nextLine();
@@ -268,7 +263,7 @@ public class Main {
             switch (filterAttr.toLowerCase()) {
                 case "cr":
                     creditsFilter(editOrRemove, activeFilters);
-                    break; // TODO: combine start and end times once method implemented
+                    break; // TODO: combine start and end times once method implemented (nvm?)
                 case "st":
                     startTimeFilter(editOrRemove, activeFilters);
                     break;
