@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class SaveAndLoadFileTest {
     @Test
-    void ReadFromFile() throws IOException {
+    void ReadFromFile() throws Exception {
         //setup
         Search.ParseClasses();
         Main.mainUser = new User();

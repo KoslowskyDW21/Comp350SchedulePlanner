@@ -24,6 +24,7 @@ public class Main {
 
         //akSearchTest();
         consoleSoftwareLoop();
+        mainUser.SaveToFile();
     }
 
     public static void ParseClasses() throws IOException {
