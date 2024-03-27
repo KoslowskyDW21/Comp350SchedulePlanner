@@ -138,12 +138,22 @@ public class Course {
         return startTime;
     }
 
+    public String getEndTimes() {return endTime;}
+
     public String getDescription() {
         return description;
     }
 
     public int getNumCredits() {
         return numCredits;
+    }
+
+    public int getStartTime() {
+        return Integer.parseInt(startTime);
+    }
+
+    public int getEndTime() {
+        return Integer.parseInt(endTime);
     }
 }
 
