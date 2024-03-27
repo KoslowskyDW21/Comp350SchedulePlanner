@@ -19,7 +19,7 @@ public class FiltersTest {
         Search search = new Search();
 
         String department = "COMP";
-        Main.addDepartmentFilter(search, department);
+        Filter.addDepartmentFilter(search, department);
         ArrayList<Course> courses;
         courses = search.getResults();
 
@@ -28,7 +28,7 @@ public class FiltersTest {
         }
 
         department = "ACCT";
-        Main.addDepartmentFilter(search, department);
+        Filter.addDepartmentFilter(search, department);
         courses.clear();
         courses = search.getResults();
 
@@ -37,7 +37,7 @@ public class FiltersTest {
         }
 
         department = "FAKE";
-        Main.addDepartmentFilter(search, department);
+        Filter.addDepartmentFilter(search, department);
         courses.clear();
         courses = search.getResults();
 
@@ -49,10 +49,10 @@ public class FiltersTest {
         Search search = new Search();
 
         String department = "COMP";
-        Main.addDepartmentFilter(search, department);
+        Filter.addDepartmentFilter(search, department);
         ArrayList<Course> courses;
 
-        Main.removeDepartmentFilter(search);
+        Filter.removeDepartmentFilter(search);
         courses = search.getResults();
 
         assertEquals(1494, courses.size());
