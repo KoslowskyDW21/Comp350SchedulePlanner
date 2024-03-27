@@ -35,65 +35,6 @@ public class Main {
             Course.database.add(new Course(scn.nextLine()));
         }
     }
-  
-    public static void addDepartmentFilter(Search search, String department) {
-        Filter departmentFilter = search.getActiveFilters();
-        departmentFilter.setDepartment(department);
-        search.modifyFilter(departmentFilter);
-    }
-    public static void removeDepartmentFilter(Search search) {
-        Filter departmentFilter = search.getActiveFilters();
-        departmentFilter.setDepartment("");
-        search.modifyFilter(departmentFilter);
-    }
-
-    public static void addProfessorFilter(Search search, String professor) {
-        Filter professorFilter = search.getActiveFilters();
-        professorFilter.setProfName(professor);
-        search.modifyFilter(professorFilter);
-    }
-    public static void removeProfessorFilter(Search search) {
-        Filter professorFilter = search.getActiveFilters();
-        professorFilter.setProfName("");
-        search.modifyFilter(professorFilter);
-    }
-
-    public static void addLevelFilter(Search search, int upper, int lower) {
-        Filter levelFilter = search.getActiveFilters();
-        levelFilter.setLevelMax(upper);
-        levelFilter.setLevelMin(lower);
-        search.modifyFilter(levelFilter);
-    }
-    public static void removeLevelFilter(Search search) {
-        Filter levelFilter = search.getActiveFilters();
-        levelFilter.setLevelMax(600);
-        levelFilter.setLevelMin(100);
-        search.modifyFilter(levelFilter);
-    }
-
-    public static void addStartTimeFilter(Search search, int startTime) {
-        Filter startTimeFilter = search.getActiveFilters();
-        startTimeFilter.setStartTime(startTime);
-        search.modifyFilter(startTimeFilter);
-    }
-
-    public static void removeStartTimeFilter(Search search) {
-        Filter startTimeFilter = search.getActiveFilters();
-        startTimeFilter.setEndTime(800);
-        search.modifyFilter(startTimeFilter);
-    }
-
-    public static void addEndTimeFilter(Search search, int endTime) {
-        Filter endTimeFilter = search.getActiveFilters();
-        endTimeFilter.setEndTime(endTime);
-        search.modifyFilter(endTimeFilter);
-    }
-
-    public static void removeEndTimeFilter(Search search) {
-        Filter endTimeFilter = search.getActiveFilters();
-        endTimeFilter.setEndTime(2100);
-        search.modifyFilter(endTimeFilter);
-    }
 
     public static void addDaysFilter(Search search, String days) {
         Filter daysFilter = search.getActiveFilters();
@@ -110,8 +51,6 @@ public class Main {
             System.out.println(course.getName());
         }
     }
-
-
 
     public static void consoleSoftwareLoop() {
         User user = new User();
@@ -353,7 +292,7 @@ public class Main {
                         int start = Integer.parseInt(startStr);
 
                         if (800 <= start && start <= 1900) {
-                            addStartTimeFilter(search, start);
+                            Filter.addStartTimeFilter(search, start);
                             System.out.println("Start time filter successfully changed to "
                                     + activeFilters.getStartTime() + "'.");
                         }
@@ -369,7 +308,7 @@ public class Main {
                 }
                 break;
             case "r":
-                removeStartTimeFilter(search);
+                Filter.removeStartTimeFilter(search);
                 System.out.println("Start time filter successfully removed.");
                 break;
             default:
@@ -387,7 +326,7 @@ public class Main {
                         int end = Integer.parseInt(endStr);
 
                         if (850 <= end && end <= 2100) {
-                            addEndTimeFilter(search, end);
+                            Filter.addEndTimeFilter(search, end);
                             System.out.println("End time filter successfully changed to "
                                     + activeFilters.getEndTime() + "'.");
                         }
@@ -405,7 +344,7 @@ public class Main {
                 }
                 break;
             case "r":
-                removeEndTimeFilter(search);
+                Filter.removeEndTimeFilter(search);
                 System.out.println("End time filter successfully removed.");
                 break;
             default:
@@ -456,10 +395,10 @@ public class Main {
                     break;
                 }
 
-                addLevelFilter(search, max, min);
+                Filter.addLevelFilter(search, max, min);
                 break;
             case "r":
-                removeLevelFilter(search);
+                Filter.removeLevelFilter(search);
                 System.out.println("Level filter successfully removed.");
                 break;
             default:
@@ -472,12 +411,12 @@ public class Main {
             case "e":
                 System.out.print("Enter professor last name: ");
                 String prof = scnIn.nextLine();
-                addProfessorFilter(search, prof);
+                Filter.addProfessorFilter(search, prof);
                 System.out.println("Professor filter successfully changed to '"
                         + activeFilters.getProfName() + "'.");
                 break;
             case "r":
-                removeProfessorFilter(search);
+                Filter.removeProfessorFilter(search);
                 System.out.println("Professor filter successfully removed.");
                 break;
             default:
@@ -490,12 +429,12 @@ public class Main {
             case "e":
                 System.out.print("Enter department code: ");
                 String deptCode = scnIn.nextLine();
-                addDepartmentFilter(search, deptCode);
+                Filter.addDepartmentFilter(search, deptCode);
                 System.out.println("Department filter successfully changed to '"
                         + activeFilters.getDepartment() + "'.");
                 break;
             case "r":
-                removeDepartmentFilter(search);
+                Filter.removeDepartmentFilter(search);
                 System.out.println("Department filter successfully removed.");
                 break;
             default:
