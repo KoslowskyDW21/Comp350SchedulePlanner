@@ -1,6 +1,7 @@
 package edu.gcc.comp350.smartest;
 import java.util.ArrayList;
 import java.io.*;
+import java.util.Scanner;
 import java.util.regex.Pattern;
 
 public class Search {
@@ -12,6 +13,16 @@ public class Search {
         this.userInput = "";
         this.results = new ArrayList<Course>();
         this.activeFilters = new Filter();
+    }
+
+    static void ParseClasses() throws IOException {
+        Scanner scn = new Scanner(new File("2020-2021.csv"));
+        scn.nextLine();
+        while (scn.hasNext()) {
+            //Course temp = new Course(scn.nextLine());
+            //courseList.add(new Course(scn.nextLine()));
+            Course.database.add(new Course(scn.nextLine()));
+        }
     }
 
     public String getUserInput() {
@@ -51,7 +62,6 @@ public class Search {
                     && matchesFilters(course)) { // matches course with current filters
                 results.add(course);
             }
-            //else if (course)
         }
 
         return results;
@@ -79,7 +89,10 @@ public class Search {
     public String resultsToString() {
         String res = "";
         for (Course course : results) {
-            res += course.getCourseCode() + "\n";
+            res += course.getCourseCode() + " --- " + course.getName() + "\n";
+        }
+        if (res.isEmpty()) {
+            System.out.println("Sorry, Course '" + userInput + "' does not exist. ");
         }
         return res;
     }
@@ -90,6 +103,8 @@ public class Search {
         String professor = activeFilters.getProfName();
         int levelMin = activeFilters.getLevelMin();
         int levelMax = activeFilters.getLevelMax();
+        int startTime = activeFilters.getStartTime();
+        int endTime = activeFilters.getEndTime();
 
         if((!department.isEmpty()) && (!course.getDepartment().equals(department))) {
             return false;
@@ -98,6 +113,9 @@ public class Search {
             return false;
         }
         if(course.getLevel() < levelMin || course.getLevel() > levelMax) {
+            return false;
+        }
+        if(startTime > course.getStartTime() || endTime < course.getEndTime()) {
             return false;
         }
 

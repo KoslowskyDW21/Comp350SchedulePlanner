@@ -1,0 +1,4 @@
+0
+John Student
+Computer Science
+TEST000A, ACCT201A, COMP233A

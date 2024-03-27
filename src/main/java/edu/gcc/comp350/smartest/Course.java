@@ -31,23 +31,43 @@ public class Course {
         return coReqs;
     }
 
+    public Course() {
+        this.courseCode = "TEST000A";
+        this.name = "Test Course";
+        this.professor = "Mr. Instructor";
+        this.color = "white";
+        this.description = "A default course for testing purposes";
+        this.numCredits = 0;
+        this.preReqs = new ArrayList<>();
+        this.coReqs = new ArrayList<>();
+        this.startTime = "8:00:00 am";
+        this.endTime = "8:50:00 am";
+        this.numSeats = 40;
+        this.days = "MWF";
+        this.semester = "Fall";
+        this.department = "COMP";
+        this.level = 100;
+    }
 
-//    public Course(String courseCode, String name, String professor, String color, String description,
-//                  int numCredits, ArrayList<Course[]> preReqs, ArrayList<Course[]> coReqs,
-//                  String startTime, String endTime, int numSeats, String days) {
-//        this.courseCode = courseCode;
-//        this.name = name;
-//        this.professor = professor;
-//        this.color = color;
-//        this.description = description;
-//        this.numCredits = numCredits;
-//        this.preReqs = preReqs;
-//        this.coReqs = coReqs;
-//        this.startTime = startTime;
-//        this.endTime = endTime;
-//        this.numSeats = numSeats;
-//        this.days = days;
-//    }
+    public Course(String courseCode, String name, String professor, String color, String description,
+                  int numCredits, ArrayList<Course[]> preReqs, ArrayList<Course[]> coReqs,
+                  String startTime, String endTime, int numSeats, String days, String semester, String department, int level) {
+        this.courseCode = courseCode;
+        this.name = name;
+        this.professor = professor;
+        this.color = color;
+        this.description = description;
+        this.numCredits = numCredits;
+        this.preReqs = preReqs;
+        this.coReqs = coReqs;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.numSeats = numSeats;
+        this.days = days;
+        this.semester = semester;
+        this.department = department;
+        this.level = level;
+    }
 
     public Course(String excelLine) {
         String[] tokens = excelLine.split(",");
@@ -74,7 +94,16 @@ public class Course {
         } else { //tokens[5] == 30
             semester = "Spring";
         }
+    }
 
+    // Method to find a course in the database by course code
+    public static Course findCourse(String courseCode) {
+        for (Course course : database) {
+            if (course.getCourseCode().equals(courseCode)) {
+                return course;
+            }
+        }
+        return null; // Course not found
     }
 
     private void changeColor(String color) {
@@ -109,12 +138,22 @@ public class Course {
         return startTime;
     }
 
+    public String getEndTimes() {return endTime;}
+
     public String getDescription() {
         return description;
     }
 
     public int getNumCredits() {
         return numCredits;
+    }
+
+    public int getStartTime() {
+        return Integer.parseInt(startTime);
+    }
+
+    public int getEndTime() {
+        return Integer.parseInt(endTime);
     }
 }
 

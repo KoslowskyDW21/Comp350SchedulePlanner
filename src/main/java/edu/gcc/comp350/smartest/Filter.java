@@ -3,13 +3,13 @@ package edu.gcc.comp350.smartest;
 public class Filter {
     // filter class with apply to results method that all filters inherit from
 
-    int credits;
-    int startTime;
-    int endTime;
-    int levelMin;
-    int levelMax;
-    String profName;
-    String department;
+    private int credits;
+    private int startTime;
+    private int endTime;
+    private int levelMin;
+    private int levelMax;
+    private String profName;
+    private String department;
 
 
 
@@ -82,13 +82,13 @@ public class Filter {
     public String filterToString() {
         String filterVals = "";
 
-        filterVals += "Credits: " + getCredits() + " ";
-        filterVals += "Start Time: " + getStartTime() + " ";
-        filterVals += "End Time: " + getEndTime() + " ";
-        filterVals += "Level Min: " + getLevelMin() + " ";
-        filterVals += "Level Max: " + getLevelMax() + " ";
-        filterVals += "Prof Name: " + getProfName() + " ";
-        filterVals += "Department: " + getDepartment() + " ";
+        filterVals += "Credits: " + getCredits() + " \n";
+        filterVals += "Start Time: " + getStartTime() + " \n";
+        filterVals += "End Time: " + getEndTime() + " \n";
+        filterVals += "Level Min: " + getLevelMin() + " \n";
+        filterVals += "Level Max: " + getLevelMax() + " \n";
+        filterVals += "Prof Name: " + getProfName() + " \n";
+        filterVals += "Department: " + getDepartment() + " \n";
 
         return filterVals;
     }
