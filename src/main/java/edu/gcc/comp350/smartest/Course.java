@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Objects;
 
 public class Course {
     public static ArrayList<Course> database = new ArrayList<>();
@@ -31,6 +32,9 @@ public class Course {
         return coReqs;
     }
 
+    /**
+     * default constructor to be used for testing purposes
+     */
     public Course() {
         this.courseCode = "TEST000A";
         this.name = "Test Course";
@@ -49,6 +53,10 @@ public class Course {
         this.level = 100;
     }
 
+    /**
+     * constructor for testing purposes
+     * allows for manual setting of each parameter in a course
+     */
     public Course(String courseCode, String name, String professor, String color, String description,
                   int numCredits, ArrayList<Course[]> preReqs, ArrayList<Course[]> coReqs,
                   String startTime, String endTime, int numSeats, String days, String semester, String department, int level) {
@@ -69,6 +77,14 @@ public class Course {
         this.level = level;
     }
 
+    /**
+     * constructor designed to read a line from "2020-2021.csv"
+     * @param excelLine a string of the format:
+     *                  yr_cde,trm_cde,crs_comp1,crs_comp2,crs_comp3,crs_title,credit_hrs,
+     *                  crs_capacity,crs_enrollment,monday_cde,tuesday_cde,
+     *                  wednesday_cde,thursday_cde,friday_cde,begin_tim,end_tim,
+     *                  last_name,first_name,preferred_name,comment_txt
+     */
     public Course(String excelLine) {
         String[] tokens = excelLine.split(",");
         courseCode = tokens[2] + tokens[3] + tokens[4];
@@ -88,7 +104,38 @@ public class Course {
         coReqs = new ArrayList<>();
         startTime = tokens[14];
         endTime = tokens[15];
-        days = tokens[9] + tokens[10] + tokens[11] + tokens[12] + tokens[13];
+        String tempDays = "";
+        String monday = tokens[9];
+        String tuesday = tokens[10];
+        String wednesday = tokens[11];
+        String thursday = tokens[12];
+        String friday = tokens[13];
+        if(monday.equals("M")) {
+            tempDays += "M";
+        } else {
+            tempDays += "_";
+        }
+        if(tuesday.equals("T")) {
+            tempDays += "T";
+        } else {
+            tempDays += "_";
+        }
+        if(wednesday.equals("W")) {
+            tempDays += "W";
+        } else {
+            tempDays += "_";
+        }
+        if(thursday.equals("R")) {
+            tempDays += "R";
+        } else {
+            tempDays += "_";
+        }
+        if(friday.equals("F")) {
+            tempDays += "F";
+        } else {
+            tempDays += "_";
+        }
+        days = tempDays;
         if (Integer.parseInt(tokens[1]) == 10) {
             semester = "Fall";
         } else { //tokens[5] == 30
@@ -96,7 +143,12 @@ public class Course {
         }
     }
 
-    // Method to find a course in the database by course code
+    /**
+     * method to find a course in the database based on a course code
+     * @param courseCode the courseCode matching the course to search for
+     * @return Course the first course found that has a matching courseCode
+     * return null if no matching courseCode is found in the database
+     */
     public static Course findCourse(String courseCode) {
         for (Course course : database) {
             if (course.getCourseCode().equals(courseCode)) {
