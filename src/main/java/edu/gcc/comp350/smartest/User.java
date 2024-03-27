@@ -89,7 +89,7 @@ public class User {
         }
     }
 
-    public static void LoadCoursesFromFile() {
+    public static void LoadCoursesFromFile() throws Exception {
         try (BufferedReader reader = new BufferedReader(new FileReader("SavedCourses.txt"))) {
             // Check that information has been saved to the file
             if(!reader.ready()) {

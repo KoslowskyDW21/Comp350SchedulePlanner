@@ -9,7 +9,7 @@ public class Main {
     public static Scanner scnIn;
     public static User mainUser;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         User.LoadCoursesFromFile();
         Search search = new Search();
         //courseList = new ArrayList<>();
@@ -120,12 +120,13 @@ public class Main {
         scnIn = new Scanner(System.in);
         String currInput = "";
 
-        System.out.println("Welcome to GCC Scheduling. Type 'exit' anytime to leave, " +
-                "or 'back' to return to home.");
-        System.out.println("Where would you like to go? User Info/Schedule/Course Search [ui/s/cs]");
+        System.out.println("Welcome to GCC Scheduling. Type 'back' anytime to go back, " +
+                "or 'exit' from home to leave.");
+        //System.out.println("Where would you like to go? User Info/Schedule/Course Search [ui/s/cs]");
 
 
         while (true) {
+            System.out.println("Where would you like to go? User Info/Schedule/Course Search [ui/s/cs]");
             System.out.print(":");
             currInput = scnIn.nextLine();
 
@@ -139,20 +140,14 @@ public class Main {
                     break;
                 case "ui":
                     System.out.println("USER INFO");
-                    System.out.println("Would you like to view or edit your user info? [v/e]");
-                    System.out.print(":");
                     userInfoAction(user);
                     break;
                 case "s":
                     System.out.println("SCHEDULE");
-                    System.out.println("Would you like to view or generate your schedule? [v/g]");
-                    System.out.print(":");
                     scheduleAction(sched);
                     break;
                 case "cs":
                     System.out.println("COURSE SEARCH");
-                    System.out.println("Would you like to search, apply, or view current filters? [s/a/v]");
-                    System.out.print(":");
                     courseSearchAction(search);
                     break;
                 case "\n":
@@ -165,74 +160,89 @@ public class Main {
     }
 
     public static void userInfoAction(User user) {
-        String currInput = scnIn.nextLine();
+        while (true) {
+            System.out.println("Would you like to view or edit your user info? [v/e]");
+            System.out.print(":");
+            String currInput = scnIn.nextLine();
 
-        switch (currInput.toLowerCase()) {
-            case "v":
-                System.out.println("VIEW INFO");
-                viewInfo(user);
-                break;
-            case "e":
-                System.out.println("EDIT INFO");
-                System.out.println("Would you like to edit name or major? [n/m]");
-                System.out.print(":");
-                editInfo(user);
-                break;
-            case "exit":
-            case "back":
-                return;
-            default:
-                break;
+            switch (currInput.toLowerCase()) {
+                case "v":
+                    System.out.println("VIEW INFO");
+                    viewInfo(user);
+                    break;
+                case "e":
+                    System.out.println("EDIT INFO");
+                    System.out.println("Would you like to edit name or major? [n/m]");
+                    System.out.print(":");
+                    editInfo(user);
+                    break;
+                //case "exit":
+                case "back":
+                    return;
+                    //break;
+                default:
+                    break;
+            }
         }
     }
 
     // TODO: CHANGE
     public static void scheduleAction(Schedule sched) {
-        String currInput = scnIn.nextLine();
+        while (true) {
+            System.out.println("Would you like to view or generate your schedule? [v/g]");
+            System.out.print(":");
+            String currInput = scnIn.nextLine();
 
-        switch (currInput.toLowerCase()) {
-            case "g":
-                generateSchedule(sched);
-            case "v":
-                System.out.println("SCHEDULE");
-            case "exit":
-            case "back":
-                return;
-            default: // view schedule
-                viewSchedule(sched);
-                break;
+            switch (currInput.toLowerCase()) {
+                case "g":
+                    generateSchedule(sched);
+                case "v":
+                    System.out.println("SCHEDULE");
+                //case "exit":
+                case "back":
+                    return;
+                default: // view schedule
+                    viewSchedule(sched);
+                    break;
+            }
         }
     }
 
     public static void courseSearchAction(Search search) {
-        String currInput = scnIn.nextLine();
+        while (true) {
+            System.out.println("Would you like to search, apply, or view current filters? [s/a/v]");
+            System.out.print(":");
+            String currInput = scnIn.nextLine();
 
-        switch (currInput.toLowerCase()) {
-            case "s":
-                System.out.println("SEARCH");
-                System.out.print("Enter query: ");
-                searchDatabase(search);
-                break;
-            case "a":
-                Filter activeFilters = search.getActiveFilters();
-                System.out.println("APPLY FILTERS");
-                String filStr = activeFilters.filterToString();
-                System.out.println(filStr);
+            switch (currInput.toLowerCase()) {
+                case "s":
+                    System.out.println("SEARCH");
+                    System.out.print("Enter query: ");
+                    searchDatabase(search);
+                    break;
+                case "a":
+                    Filter activeFilters = search.getActiveFilters();
+                    System.out.println("APPLY FILTERS");
+                    String filStr = activeFilters.filterToString();
+                    System.out.println(filStr);
 
-                System.out.println("Would you like to edit/add or remove a filter? [e/r]");
-                System.out.print(":");
-                editFilters(scnIn, activeFilters, search);
-            case "v":
-                Filter activeFilters2 = search.getActiveFilters();
-                System.out.println("CURRENT FILTERS");
-                String filStr2 = activeFilters2.filterToString();
-                System.out.println(filStr2);
-            case "exit":
-            case "back":
-                return;
-            default:
-                // do nothing
-                break;
+                    System.out.println("Would you like to edit/add or remove a filter? [e/r]");
+                    System.out.print(":");
+                    editFilters(scnIn, activeFilters, search);
+                    break;
+                case "v":
+                    Filter activeFilters2 = search.getActiveFilters();
+                    System.out.println("CURRENT FILTERS");
+                    String filStr2 = activeFilters2.filterToString();
+                    System.out.println(filStr2);
+                    break;
+                //case "exit":
+                case "back":
+                    return;
+                default:
+                    // do nothing
+                    break;
+            }
         }
     }
 
@@ -258,7 +268,7 @@ public class Main {
                 System.out.print("Enter new major: ");
                 user.setMajor(scnIn.nextLine());
                 break;
-            case "exit":
+            //case "exit":
             case "back":
                 return;
             default:
@@ -313,7 +323,7 @@ public class Main {
                 case "dp":
                     departmentFilter(editOrRemove, activeFilters, search);
                     break;
-                case "exit":
+                //case "exit":
                 case "back":
                     return;
                 default:
