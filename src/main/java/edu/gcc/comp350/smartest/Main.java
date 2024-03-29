@@ -36,12 +36,6 @@ public class Main {
         }
     }
 
-    public static void addDaysFilter(Search search, String days) {
-        Filter daysFilter = search.getActiveFilters();
-        //daysFilter.setDays(days);
-        search.modifyFilter(daysFilter);
-    }
-
     public static void akSearchTest() {
         Search search = new Search();
         String input = "3 50";

@@ -10,8 +10,7 @@ public class Filter {
     private int levelMax;
     private String profName;
     private String department;
-
-
+    private Boolean[] days;
 
     public Filter(){
         this.credits = -1;
@@ -21,6 +20,7 @@ public class Filter {
         this.levelMax = 600;
         this.profName = "";
         this.department = "";
+        this.days = new Boolean[] {true, true, true, true, true};
     }
 
     public static void addDepartmentFilter(Search search, String department) {
@@ -83,6 +83,30 @@ public class Filter {
         Filter endTimeFilter = search.getActiveFilters();
         endTimeFilter.setEndTime(2100);
         search.modifyFilter(endTimeFilter);
+    }
+
+    public static void addDays(Search search, Boolean[] days) {
+        Filter daysFilter = search.getActiveFilters();
+        daysFilter.setDays(days);
+        search.modifyFilter(daysFilter);
+    }
+
+    public static void removeDays(Search search) {
+        Filter daysFilter = search.getActiveFilters();
+        daysFilter.resetDays();
+        search.modifyFilter(daysFilter);
+    }
+
+    public void setDays(Boolean[] days) {
+        for(int i = 0; i < 5; i++) {
+            this.days[i] = days[i];
+        }
+    }
+
+    public void resetDays() {
+        for(Boolean day : this.days) {
+            day = true;
+        }
     }
 
     public int getCredits() {
