@@ -23,6 +23,68 @@ public class Filter {
         this.department = "";
     }
 
+    public static void addDepartmentFilter(Search search, String department) {
+        Filter departmentFilter = search.getActiveFilters();
+        departmentFilter.setDepartment(department);
+        search.modifyFilter(departmentFilter);
+    }
+
+    public static void removeDepartmentFilter(Search search) {
+        Filter departmentFilter = search.getActiveFilters();
+        departmentFilter.setDepartment("");
+        search.modifyFilter(departmentFilter);
+    }
+
+    public static void addProfessorFilter(Search search, String professor) {
+        Filter professorFilter = search.getActiveFilters();
+        professorFilter.setProfName(professor);
+        search.modifyFilter(professorFilter);
+    }
+
+    public static void removeProfessorFilter(Search search) {
+        Filter professorFilter = search.getActiveFilters();
+        professorFilter.setProfName("");
+        search.modifyFilter(professorFilter);
+    }
+
+    public static void addLevelFilter(Search search, int upper, int lower) {
+        Filter levelFilter = search.getActiveFilters();
+        levelFilter.setLevelMax(upper);
+        levelFilter.setLevelMin(lower);
+        search.modifyFilter(levelFilter);
+    }
+
+    public static void removeLevelFilter(Search search) {
+        Filter levelFilter = search.getActiveFilters();
+        levelFilter.setLevelMax(600);
+        levelFilter.setLevelMin(100);
+        search.modifyFilter(levelFilter);
+    }
+
+    public static void addStartTimeFilter(Search search, int startTime) {
+        Filter startTimeFilter = search.getActiveFilters();
+        startTimeFilter.setStartTime(startTime);
+        search.modifyFilter(startTimeFilter);
+    }
+
+    public static void removeStartTimeFilter(Search search) {
+        Filter startTimeFilter = search.getActiveFilters();
+        startTimeFilter.setEndTime(800);
+        search.modifyFilter(startTimeFilter);
+    }
+
+    public static void addEndTimeFilter(Search search, int endTime) {
+        Filter endTimeFilter = search.getActiveFilters();
+        endTimeFilter.setEndTime(endTime);
+        search.modifyFilter(endTimeFilter);
+    }
+
+    public static void removeEndTimeFilter(Search search) {
+        Filter endTimeFilter = search.getActiveFilters();
+        endTimeFilter.setEndTime(2100);
+        search.modifyFilter(endTimeFilter);
+    }
+
     public int getCredits() {
         return credits;
     }
