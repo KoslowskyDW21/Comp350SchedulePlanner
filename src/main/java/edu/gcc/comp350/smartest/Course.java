@@ -203,7 +203,6 @@ public class Course {
     public int getNumCredits() {
         return numCredits;
     }
-
     public int getStartTime() {
         /*String tmp = "";
         tmp += startTime.charAt(0) + startTime.charAt(1) +
@@ -212,7 +211,7 @@ public class Course {
         return Integer.parseInt(startTime);
     }
 
-    public int getEndTime() {
+    public int getEndTimes() {
         /*String tmp = "";
         tmp += endTime.charAt(0) + endTime.charAt(1) + endTime.charAt(3) + endTime.charAt(4);
         return Integer.parseInt(tmp);*/
