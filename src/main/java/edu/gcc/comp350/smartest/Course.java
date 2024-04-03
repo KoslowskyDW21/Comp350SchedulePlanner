@@ -162,6 +162,10 @@ public class Course {
 
     }
 
+    public String getDays() {
+        return days;
+    }
+
     public String getCourseCode() {
         return courseCode;
     }
