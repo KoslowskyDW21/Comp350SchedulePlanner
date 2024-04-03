@@ -10,10 +10,7 @@ public class Main {
     public static User mainUser;
 
     public static void main(String[] args) {
-        User.LoadCoursesFromFile();
-        Search search = new Search();
-        //courseList = new ArrayList<>();
-
+        // Create the course database
         try {
             Search.ParseClasses();
         } catch (FileNotFoundException e) {
@@ -22,19 +19,12 @@ public class Main {
             System.out.println("IOException: " + e);
         }
 
-        //akSearchTest();
-        consoleSoftwareLoop();
-        mainUser.SaveToFile();
-    }
+        // Load previous user and schedule info
+        User.LoadCoursesFromFile();
 
-    public static void ParseClasses() throws IOException {
-        Scanner scn = new Scanner(new File("2020-2021.csv"));
-        scn.nextLine();
-        while (scn.hasNext()) {
-            //Course temp = new Course(scn.nextLine());
-            //courseList.add(new Course(scn.nextLine()));
-            Course.database.add(new Course(scn.nextLine()));
-        }
+        consoleSoftwareLoop();
+        System.out.println("here");
+        mainUser.SaveToFile();
     }
 
     public static void akSearchTest() {

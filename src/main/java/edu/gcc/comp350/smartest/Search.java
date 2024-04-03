@@ -19,13 +19,8 @@ public class Search {
         Scanner scn = new Scanner(new File("2020-2021.csv"));
         scn.nextLine();
         while (scn.hasNext()) {
-            //Course temp = new Course(scn.nextLine());
-            //courseList.add(new Course(scn.nextLine()));
             Course.database.add(new Course(scn.nextLine()));
         }
-        /*for (Course course : Course.database) {
-            System.out.println(course.getStartTime());
-        }*/
     }
 
     public String getUserInput() {

@@ -11,7 +11,7 @@ import java.util.ArrayList;
 public class FiltersTest {
     @BeforeAll
     public static void parse() throws IOException {
-        Main.ParseClasses();
+        Search.ParseClasses();
     }
 
     @Test
