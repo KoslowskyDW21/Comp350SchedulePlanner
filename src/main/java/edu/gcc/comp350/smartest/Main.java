@@ -224,14 +224,11 @@ public class Main {
     public static void editFilters(Scanner scnIn, Filter activeFilters, Search search) {
         String editOrRemove = scnIn.nextLine();
         while (true) {
-            System.out.println("Which filter would you like to edit or remove? [cr/st/et/lv/pr/dp]");
+            System.out.println("Which filter would you like to edit or remove? [st/et/lv/pr/dp/da]");
             System.out.print(":");
             String filterAttr = scnIn.nextLine();
 
             switch (filterAttr.toLowerCase()) {
-                case "cr":
-                    creditsFilter(editOrRemove, activeFilters);
-                    break;
                 case "st":
                     startTimeFilter(editOrRemove, activeFilters, search);
                     break;
@@ -246,6 +243,9 @@ public class Main {
                     break;
                 case "dp":
                     departmentFilter(editOrRemove, activeFilters, search);
+                    break;
+                case "da":
+                    daysFilter(editOrRemove, activeFilters, search);
                     break;
                 case "exit":
                 case "back":
@@ -437,6 +437,31 @@ public class Main {
         }
     }
 
+    public static void daysFilter(String editOrRemove, Filter activeFilters, Search search) {
+        switch (editOrRemove) {
+            case "e":
+                System.out.print("Enter days (format M_WRF): ");
+                String days = scnIn.nextLine();
+                boolean[] daysFilter = parseDays(days);
+                Filter.addDays(search, daysFilter);
+                System.out.println("Days filter successfully added.");
+                break;
+            case "r":
+                Filter.removeDays(search);
+                System.out.println("Days filter successfully removed.");
+                break;
+            default:
+                break;
+        }
+    }
+
+    public static boolean[] parseDays(String daysString) {
+        boolean[] days = new boolean[5];
+        for(int i = 0; i < 5; i++) {
+            days[i] = daysString.charAt(i) != '_';
+        }
+        return days;
+    }
 }
 
 
