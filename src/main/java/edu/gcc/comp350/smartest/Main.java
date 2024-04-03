@@ -153,7 +153,6 @@ public class Main {
                     return;
                 case "s":
                     System.out.println("SEARCH");
-                    System.out.print("Enter query: ");
                     searchDatabase(search);
                     break;
                 case "a":
@@ -226,10 +225,17 @@ public class Main {
     }
 
     public static void searchDatabase(Search search) {
-        String query = scnIn.nextLine();
-        search.modifyQuery(query);
-        String resStr = search.resultsToString();
-        System.out.println(resStr);
+        while (true) {
+            System.out.print("Enter query: ");
+            String query = scnIn.nextLine();
+            if (query.equals("back")) {
+                return;
+            }
+            search.modifyQuery(query);
+            String resStr = search.resultsToString();
+            System.out.println(resStr);
+        }
+
     }
 
     public static void editFilters(Scanner scnIn, Filter activeFilters, Search search) {
