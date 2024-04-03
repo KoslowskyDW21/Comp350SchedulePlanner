@@ -203,19 +203,25 @@ public class Course {
     public int getNumCredits() {
         return numCredits;
     }
-    public int getStartTime() {
-        /*String tmp = "";
-        tmp += startTime.charAt(0) + startTime.charAt(1) +
-                startTime.charAt(3) + startTime.charAt(4);
-        return Integer.parseInt(tmp);*/
-        return Integer.parseInt(startTime);
+    public float getStartTime() {
+        String[] crsStartArr = getStartTimes().split(":");
+        return parseArr(crsStartArr);
     }
 
-    public int getEndTimes() {
-        /*String tmp = "";
-        tmp += endTime.charAt(0) + endTime.charAt(1) + endTime.charAt(3) + endTime.charAt(4);
-        return Integer.parseInt(tmp);*/
-        return Integer.parseInt(endTime);
+    public float getEndTime() {
+        String[] crsEndArr = getEndTimes().split(":");
+        return parseArr(crsEndArr);
+    }
+
+    public float parseArr(String[] crsArr){
+        if (crsArr[2].split(" ")[1].equals("PM") && !crsArr[0].equals("12")) {
+            crsArr[0] = String.valueOf((Integer.parseInt(crsArr[0]) + 12) % 23);
+        }
+        float crsTime = Integer.parseInt(crsArr[0]);
+        if (Integer.parseInt(crsArr[1]) != 0) {
+            crsTime += ((float) Integer.parseInt(crsArr[1])) / 60;
+        }
+        return crsTime;
     }
 }
 
