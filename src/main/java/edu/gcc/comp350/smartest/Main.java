@@ -38,7 +38,7 @@ public class Main {
     }
 
     public static void consoleSoftwareLoop() {
-        User user = new User();
+        //User user = new User();
         Schedule sched = new Schedule();
         Search search = new Search();
         scnIn = new Scanner(System.in);
@@ -64,7 +64,7 @@ public class Main {
                     break;
                 case "ui":
                     System.out.println("USER INFO");
-                    userInfoAction(user);
+                    userInfoAction();
                     break;
                 case "s":
                     System.out.println("SCHEDULE");
@@ -83,7 +83,7 @@ public class Main {
         }
     }
 
-    public static void userInfoAction(User user) {
+    public static void userInfoAction() {
         while (true) {
             System.out.println("Would you like to view or edit your user info? [v/e]");
             System.out.print(":");
@@ -94,13 +94,13 @@ public class Main {
                     return;
                 case "v":
                     System.out.println("VIEW INFO");
-                    viewInfo(user);
+                    viewInfo();
                     break;
                 case "e":
                     System.out.println("EDIT INFO");
                     System.out.println("Would you like to edit name or major? [n/m]");
                     System.out.print(":");
-                    editInfo(user);
+                    editInfo();
                     break;
                 //case "exit":
                     //break;
@@ -143,7 +143,6 @@ public class Main {
                     return;
                 case "s":
                     System.out.println("SEARCH");
-                    System.out.print("Enter query: ");
                     searchDatabase(search);
                     break;
                 case "a":
@@ -171,28 +170,28 @@ public class Main {
     }
 
 
-    public static void viewInfo(User user) {
-        System.out.println("Name: " + user.getName());
-        System.out.println("Major: " + user.getMajor());
+    public static void viewInfo() {
+        System.out.println("Name: " + mainUser.getName());
+        System.out.println("Major: " + mainUser.getMajor());
         System.out.print("Grad Reqs: ");
-        for (Course gradReq : user.getGradReqs()) {
+        for (Course gradReq : mainUser.getGradReqs()) {
             System.out.print(gradReq.getName() + ", ");
         }
         System.out.println();
     }
 
-    public static void editInfo(User user) {
+    public static void editInfo() {
         String currInput = scnIn.nextLine();
         switch (currInput.toLowerCase()) {
             case "back":
                 return;
             case "n":
                 System.out.print("Enter new name: ");
-                user.setName(scnIn.nextLine());
+                mainUser.setName(scnIn.nextLine());
                 break;
             case "m":
                 System.out.print("Enter new major: ");
-                user.setMajor(scnIn.nextLine());
+                mainUser.setMajor(scnIn.nextLine());
                 break;
             //case "exit":
             default:
@@ -216,14 +215,24 @@ public class Main {
     }
 
     public static void searchDatabase(Search search) {
-        String query = scnIn.nextLine();
-        search.modifyQuery(query);
-        String resStr = search.resultsToString();
-        System.out.println(resStr);
+        while (true) {
+            System.out.print("Enter query: ");
+            String query = scnIn.nextLine();
+            if (query.equals("back")) {
+                return;
+            }
+            search.modifyQuery(query);
+            String resStr = search.resultsToString();
+            System.out.println(resStr);
+        }
+
     }
 
     public static void editFilters(Scanner scnIn, Filter activeFilters, Search search) {
         String editOrRemove = scnIn.nextLine();
+        if (editOrRemove.equals("back")) {
+            return;
+        }
         while (true) {
             System.out.println("Which filter would you like to edit or remove? [st/et/lv/pr/dp/da]");
             System.out.print(":");
@@ -232,9 +241,9 @@ public class Main {
             switch (filterAttr.toLowerCase()) {
                 case "back":
                     return;
-                case "cr":
+                /*case "cr":
                     creditsFilter(editOrRemove, activeFilters);
-                    break;
+                    break;*/
                 case "st":
                     startTimeFilter(editOrRemove, activeFilters, search);
                     break;
@@ -262,7 +271,7 @@ public class Main {
         }
     }
 
-    // TODO: change to calling edit/remove credits methods
+    /*// TODO: change to calling edit/remove credits methods
     public static void creditsFilter(String editOrRemove, Filter activeFilters) {
         switch (editOrRemove) {
             case "e":
@@ -280,14 +289,19 @@ public class Main {
             default:
                 break;
         }
-    }
+    }*/
 
     public static void startTimeFilter(String editOrRemove, Filter activeFilters, Search search) {
         switch (editOrRemove) {
+            case "back":
+                return;
             case "e":
                 while(true) {
                     System.out.print("Enter start time (format HHMM): ");
                     String startStr = scnIn.nextLine();
+                    if (startStr.equals("back")) {
+                        return;
+                    }
                     try {
                         int start = Integer.parseInt(startStr);
 
@@ -318,10 +332,15 @@ public class Main {
 
     public static void endTimeFilter(String editOrRemove, Filter activeFilters, Search search) {
         switch (editOrRemove) {
+            case "back":
+                return;
             case "e":
                 while(true) {
                     System.out.print("Enter end time (format HHMM): ");
                     String endStr = scnIn.nextLine();
+                    if (endStr.equals("back")) {
+                        return;
+                    }
                     try {
                         int end = Integer.parseInt(endStr);
 
@@ -354,6 +373,8 @@ public class Main {
 
     public static void levelFilter(String editOrRemove, Filter activeFilters, Search search) {
         switch (editOrRemove) {
+            case "back":
+                return;
             case "e":
                 int min = -1;
                 int max = -1;
@@ -362,6 +383,9 @@ public class Main {
                         try {
                             System.out.print("Enter minimum level (format 000): ");
                             String minStr = scnIn.nextLine();
+                            if (minStr.equals("back")) {
+                                return;
+                            }
                             min = Integer.parseInt(minStr);
                             if(!(100 <= min && min <= 600)) {
                                 throw new Exception(String.valueOf(min));
@@ -408,9 +432,14 @@ public class Main {
 
     public static void professorFilter(String editOrRemove, Filter activeFilters, Search search) {
         switch (editOrRemove) {
+            case "back":
+                return;
             case "e":
                 System.out.print("Enter professor last name: ");
                 String prof = scnIn.nextLine();
+                if (prof.equals("back")) {
+                    return;
+                }
                 Filter.addProfessorFilter(search, prof);
                 System.out.println("Professor filter successfully changed to '"
                         + activeFilters.getProfName() + "'.");
@@ -426,9 +455,14 @@ public class Main {
 
     public static void departmentFilter(String editOrRemove, Filter activeFilters, Search search) {
         switch (editOrRemove) {
+            case "back":
+                return;
             case "e":
                 System.out.print("Enter department code: ");
                 String deptCode = scnIn.nextLine();
+                if (deptCode.equals("back")) {
+                    return;
+                }
                 Filter.addDepartmentFilter(search, deptCode);
                 System.out.println("Department filter successfully changed to '"
                         + activeFilters.getDepartment() + "'.");
@@ -444,12 +478,29 @@ public class Main {
 
     public static void daysFilter(String editOrRemove, Filter activeFilters, Search search) {
         switch (editOrRemove) {
+            case "back":
+                return;
             case "e":
-                System.out.print("Enter days (format M_WRF): ");
-                String days = scnIn.nextLine();
-                boolean[] daysFilter = parseDays(days);
-                Filter.addDays(search, daysFilter);
-                System.out.println("Days filter successfully added.");
+                while(true) {
+                    try {
+                        System.out.print("Enter days (format M_WRF): ");
+                        String days = scnIn.nextLine();
+                        if (days.equals("back")) {
+                            return;
+                        }
+                        if (days.length() != 5) {
+                            throw new Exception();
+                        }
+                        days = days.toUpperCase();
+                        checkDaysFormat(days);
+                        boolean[] daysFilter = parseDays(days);
+                        Filter.addDays(search, daysFilter);
+                        System.out.println("Days filter successfully added.");
+                        break;
+                    } catch (Exception e) {
+                        System.out.println("Incorrect format, try again.");
+                    }
+                }
                 break;
             case "r":
                 Filter.removeDays(search);
@@ -466,5 +517,14 @@ public class Main {
             days[i] = daysString.charAt(i) != '_';
         }
         return days;
+    }
+
+    public static void checkDaysFormat(String days) throws Exception {
+        char[] dayLetter = {'M', 'T', 'W', 'R', 'F'};
+        for(int i = 0; i < 5; i++) {
+            if (days.charAt(i) != dayLetter[i] && days.charAt(i) != '_') {
+                throw new Exception();
+            }
+        }
     }
 }
