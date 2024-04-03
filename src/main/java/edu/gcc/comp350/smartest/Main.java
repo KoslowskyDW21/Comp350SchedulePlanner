@@ -470,11 +470,23 @@ public class Main {
             case "back":
                 return;
             case "e":
-                System.out.print("Enter days (format M_WRF): ");
-                String days = scnIn.nextLine();
-                boolean[] daysFilter = parseDays(days);
-                Filter.addDays(search, daysFilter);
-                System.out.println("Days filter successfully added.");
+                while(true) {
+                    try {
+                        System.out.print("Enter days (format M_WRF): ");
+                        String days = scnIn.nextLine();
+                        if (days.length() != 5) {
+                            throw new Exception();
+                        }
+                        days = days.toUpperCase();
+                        checkDaysFormat(days);
+                        boolean[] daysFilter = parseDays(days);
+                        Filter.addDays(search, daysFilter);
+                        System.out.println("Days filter successfully added.");
+                        break;
+                    } catch (Exception e) {
+                        System.out.println("Incorrect format, try again.");
+                    }
+                }
                 break;
             case "r":
                 Filter.removeDays(search);
@@ -491,5 +503,14 @@ public class Main {
             days[i] = daysString.charAt(i) != '_';
         }
         return days;
+    }
+
+    public static void checkDaysFormat(String days) throws Exception {
+        char[] dayLetter = {'M', 'T', 'W', 'R', 'F'};
+        for(int i = 0; i < 5; i++) {
+            if (days.charAt(i) != dayLetter[i] && days.charAt(i) != '_') {
+                throw new Exception();
+            }
+        }
     }
 }
