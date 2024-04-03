@@ -47,7 +47,7 @@ public class Schedule {
                 courseEnd += ((float) Integer.parseInt(courseEndArr[1])) /60;
             }
             if((courseStart >= crsStart && courseStart <= crsEnd) || (courseEnd <= crsEnd && courseEnd >= crsStart)){
-                throw new Exception("Course Overlaps with one already in Schedule"); //replace with popup in GUI
+                throw new Exception(popup()); //replace with popup in GUI
             }
         }
         currentCourses.add(course);
@@ -75,5 +75,7 @@ public class Schedule {
 
     //kate is making changes :)
 
-
+    private String popup() {
+        return "Course Overlaps with one already in Schedule";
+    }
 }
