@@ -62,6 +62,12 @@ public class User {
 
     }
 
+    /**
+     * Saves the user info (ID, name, major), and saved schedules to file "SavedCourses.txt"
+     * First 3 lines are user ID, name, and major respectively
+     * Every following line is for each saved schedule
+     * The course code of each course in a schedule is saved on the line, seperated by ", "
+     */
     public void SaveToFile() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("SavedCourses.txt"))) {
             //first 3 lines of the file are user info
@@ -89,6 +95,11 @@ public class User {
         }
     }
 
+    /**
+     * Loads the user information and saved schedules from "SavedCourses.txt"
+     * if "SavedCourses.txt" is empty, create default user
+     * assumes file is of the format specified in the SaveToFile javadoc
+     */
     public static void LoadCoursesFromFile() {
         try (BufferedReader reader = new BufferedReader(new FileReader("SavedCourses.txt"))) {
             // Check that information has been saved to the file

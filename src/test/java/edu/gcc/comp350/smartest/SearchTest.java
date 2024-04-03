@@ -4,8 +4,14 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions.*;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.io.InputStream;
+import java.util.Scanner;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SearchTest {
     @Test
@@ -37,7 +43,7 @@ public class SearchTest {
         Search search = new Search();
         String ogInput = "Hello World!";
         search.modifyQuery(ogInput);
-        Assertions.assertNotEquals("hello world!", search.getUserInput());
+        assertNotEquals("hello world!", search.getUserInput());
     }
 
     @Test
@@ -60,4 +66,24 @@ public class SearchTest {
             //System.console().printf(course.getName());
         }
     }
+
+    @Test
+    void courseDoesNotExist() {
+        Search search = new Search();
+        String ogInput = "i aM nOt a coUrSe!!";
+
+        search.modifyQuery(ogInput);
+        assertTrue(search.getResults().isEmpty());
+    }
+
+    @Test
+    void courseDoesExist() throws IOException {
+        Search search = new Search();
+        Search.ParseClasses();
+
+        String query ="COMP141";
+        search.modifyQuery(query);
+        assertTrue(search.resultsToString().contains(query));
+    }
+
 }

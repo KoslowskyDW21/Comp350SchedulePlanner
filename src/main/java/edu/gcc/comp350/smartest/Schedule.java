@@ -64,7 +64,7 @@ public class Schedule {
             }
         }
         currentCourses.add(course);
-    }
+            }
 
     public void removeCourse(Course course) {
         currentCourses.remove(course);
@@ -88,5 +88,7 @@ public class Schedule {
 
     //kate is making changes :)
 
-
+    private String popup() {
+        return "Course Overlaps with one already in Schedule";
+    }
 }
