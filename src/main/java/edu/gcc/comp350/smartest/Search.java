@@ -114,7 +114,10 @@ public class Search {
         if(course.getLevel() < levelMin || course.getLevel() > levelMax) {
             return false;
         }
-        if(startTime > course.getStartTime() || endTime < course.getEndTime()) {
+        if((startTime > course.getStartTime() || endTime < course.getEndTime())
+                && course.getStartTime() > 0 && course.getEndTime() > 0) {
+            System.out.println(startTime + " > " + course.getStartTime());
+            System.out.println(endTime + " < " + course.getEndTime());
             return false;
         }
         if(!matchDays(days, course)) {
