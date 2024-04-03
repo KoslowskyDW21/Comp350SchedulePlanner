@@ -234,6 +234,9 @@ public class Main {
 
     public static void editFilters(Scanner scnIn, Filter activeFilters, Search search) {
         String editOrRemove = scnIn.nextLine();
+        if (editOrRemove.equals("back")) {
+            return;
+        }
         while (true) {
             System.out.println("Which filter would you like to edit or remove? [st/et/lv/pr/dp/da]");
             System.out.print(":");
@@ -242,9 +245,9 @@ public class Main {
             switch (filterAttr.toLowerCase()) {
                 case "back":
                     return;
-                case "cr":
+                /*case "cr":
                     creditsFilter(editOrRemove, activeFilters);
-                    break;
+                    break;*/
                 case "st":
                     startTimeFilter(editOrRemove, activeFilters, search);
                     break;
@@ -272,7 +275,7 @@ public class Main {
         }
     }
 
-    // TODO: change to calling edit/remove credits methods
+    /*// TODO: change to calling edit/remove credits methods
     public static void creditsFilter(String editOrRemove, Filter activeFilters) {
         switch (editOrRemove) {
             case "e":
@@ -290,10 +293,12 @@ public class Main {
             default:
                 break;
         }
-    }
+    }*/
 
     public static void startTimeFilter(String editOrRemove, Filter activeFilters, Search search) {
         switch (editOrRemove) {
+            case "back":
+                return;
             case "e":
                 while(true) {
                     System.out.print("Enter start time (format HHMM): ");
@@ -328,6 +333,8 @@ public class Main {
 
     public static void endTimeFilter(String editOrRemove, Filter activeFilters, Search search) {
         switch (editOrRemove) {
+            case "back":
+                return;
             case "e":
                 while(true) {
                     System.out.print("Enter end time (format HHMM): ");
@@ -364,6 +371,8 @@ public class Main {
 
     public static void levelFilter(String editOrRemove, Filter activeFilters, Search search) {
         switch (editOrRemove) {
+            case "back":
+                return;
             case "e":
                 int min = -1;
                 int max = -1;
@@ -418,6 +427,8 @@ public class Main {
 
     public static void professorFilter(String editOrRemove, Filter activeFilters, Search search) {
         switch (editOrRemove) {
+            case "back":
+                return;
             case "e":
                 System.out.print("Enter professor last name: ");
                 String prof = scnIn.nextLine();
@@ -436,6 +447,8 @@ public class Main {
 
     public static void departmentFilter(String editOrRemove, Filter activeFilters, Search search) {
         switch (editOrRemove) {
+            case "back":
+                return;
             case "e":
                 System.out.print("Enter department code: ");
                 String deptCode = scnIn.nextLine();
@@ -454,6 +467,8 @@ public class Main {
 
     public static void daysFilter(String editOrRemove, Filter activeFilters, Search search) {
         switch (editOrRemove) {
+            case "back":
+                return;
             case "e":
                 System.out.print("Enter days (format M_WRF): ");
                 String days = scnIn.nextLine();
