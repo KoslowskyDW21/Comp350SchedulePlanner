@@ -21,7 +21,48 @@ public class Schedule {
         return totalCredits;
     }
 
-    public void addCourse(Course course) {
+    public void addCourse(Course course) throws Exception {
+        for(Course c : currentCourses) {
+            String[] crsArr = course.getStartTimes().split(":");
+            if (crsArr[2].split(" ")[1].equals("PM") && !crsArr[0].equals("12")) {
+                crsArr[0] = String.valueOf((Integer.parseInt(crsArr[0]) + 12));
+            }
+            float crsStart = Integer.parseInt(crsArr[0]);
+            if (Integer.parseInt(crsArr[1]) != 0) {
+                crsStart += ((float) Integer.parseInt(crsArr[1])) / 60;
+            }
+
+            String[] courseArr = c.getStartTimes().split(":");
+            if (courseArr[2].split(" ")[1].equals("PM") && !courseArr[0].equals("12")) {
+                courseArr[0] = String.valueOf((Integer.parseInt(courseArr[0]) + 12));
+            }
+            float courseStart = Integer.parseInt(courseArr[0]);
+            if (Integer.parseInt(courseArr[1]) != 0) {
+                courseStart += ((float) Integer.parseInt(courseArr[1])) / 60;
+            }
+
+            String[] crsEndArr = course.getEndTimes().split(":");
+            if (crsEndArr[2].split(" ")[1].equals("PM") && !crsEndArr[0].equals("12")) {
+                crsEndArr[0] = String.valueOf((Integer.parseInt(crsEndArr[0]) + 12) % 23);
+            }
+            float crsEnd = Integer.parseInt(crsEndArr[0]);
+
+            if (Integer.parseInt(crsEndArr[1]) != 0) {
+                crsEnd += ((float) Integer.parseInt(crsEndArr[1])) / 60;
+            }
+            String[] courseEndArr = c.getEndTimes().split(":");
+            if (courseEndArr[2].split(" ")[1].equals("PM") && !courseEndArr[0].equals("12")) {
+                courseEndArr[0] = String.valueOf((Integer.parseInt(courseEndArr[0]) + 12) % 23);
+            }
+            float courseEnd = Integer.parseInt(courseEndArr[0]);
+
+            if (Integer.parseInt(courseArr[1]) != 0) {
+                courseEnd += ((float) Integer.parseInt(courseEndArr[1])) / 60;
+            }
+            if((courseStart >= crsStart && courseStart <= crsEnd) || (courseEnd <= crsEnd && courseEnd >= crsStart)){
+                throw new Exception("Nope");
+            }
+        }
         currentCourses.add(course);
     }
 

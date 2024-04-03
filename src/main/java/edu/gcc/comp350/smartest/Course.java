@@ -145,5 +145,9 @@ public class Course {
     public int getNumCredits() {
         return numCredits;
     }
+
+    public String getEndTimes() {
+        return endTime;
+    }
 }
 
