@@ -105,6 +105,7 @@ public class Search {
         int levelMax = activeFilters.getLevelMax();
         int startTime = activeFilters.getStartTime();
         int endTime = activeFilters.getEndTime();
+        boolean[] days = activeFilters.getDays();
 
         if((!department.isEmpty()) && (!course.getDepartment().equals(department))) {
             return false;
@@ -118,7 +119,24 @@ public class Search {
         if(startTime > course.getStartTime() || endTime < course.getEndTime()) {
             return false;
         }
+        if(!matchDays(days, course)) {
+            return false;
+        }
+
 
         return true;
+    }
+
+    private boolean matchDays(boolean[] days, Course course) {
+        String courseDays = course.getDays();
+        boolean flag = false;
+        for(int i = 0; i < 5; i++) {
+            if(courseDays.charAt(i) != '_' && days[i]) {
+                flag = true;
+                break;
+            }
+        }
+
+        return flag;
     }
 }
