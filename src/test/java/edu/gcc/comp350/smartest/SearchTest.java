@@ -3,15 +3,15 @@ package edu.gcc.comp350.smartest;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.io.InputStream;
 import java.util.Scanner;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SearchTest {
     @Test
@@ -67,17 +67,23 @@ public class SearchTest {
         }
     }
 
-    /*@Test
+    @Test
     void courseDoesNotExist() {
         Search search = new Search();
-        String input1 = "s";
         String ogInput = "i aM nOt a coUrSe!!";
-        InputStream in = new ByteArrayInputStream(input1.getBytes());
-        System.setIn(in);
-        assertEquals(input1, new Scanner(System.in).nextLine());
 
         search.modifyQuery(ogInput);
+        assertTrue(search.getResults().isEmpty());
+    }
 
-    }*/
+    @Test
+    void courseDoesExist() throws IOException {
+        Search search = new Search();
+        Search.ParseClasses();
+
+        String query ="COMP141";
+        search.modifyQuery(query);
+        assertTrue(search.resultsToString().contains(query));
+    }
 
 }

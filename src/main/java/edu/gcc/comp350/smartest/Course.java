@@ -205,10 +205,17 @@ public class Course {
     }
 
     public int getStartTime() {
+        /*String tmp = "";
+        tmp += startTime.charAt(0) + startTime.charAt(1) +
+                startTime.charAt(3) + startTime.charAt(4);
+        return Integer.parseInt(tmp);*/
         return Integer.parseInt(startTime);
     }
 
     public int getEndTime() {
+        /*String tmp = "";
+        tmp += endTime.charAt(0) + endTime.charAt(1) + endTime.charAt(3) + endTime.charAt(4);
+        return Integer.parseInt(tmp);*/
         return Integer.parseInt(endTime);
     }
 }

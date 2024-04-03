@@ -48,6 +48,16 @@ public class User {
         this.savedSchedules = new ArrayList<>();
     }
 
+    //TODO: Check that there are no schedule conflicts or something
+
+    public void changeName(String newName) {
+
+    }
+
+    public void changeMajor(String newMajor) {
+
+    }
+
     public void setGradReqs(ArrayList<Course> req) {
 
     }
