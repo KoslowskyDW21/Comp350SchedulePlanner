@@ -23,6 +23,9 @@ public class Search {
             //courseList.add(new Course(scn.nextLine()));
             Course.database.add(new Course(scn.nextLine()));
         }
+        /*for (Course course : Course.database) {
+            System.out.println(course.getStartTime());
+        }*/
     }
 
     public String getUserInput() {

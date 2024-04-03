@@ -43,7 +43,7 @@ public class Main {
         search.modifyFilter(daysFilter);
     }
 
-    public static void akSearchTest() {
+    /*public static void akSearchTest() {
         Search search = new Search();
         String input = "3 50";
         search.modifyQuery(input);
@@ -51,7 +51,7 @@ public class Main {
         for (Course course : results) {
             System.out.println(course.getName());
         }
-    }
+    }*/
 
     public static void consoleSoftwareLoop() {
         User user = new User();
@@ -76,7 +76,7 @@ public class Main {
                     System.out.println("EXITING");
                     return;
                 case "back":
-                    System.out.println("Where would you like to go? User Info/Schedule/Course Search [ui/s/cs]");
+                    //System.out.println("Where would you like to go? User Info/Schedule/Course Search [ui/s/cs]");
                     break;
                 case "ui":
                     System.out.println("USER INFO");
@@ -106,6 +106,8 @@ public class Main {
             String currInput = scnIn.nextLine();
 
             switch (currInput.toLowerCase()) {
+                case "back":
+                    return;
                 case "v":
                     System.out.println("VIEW INFO");
                     viewInfo(user);
@@ -117,8 +119,6 @@ public class Main {
                     editInfo(user);
                     break;
                 //case "exit":
-                case "back":
-                    return;
                     //break;
                 default:
                     break;
@@ -134,13 +134,13 @@ public class Main {
             String currInput = scnIn.nextLine();
 
             switch (currInput.toLowerCase()) {
+                case "back":
+                    return;
                 case "g":
                     generateSchedule(sched);
                 case "v":
                     System.out.println("SCHEDULE");
                 //case "exit":
-                case "back":
-                    return;
                 default: // view schedule
                     viewSchedule(sched);
                     break;
@@ -155,6 +155,8 @@ public class Main {
             String currInput = scnIn.nextLine();
 
             switch (currInput.toLowerCase()) {
+                case "back":
+                    return;
                 case "s":
                     System.out.println("SEARCH");
                     System.out.print("Enter query: ");
@@ -177,8 +179,6 @@ public class Main {
                     System.out.println(filStr2);
                     break;
                 //case "exit":
-                case "back":
-                    return;
                 default:
                     // do nothing
                     break;
@@ -200,6 +200,8 @@ public class Main {
     public static void editInfo(User user) {
         String currInput = scnIn.nextLine();
         switch (currInput.toLowerCase()) {
+            case "back":
+                return;
             case "n":
                 System.out.print("Enter new name: ");
                 user.setName(scnIn.nextLine());
@@ -209,13 +211,12 @@ public class Main {
                 user.setMajor(scnIn.nextLine());
                 break;
             //case "exit":
-            case "back":
-                return;
             default:
                 break;
         }
     }
 
+    // TODO: decide whether to just put this in scheduleAction and get rid of this method
     public static void generateSchedule(Schedule sched) {
         System.out.println("GENERATE SCHEDULE");
         System.out.println("GENERATING...");
@@ -227,7 +228,7 @@ public class Main {
         for (Course course : currCourses) {
             System.out.println(course.getCourseCode() + " ---- " + course.getStartTimes());
         }
-        //System.out.println(sched.toString()); // USE THIS ONCE TOSTRING IMPLEMENTED
+        //System.out.println(sched.toString()); // TODO: USE THIS ONCE TOSTRING IMPLEMENTED
     }
 
     public static void searchDatabase(Search search) {
@@ -245,6 +246,8 @@ public class Main {
             String filterAttr = scnIn.nextLine();
 
             switch (filterAttr.toLowerCase()) {
+                case "back":
+                    return;
                 case "cr":
                     creditsFilter(editOrRemove, activeFilters);
                     break;
@@ -264,8 +267,6 @@ public class Main {
                     departmentFilter(editOrRemove, activeFilters, search);
                     break;
                 //case "exit":
-                case "back":
-                    return;
                 default:
                     break;
             }
@@ -454,5 +455,3 @@ public class Main {
     }
 
 }
-
-
