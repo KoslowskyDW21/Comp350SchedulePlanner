@@ -48,7 +48,7 @@ public class Main {
     }
 
     public static void consoleSoftwareLoop() {
-        User user = new User();
+        //User user = new User();
         Schedule sched = new Schedule();
         Search search = new Search();
         scnIn = new Scanner(System.in);
@@ -74,7 +74,7 @@ public class Main {
                     break;
                 case "ui":
                     System.out.println("USER INFO");
-                    userInfoAction(user);
+                    userInfoAction();
                     break;
                 case "s":
                     System.out.println("SCHEDULE");
@@ -93,7 +93,7 @@ public class Main {
         }
     }
 
-    public static void userInfoAction(User user) {
+    public static void userInfoAction() {
         while (true) {
             System.out.println("Would you like to view or edit your user info? [v/e]");
             System.out.print(":");
@@ -104,13 +104,13 @@ public class Main {
                     return;
                 case "v":
                     System.out.println("VIEW INFO");
-                    viewInfo(user);
+                    viewInfo();
                     break;
                 case "e":
                     System.out.println("EDIT INFO");
                     System.out.println("Would you like to edit name or major? [n/m]");
                     System.out.print(":");
-                    editInfo(user);
+                    editInfo();
                     break;
                 //case "exit":
                     //break;
@@ -180,28 +180,28 @@ public class Main {
     }
 
 
-    public static void viewInfo(User user) {
-        System.out.println("Name: " + user.getName());
-        System.out.println("Major: " + user.getMajor());
+    public static void viewInfo() {
+        System.out.println("Name: " + mainUser.getName());
+        System.out.println("Major: " + mainUser.getMajor());
         System.out.print("Grad Reqs: ");
-        for (Course gradReq : user.getGradReqs()) {
+        for (Course gradReq : mainUser.getGradReqs()) {
             System.out.print(gradReq.getName() + ", ");
         }
         System.out.println();
     }
 
-    public static void editInfo(User user) {
+    public static void editInfo() {
         String currInput = scnIn.nextLine();
         switch (currInput.toLowerCase()) {
             case "back":
                 return;
             case "n":
                 System.out.print("Enter new name: ");
-                user.setName(scnIn.nextLine());
+                mainUser.setName(scnIn.nextLine());
                 break;
             case "m":
                 System.out.print("Enter new major: ");
-                user.setMajor(scnIn.nextLine());
+                mainUser.setMajor(scnIn.nextLine());
                 break;
             //case "exit":
             default:
@@ -309,6 +309,9 @@ public class Main {
                 while(true) {
                     System.out.print("Enter start time (format HHMM): ");
                     String startStr = scnIn.nextLine();
+                    if (startStr.equals("back")) {
+                        return;
+                    }
                     try {
                         int start = Integer.parseInt(startStr);
 
@@ -345,6 +348,9 @@ public class Main {
                 while(true) {
                     System.out.print("Enter end time (format HHMM): ");
                     String endStr = scnIn.nextLine();
+                    if (endStr.equals("back")) {
+                        return;
+                    }
                     try {
                         int end = Integer.parseInt(endStr);
 
@@ -387,6 +393,9 @@ public class Main {
                         try {
                             System.out.print("Enter minimum level (format 000): ");
                             String minStr = scnIn.nextLine();
+                            if (minStr.equals("back")) {
+                                return;
+                            }
                             min = Integer.parseInt(minStr);
                             if(!(100 <= min && min <= 600)) {
                                 throw new Exception(String.valueOf(min));
@@ -438,6 +447,9 @@ public class Main {
             case "e":
                 System.out.print("Enter professor last name: ");
                 String prof = scnIn.nextLine();
+                if (prof.equals("back")) {
+                    return;
+                }
                 Filter.addProfessorFilter(search, prof);
                 System.out.println("Professor filter successfully changed to '"
                         + activeFilters.getProfName() + "'.");
@@ -458,6 +470,9 @@ public class Main {
             case "e":
                 System.out.print("Enter department code: ");
                 String deptCode = scnIn.nextLine();
+                if (deptCode.equals("back")) {
+                    return;
+                }
                 Filter.addDepartmentFilter(search, deptCode);
                 System.out.println("Department filter successfully changed to '"
                         + activeFilters.getDepartment() + "'.");
@@ -480,6 +495,9 @@ public class Main {
                     try {
                         System.out.print("Enter days (format M_WRF): ");
                         String days = scnIn.nextLine();
+                        if (days.equals("back")) {
+                            return;
+                        }
                         if (days.length() != 5) {
                             throw new Exception();
                         }
