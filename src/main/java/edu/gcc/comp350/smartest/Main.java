@@ -265,8 +265,6 @@ public class Main {
                     daysFilter(editOrRemove, activeFilters, search);
                     break;
                 case "exit":
-                case "back":
-                    return;
                 default:
                     break;
             }
