@@ -1,11 +1,6 @@
 package edu.gcc.comp350.smartest;
 import java.util.ArrayList;
 
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
-
 public class Course {
     public static ArrayList<Course> database = new ArrayList<>();
     private final String courseCode;
@@ -204,22 +199,26 @@ public class Course {
         return numCredits;
     }
     public float getStartTime() {
-        String[] crsStartArr = getStartTimes().split(":");
-        return parseArr(crsStartArr);
+        return parseArr(startTime);
     }
 
     public float getEndTime() {
-        String[] crsEndArr = getEndTimes().split(":");
-        return parseArr(crsEndArr);
+        return parseArr(endTime);
     }
 
-    public float parseArr(String[] crsArr){
+    public int parseArr(String crsString){
+        //System.out.println("Parsing " + crsString);
+        String[] crsArr = crsString.split(":");
+        if(crsArr.length < 3) {
+            //System.out.println("Incorrect time format");
+            return -1;
+        }
         if (crsArr[2].split(" ")[1].equals("PM") && !crsArr[0].equals("12")) {
             crsArr[0] = String.valueOf((Integer.parseInt(crsArr[0]) + 12) % 23);
         }
-        float crsTime = Integer.parseInt(crsArr[0]);
+        int crsTime = Integer.parseInt(crsArr[0]) * 100;
         if (Integer.parseInt(crsArr[1]) != 0) {
-            crsTime += ((float) Integer.parseInt(crsArr[1])) / 60;
+            crsTime += Integer.parseInt(crsArr[1]);
         }
         return crsTime;
     }
