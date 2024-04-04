@@ -354,7 +354,7 @@ public class Main {
                     try {
                         int end = Integer.parseInt(endStr);
 
-                        if (850 <= end && end <= 2100) {
+                        if (850 <= end && end <= 2130) {
                             Filter.addEndTimeFilter(search, end);
                             System.out.println("End time filter successfully changed to "
                                     + activeFilters.getEndTime() + "'.");
