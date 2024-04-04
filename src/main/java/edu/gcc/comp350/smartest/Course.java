@@ -1,11 +1,6 @@
 package edu.gcc.comp350.smartest;
 import java.util.ArrayList;
 
-import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Objects;
-
 public class Course {
     public static ArrayList<Course> database = new ArrayList<>();
     private final String courseCode;
@@ -203,20 +198,29 @@ public class Course {
     public int getNumCredits() {
         return numCredits;
     }
-
-    public int getStartTime() {
-        /*String tmp = "";
-        tmp += startTime.charAt(0) + startTime.charAt(1) +
-                startTime.charAt(3) + startTime.charAt(4);
-        return Integer.parseInt(tmp);*/
-        return Integer.parseInt(startTime);
+    public float getStartTime() {
+        return parseArr(startTime);
     }
 
-    public int getEndTime() {
-        /*String tmp = "";
-        tmp += endTime.charAt(0) + endTime.charAt(1) + endTime.charAt(3) + endTime.charAt(4);
-        return Integer.parseInt(tmp);*/
-        return Integer.parseInt(endTime);
+    public float getEndTime() {
+        return parseArr(endTime);
+    }
+
+    public int parseArr(String crsString){
+        //System.out.println("Parsing " + crsString);
+        String[] crsArr = crsString.split(":");
+        if(crsArr.length < 3) {
+            //System.out.println("Incorrect time format");
+            return -1;
+        }
+        if (crsArr[2].split(" ")[1].equals("PM") && !crsArr[0].equals("12")) {
+            crsArr[0] = String.valueOf((Integer.parseInt(crsArr[0]) + 12) % 23);
+        }
+        int crsTime = Integer.parseInt(crsArr[0]) * 100;
+        if (Integer.parseInt(crsArr[1]) != 0) {
+            crsTime += Integer.parseInt(crsArr[1]);
+        }
+        return crsTime;
     }
 }
 

@@ -6,13 +6,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SaveAndLoadFileTest {
     @Test
     void ReadFromFile() throws Exception {
         //setup
         Search.ParseClasses();
-        Main.mainUser = new User();
+        Main.mainUser = new User(100, "David Koslowsky", "dropped out");
         Course course1 = new Course();
         Course.database.add(course1);
         //2020,10,ACCT,201,A,PRINCIPLES OF ACCOUNTING I,3,30,30,M,,W,,F,9:00:00 AM,9:50:00 AM,Stone,Jennifer,Nicole,Online materials fee
@@ -29,9 +30,9 @@ public class SaveAndLoadFileTest {
         Main.mainUser.SaveToFile();
         Main.mainUser = null;
         User.LoadCoursesFromFile();
-        assertEquals(0, Main.mainUser.getUserID());
-        assertEquals("John Student", Main.mainUser.getName());
-        assertEquals("Computer Science", Main.mainUser.getMajor());
+        assertEquals(100, Main.mainUser.getUserID());
+        assertEquals("David Koslowsky", Main.mainUser.getName());
+        assertEquals("dropped out", Main.mainUser.getMajor());
         assertEquals(1, Main.mainUser.savedSchedules.size());
         ArrayList<Course> scheduleCourses = Main.mainUser.savedSchedules.getFirst().getCurrentCourses();
         assertEquals(3, scheduleCourses.size());

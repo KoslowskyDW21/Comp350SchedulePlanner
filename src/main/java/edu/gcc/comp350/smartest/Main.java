@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
@@ -10,10 +11,7 @@ public class Main {
     public static User mainUser;
 
     public static void main(String[] args) {
-        User.LoadCoursesFromFile();
-        Search search = new Search();
-        //courseList = new ArrayList<>();
-
+        // Create the course database
         try {
             Search.ParseClasses();
         } catch (FileNotFoundException e) {
@@ -22,19 +20,13 @@ public class Main {
             System.out.println("IOException: " + e);
         }
 
-        //akSearchTest();
-        consoleSoftwareLoop();
-        mainUser.SaveToFile();
-    }
+        // Load previous user and schedule info
+        User.LoadCoursesFromFile();
 
-    public static void ParseClasses() throws IOException {
-        Scanner scn = new Scanner(new File("2020-2021.csv"));
-        scn.nextLine();
-        while (scn.hasNext()) {
-            //Course temp = new Course(scn.nextLine());
-            //courseList.add(new Course(scn.nextLine()));
-            Course.database.add(new Course(scn.nextLine()));
-        }
+        consoleSoftwareLoop();
+
+        // Save to the file before closing
+        mainUser.SaveToFile();
     }
 
     public static void akSearchTest() {
@@ -48,7 +40,6 @@ public class Main {
     }
 
     public static void consoleSoftwareLoop() {
-        //User user = new User();
         Schedule sched = new Schedule();
         Search search = new Search();
         scnIn = new Scanner(System.in);
@@ -56,11 +47,9 @@ public class Main {
 
         System.out.println("Welcome to GCC Scheduling. Type 'back' anytime to go back, " +
                 "or 'exit' from home to leave.");
-        //System.out.println("Where would you like to go? User Info/Schedule/Course Search [ui/s/cs]");
-
 
         while (true) {
-            System.out.println("Where would you like to go? User Info/Schedule/Course Search [ui/s/cs]");
+            System.out.println("Where would you like to go? User Info/Schedule/Course Search [ui/s/cs]. Type 'exit' to quit");
             System.out.print(":");
             currInput = scnIn.nextLine();
 
@@ -70,7 +59,6 @@ public class Main {
                     System.out.println("EXITING");
                     return;
                 case "back":
-                    //System.out.println("Where would you like to go? User Info/Schedule/Course Search [ui/s/cs]");
                     break;
                 case "ui":
                     System.out.println("USER INFO");
@@ -87,7 +75,7 @@ public class Main {
                 case "\n":
                     break;
                 default:
-                    //System.out.println("Command not recognized. Please try again.");
+                    System.out.println("Command not recognized. Please try again.");
                     break;
             }
         }
@@ -95,7 +83,7 @@ public class Main {
 
     public static void userInfoAction() {
         while (true) {
-            System.out.println("Would you like to view or edit your user info? [v/e]");
+            System.out.println("Would you like to view or edit your user info? [v/e] Type 'back' to return");
             System.out.print(":");
             String currInput = scnIn.nextLine();
 
@@ -112,18 +100,16 @@ public class Main {
                     System.out.print(":");
                     editInfo();
                     break;
-                //case "exit":
-                    //break;
                 default:
+                    System.out.println("Command not recognized. Please try again.");
                     break;
             }
         }
     }
 
-    // TODO: CHANGE
     public static void scheduleAction(Schedule sched) {
         while (true) {
-            System.out.println("Would you like to view or generate your schedule? [v/g]");
+            System.out.println("Would you like to view or generate your schedule? [v/g] Type 'back' to return");
             System.out.print(":");
             String currInput = scnIn.nextLine();
 
@@ -132,11 +118,12 @@ public class Main {
                     return;
                 case "g":
                     generateSchedule(sched);
+                    break;
                 case "v":
                     System.out.println("SCHEDULE");
-                //case "exit":
-                default: // view schedule
                     viewSchedule(sched);
+                default:
+                    System.out.println("Command not recognized. Please try again.");
                     break;
             }
         }
@@ -144,7 +131,7 @@ public class Main {
 
     public static void courseSearchAction(Search search) {
         while (true) {
-            System.out.println("Would you like to search, apply, or view current filters? [s/a/v]");
+            System.out.println("Would you like to search, apply, or view current filters? [s/a/v] Type 'back' to return");
             System.out.print(":");
             String currInput = scnIn.nextLine();
 
@@ -171,9 +158,8 @@ public class Main {
                     String filStr2 = activeFilters2.filterToString();
                     System.out.println(filStr2);
                     break;
-                //case "exit":
                 default:
-                    // do nothing
+                    System.out.println("Command not recognized. Please try again.");
                     break;
             }
         }
@@ -221,12 +207,12 @@ public class Main {
         for (Course course : currCourses) {
             System.out.println(course.getCourseCode() + " ---- " + course.getStartTimes());
         }
-        //System.out.println(sched.toString()); // TODO: USE THIS ONCE TOSTRING IMPLEMENTED
+        System.out.println(sched);
     }
 
     public static void searchDatabase(Search search) {
         while (true) {
-            System.out.print("Enter query: ");
+            System.out.print("Enter query, or type 'back' to return: ");
             String query = scnIn.nextLine();
             if (query.equals("back")) {
                 return;
@@ -240,11 +226,16 @@ public class Main {
 
     public static void editFilters(Scanner scnIn, Filter activeFilters, Search search) {
         String editOrRemove = scnIn.nextLine();
+        while(!(editOrRemove.equals("e") || editOrRemove.equals("r") || editOrRemove.equals("back"))) {
+            System.out.println("Command not found, please try again:");
+            System.out.print(":");
+            editOrRemove = scnIn.nextLine();
+        }
         if (editOrRemove.equals("back")) {
             return;
         }
         while (true) {
-            System.out.println("Which filter would you like to edit or remove? [st/et/lv/pr/dp/da]");
+            System.out.println("Which filter would you like to edit or remove? [st/et/lv/pr/dp/da] Type 'back' to return");
             System.out.print(":");
             String filterAttr = scnIn.nextLine();
 
@@ -277,7 +268,6 @@ public class Main {
                 default:
                     break;
             }
-            //break;
         }
     }
 
