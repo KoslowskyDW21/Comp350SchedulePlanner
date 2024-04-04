@@ -29,7 +29,7 @@ public class Main {
         mainUser.SaveToFile();
     }
 
-    public static void akSearchTest() {
+    /*public static void akSearchTest() {
         Search search = new Search();
         String input = "3 50";
         search.modifyQuery(input);
@@ -37,7 +37,7 @@ public class Main {
         for (Course course : results) {
             System.out.println(course.getName());
         }
-    }
+    }*/
 
     public static void consoleSoftwareLoop() {
         Schedule sched = new Schedule();
@@ -122,6 +122,7 @@ public class Main {
                 case "v":
                     System.out.println("SCHEDULE");
                     viewSchedule(sched);
+                    break;
                 default:
                     System.out.println("Command not recognized. Please try again.");
                     break;
@@ -204,8 +205,13 @@ public class Main {
 
     public static void viewSchedule(Schedule sched) {
         ArrayList<Course> currCourses = sched.getCurrentCourses();
+        if (currCourses.isEmpty()) {
+            return;
+        }
         for (Course course : currCourses) {
-            System.out.println(course.getCourseCode() + " ---- " + course.getStartTimes());
+            //if (course.getCourseCode() != null) {
+                System.out.println(course.getCourseCode() + " ---- " + course.getStartTimes());
+            //}
         }
         System.out.println(sched);
     }
@@ -463,7 +469,7 @@ public class Main {
                 if (deptCode.equals("back")) {
                     return;
                 }
-                Filter.addDepartmentFilter(search, deptCode);
+                Filter.addDepartmentFilter(search, deptCode.toUpperCase());
                 System.out.println("Department filter successfully changed to '"
                         + activeFilters.getDepartment() + "'.");
                 break;
