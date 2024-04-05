@@ -10,8 +10,6 @@ public class Main {
     public static Scanner scnIn;
     public static User mainUser;
 
-    public static Schedule sched;
-
     public static void main(String[] args) {
         // Create the course database
         try {
@@ -24,6 +22,9 @@ public class Main {
 
         // Load previous user and schedule info
         User.LoadCoursesFromFile();
+        if(mainUser.savedSchedules.isEmpty()) {
+            mainUser.savedSchedules.add(new Schedule());
+        }
 
         consoleSoftwareLoop();
 
@@ -42,7 +43,6 @@ public class Main {
     }*/
 
     public static void consoleSoftwareLoop() {
-        sched = new Schedule();
         Search search = new Search();
         scnIn = new Scanner(System.in);
         String currInput = "";
@@ -68,7 +68,7 @@ public class Main {
                     break;
                 case "s":
                     System.out.println("SCHEDULE");
-                    scheduleAction(sched);
+                    scheduleAction();
                     break;
                 case "cs":
                     System.out.println("COURSE SEARCH");
@@ -109,7 +109,7 @@ public class Main {
         }
     }
 
-    public static void scheduleAction(Schedule sched) {
+    public static void scheduleAction() {
         while (true) {
             System.out.println("Would you like to view or generate your schedule, or remove a course? [v/g/r] Type 'back' to return");
             System.out.print(":");
@@ -119,11 +119,11 @@ public class Main {
                 case "back":
                     return;
                 case "g":
-                    generateSchedule(sched);
+                    generateSchedule();
                     break;
                 case "v":
                     System.out.println("SCHEDULE");
-                    viewSchedule(sched);
+                    viewSchedule();
                     break;
                 case "r":
                     removeCourse();
@@ -195,22 +195,21 @@ public class Main {
                 System.out.print("Enter new major: ");
                 mainUser.setMajor(scnIn.nextLine());
                 break;
-            //case "exit":
             default:
                 break;
         }
     }
 
     // TODO: decide whether to just put this in scheduleAction and get rid of this method
-    public static void generateSchedule(Schedule sched) {
+    public static void generateSchedule() {
         System.out.println("GENERATE SCHEDULE");
         System.out.println("GENERATING...");
-        sched.createRecommendedSchedule();
+        mainUser.savedSchedules.getFirst().createRecommendedSchedule();
     }
 
-    public static void viewSchedule(Schedule sched) {
-        ArrayList<Course> currCourses = sched.getCurrentCourses();
-        if(sched.getCurrentCourses().isEmpty()){
+    public static void viewSchedule() {
+        ArrayList<Course> currCourses = mainUser.savedSchedules.getFirst().getCurrentCourses();
+        if(mainUser.savedSchedules.getFirst().getCurrentCourses().isEmpty()){
             System.out.println("Schedule is Empty");
         }
         else {
@@ -229,15 +228,15 @@ public class Main {
                 return;
             }
             Course toRemove = null;
-            for(Course c : sched.getCurrentCourses()){
-                if(course.equals(c.getCourseCode())){
+            for(Course c : mainUser.savedSchedules.getFirst().getCurrentCourses()){
+                if(Search.convertString(course).equals(Search.convertString(c.getCourseCode()))){
                     System.out.println("Course removed from schedule.");
                     toRemove = c;
                 }
             }
             //was getting a concurrent modification exception without this - i know it looks stupid
             if(toRemove != null){
-                sched.removeCourse(toRemove);
+                mainUser.savedSchedules.getFirst().removeCourse(toRemove);
             }
             else{
                 System.out.println("Course Code not found in schedule.");
@@ -278,8 +277,8 @@ public class Main {
             }
             boolean added = false;
             for (Course c : search.getResults()){
-                if(query.equals(c.getCourseCode())){
-                    if(sched.addCourse(c) == 0) {
+                if(Search.convertString(query).equals(Search.convertString(c.getCourseCode()))){
+                    if(mainUser.savedSchedules.getFirst().addCourse(c) == 0) {
                         System.out.println("Course added to Schedule");
                     }
                     else{
@@ -331,11 +330,9 @@ public class Main {
                 case "dp":
                     departmentFilter(editOrRemove, activeFilters, search);
                     break;
-                //case "exit":
                 case "da":
                     daysFilter(editOrRemove, activeFilters, search);
                     break;
-                case "exit":
                 default:
                     break;
             }

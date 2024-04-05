@@ -85,19 +85,14 @@ public class Search {
     }
 
     public String resultsToString() {
-        String res = "";
+        StringBuilder res = new StringBuilder();
         for (Course course : results) {
-            //res += course.getCourseCode() + " --- " + course.getName() + "\n";
-            res += course.getCourseCode() + " --- " + course.getName() +
-                    //" --- " + course.getProfessor() + "\n";
-                    //" --- " + course.getStartTimes() + "\n";
-                    //" --- " + course.getEndTimes() + "\n";
-                    " --- " + course.getLevel() + "\n";
+            res.append(course);
         }
         if (res.isEmpty()) {
-            System.out.println("Sorry, Course '" + userInput + "' does not exist. ");
+            System.out.println("No courses have been added yet");
         }
-        return res;
+        return res.toString();
     }
 
 
@@ -124,8 +119,6 @@ public class Search {
         }
         if((startTime > course.getStartTime() || endTime < course.getEndTime())
                 && course.getStartTime() > 0 && course.getEndTime() > 0) {
-            System.out.println(startTime + " > " + course.getStartTime());
-            System.out.println(endTime + " < " + course.getEndTime());
             return false;
         }
         if(!matchDays(days, course)) {
