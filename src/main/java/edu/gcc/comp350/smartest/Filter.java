@@ -69,7 +69,7 @@ public class Filter {
 
     public static void removeStartTimeFilter(Search search) {
         Filter startTimeFilter = search.getActiveFilters();
-        startTimeFilter.setEndTime(800);
+        startTimeFilter.setStartTime(800);
         search.modifyFilter(startTimeFilter);
     }
 
