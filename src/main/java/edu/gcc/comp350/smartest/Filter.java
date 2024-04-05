@@ -170,7 +170,7 @@ public class Filter {
     public String filterToString() {
         String filterVals = "";
 
-        filterVals += "Credits: " + getCredits() + " \n";
+        //filterVals += "Credits: " + getCredits() + " \n";
         filterVals += "Start Time: " + getStartTime() + " \n";
         filterVals += "End Time: " + getEndTime() + " \n";
         filterVals += "Level Min: " + getLevelMin() + " \n";
