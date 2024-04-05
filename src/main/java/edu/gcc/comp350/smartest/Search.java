@@ -85,14 +85,14 @@ public class Search {
     }
 
     public String resultsToString() {
-        String res = "";
+        StringBuilder res = new StringBuilder();
         for (Course course : results) {
-            res += course.getCourseCode() + " --- " + course.getName() + "\n";
+            res.append(course);
         }
         if (res.isEmpty()) {
             System.out.println("Sorry, Course '" + userInput + "' does not exist. ");
         }
-        return res;
+        return res.toString();
     }
 
 
