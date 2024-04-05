@@ -222,5 +222,9 @@ public class Course {
         }
         return crsTime;
     }
+
+    public String toString() {
+        return courseCode + " - " + name + " (" + startTime + " - " + endTime + " " + days.replace("_", "") + ")\n";
+    }
 }
 

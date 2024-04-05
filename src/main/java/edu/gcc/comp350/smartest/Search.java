@@ -85,14 +85,14 @@ public class Search {
     }
 
     public String resultsToString() {
-        String res = "";
+        StringBuilder res = new StringBuilder();
         for (Course course : results) {
-            res += course.getCourseCode() + " --- " + course.getName() + "\n";
+            res.append(course);
         }
         if (res.isEmpty()) {
             System.out.println("Sorry, Course '" + userInput + "' does not exist. ");
         }
-        return res;
+        return res.toString();
     }
 
 
@@ -116,8 +116,6 @@ public class Search {
         }
         if((startTime > course.getStartTime() || endTime < course.getEndTime())
                 && course.getStartTime() > 0 && course.getEndTime() > 0) {
-            System.out.println(startTime + " > " + course.getStartTime());
-            System.out.println(endTime + " < " + course.getEndTime());
             return false;
         }
         if(!matchDays(days, course)) {

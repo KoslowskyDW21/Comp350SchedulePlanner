@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Schedule {
     private int totalCredits;
     private ArrayList<String> filledTimeslots;
-    private ArrayList<Course> currentCourses = new ArrayList<>();
+    private ArrayList<Course> currentCourses;
 
     public ArrayList<Course> getCurrentCourses() {
         return currentCourses;
