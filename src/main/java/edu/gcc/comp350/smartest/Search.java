@@ -111,7 +111,7 @@ public class Search {
         /*if((!professor.isEmpty()) && (!course.getProfessor().equals(professor))) {
             return false;
         }*/
-        if((!professor.isEmpty()) && (!course.getProfessor().contains(professor))) {
+        if((!professor.isEmpty()) && (!Search.convertString(course.getProfessor()).contains(Search.convertString(professor)))) {
             return false;
         }
         if(course.getLevel() < levelMin || course.getLevel() > levelMax) {
