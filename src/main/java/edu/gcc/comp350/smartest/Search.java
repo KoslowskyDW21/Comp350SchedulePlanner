@@ -87,7 +87,12 @@ public class Search {
     public String resultsToString() {
         String res = "";
         for (Course course : results) {
-            res += course.getCourseCode() + " --- " + course.getName() + "\n";
+            //res += course.getCourseCode() + " --- " + course.getName() + "\n";
+            res += course.getCourseCode() + " --- " + course.getName() +
+                    //" --- " + course.getProfessor() + "\n";
+                    //" --- " + course.getStartTimes() + "\n";
+                    //" --- " + course.getEndTimes() + "\n";
+                    " --- " + course.getLevel() + "\n";
         }
         if (res.isEmpty()) {
             System.out.println("Sorry, Course '" + userInput + "' does not exist. ");
@@ -108,7 +113,10 @@ public class Search {
         if((!department.isEmpty()) && (!course.getDepartment().equals(department))) {
             return false;
         }
-        if((!professor.isEmpty()) && (!course.getProfessor().equals(professor))) {
+        /*if((!professor.isEmpty()) && (!course.getProfessor().equals(professor))) {
+            return false;
+        }*/
+        if((!professor.isEmpty()) && (!course.getProfessor().contains(professor))) {
             return false;
         }
         if(course.getLevel() < levelMin || course.getLevel() > levelMax) {
