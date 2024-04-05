@@ -177,6 +177,7 @@ public class Filter {
         filterVals += "Level Max: " + getLevelMax() + " \n";
         filterVals += "Prof Name: " + getProfName() + " \n";
         filterVals += "Department: " + getDepartment() + " \n";
+        filterVals += "Days: " + getDays().toString() + " \n";
 
         return filterVals;
     }

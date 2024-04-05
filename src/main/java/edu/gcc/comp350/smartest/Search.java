@@ -90,7 +90,7 @@ public class Search {
             res.append(course);
         }
         if (res.isEmpty()) {
-            System.out.println("Sorry, Course '" + userInput + "' does not exist. ");
+            System.out.println("No courses have been added yet");
         }
         return res.toString();
     }
@@ -108,7 +108,10 @@ public class Search {
         if((!department.isEmpty()) && (!course.getDepartment().equals(department))) {
             return false;
         }
-        if((!professor.isEmpty()) && (!course.getProfessor().equals(professor))) {
+        /*if((!professor.isEmpty()) && (!course.getProfessor().equals(professor))) {
+            return false;
+        }*/
+        if((!professor.isEmpty()) && (!course.getProfessor().contains(professor))) {
             return false;
         }
         if(course.getLevel() < levelMin || course.getLevel() > levelMax) {

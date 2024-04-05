@@ -32,7 +32,7 @@ public class Main {
         mainUser.SaveToFile();
     }
 
-    public static void akSearchTest() {
+    /*public static void akSearchTest() {
         Search search = new Search();
         String input = "3 50";
         search.modifyQuery(input);
@@ -40,7 +40,7 @@ public class Main {
         for (Course course : results) {
             System.out.println(course.getName());
         }
-    }
+    }*/
 
     public static void consoleSoftwareLoop() {
         Search search = new Search();
@@ -412,7 +412,7 @@ public class Main {
                     try {
                         int end = Integer.parseInt(endStr);
 
-                        if (850 <= end && end <= 2100) {
+                        if (850 <= end && end <= 2130) {
                             Filter.addEndTimeFilter(search, end);
                             System.out.println("End time filter successfully changed to "
                                     + activeFilters.getEndTime() + "'.");
@@ -531,7 +531,7 @@ public class Main {
                 if (deptCode.equals("back")) {
                     return;
                 }
-                Filter.addDepartmentFilter(search, deptCode);
+                Filter.addDepartmentFilter(search, deptCode.toUpperCase());
                 System.out.println("Department filter successfully changed to '"
                         + activeFilters.getDepartment() + "'.");
                 break;
