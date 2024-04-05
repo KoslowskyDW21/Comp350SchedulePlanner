@@ -224,7 +224,7 @@ public class Course {
     }
 
     public String toString() {
-        return courseCode + " - " + name + " (" + startTime + " - " + endTime + ")\n";
+        return courseCode + " - " + name + " (" + startTime + " - " + endTime + " " + days.replace("_", "") + ")\n";
     }
 }
 

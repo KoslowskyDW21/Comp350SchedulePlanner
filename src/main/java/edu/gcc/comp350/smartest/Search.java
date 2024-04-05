@@ -116,8 +116,6 @@ public class Search {
         }
         if((startTime > course.getStartTime() || endTime < course.getEndTime())
                 && course.getStartTime() > 0 && course.getEndTime() > 0) {
-            System.out.println(startTime + " > " + course.getStartTime());
-            System.out.println(endTime + " < " + course.getEndTime());
             return false;
         }
         if(!matchDays(days, course)) {
