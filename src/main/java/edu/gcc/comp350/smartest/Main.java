@@ -10,6 +10,8 @@ public class Main {
     public static Scanner scnIn;
     public static User mainUser;
 
+    public static Schedule sched;
+
     public static void main(String[] args) {
         // Create the course database
         try {
@@ -40,7 +42,7 @@ public class Main {
     }
 
     public static void consoleSoftwareLoop() {
-        Schedule sched = new Schedule();
+        sched = new Schedule();
         Search search = new Search();
         scnIn = new Scanner(System.in);
         String currInput = "";
@@ -109,7 +111,7 @@ public class Main {
 
     public static void scheduleAction(Schedule sched) {
         while (true) {
-            System.out.println("Would you like to view or generate your schedule? [v/g] Type 'back' to return");
+            System.out.println("Would you like to view or generate your schedule, or remove a course? [v/g/r] Type 'back' to return");
             System.out.print(":");
             String currInput = scnIn.nextLine();
 
@@ -122,6 +124,10 @@ public class Main {
                 case "v":
                     System.out.println("SCHEDULE");
                     viewSchedule(sched);
+                    break;
+                case "r":
+                    removeCourse();
+                    break;
                 default:
                     System.out.println("Command not recognized. Please try again.");
                     break;
@@ -129,7 +135,7 @@ public class Main {
         }
     }
 
-    public static void courseSearchAction(Search search) {
+    public static void courseSearchAction(Search search)  {
         while (true) {
             System.out.println("Would you like to search, apply, or view current filters? [s/a/v] Type 'back' to return");
             System.out.print(":");
@@ -204,24 +210,89 @@ public class Main {
 
     public static void viewSchedule(Schedule sched) {
         ArrayList<Course> currCourses = sched.getCurrentCourses();
-        for (Course course : currCourses) {
-            System.out.println(course.getCourseCode() + " ---- " + course.getStartTimes());
+        if(sched.getCurrentCourses().isEmpty()){
+            System.out.println("Schedule is Empty");
         }
-        System.out.println(sched);
+        else {
+            for (Course course : currCourses) {
+                System.out.println(course.getCourseCode() + " ---- " + course.getStartTimes());
+            }
+            //System.out.println(sched);
+        }
+    }
+
+    public static void removeCourse(){
+        while(true){
+            System.out.print("Enter Course Code to be removed from schedule, or type 'back' to return: ");
+            String course = scnIn.nextLine();
+            if(course.equals("back")){
+                return;
+            }
+            Course toRemove = null;
+            for(Course c : sched.getCurrentCourses()){
+                if(course.equals(c.getCourseCode())){
+                    System.out.println("Course removed from schedule.");
+                    toRemove = c;
+                }
+            }
+            //was getting a concurrent modification exception without this - i know it looks stupid
+            if(toRemove != null){
+                sched.removeCourse(toRemove);
+            }
+            else{
+                System.out.println("Course Code not found in schedule.");
+            }
+        }
     }
 
     public static void searchDatabase(Search search) {
         while (true) {
-            System.out.print("Enter query, or type 'back' to return: ");
+            if(search.getResults().isEmpty()) {
+                System.out.print("Enter query, or type 'back' to return: ");
+            }
+            else{
+                System.out.print("Enter query, [a] to add a course to schedule, or type 'back' to return: ");
+            }
             String query = scnIn.nextLine();
             if (query.equals("back")) {
                 return;
             }
-            search.modifyQuery(query);
-            String resStr = search.resultsToString();
-            System.out.println(resStr);
+            if(query.equals("a")){
+                addFromSearch(search);
+            }
+            else {
+                search.modifyQuery(query);
+                String resStr = search.resultsToString();
+                System.out.println(resStr);
+            }
         }
 
+    }
+
+    public static void addFromSearch(Search search)  {
+        while(true){
+            System.out.print("Enter course code to add to schedule, or type 'back' to return: ");
+            String query = scnIn.nextLine();
+            if(query.equals("back")){
+                return;
+            }
+            boolean added = false;
+            for (Course c : search.getResults()){
+                if(query.equals(c.getCourseCode())){
+                    if(sched.addCourse(c) == 0) {
+                        System.out.println("Course added to Schedule");
+                    }
+                    else{
+                        System.out.println("Course overlaps with one already in schedule!");
+                    }
+                    added = true;
+                    break;
+                }
+            }
+            if(!added){
+                System.out.println("Invalid/Incorrect Course Code.");
+            }
+        }
     }
 
     public static void editFilters(Scanner scnIn, Filter activeFilters, Search search) {
