@@ -177,9 +177,38 @@ public class Filter {
         filterVals += "Level Max: " + getLevelMax() + " \n";
         filterVals += "Prof Name: " + getProfName() + " \n";
         filterVals += "Department: " + getDepartment() + " \n";
-        filterVals += "Days: " + getDays().toString() + " \n";
+        filterVals += "Days: " + daysToString() + " \n";
 
         return filterVals;
     }
 
+    private String daysToString() {
+        String toReturn = "";
+        if(days[0]) {
+            toReturn += "M";
+        } else {
+            toReturn += "_";
+        }
+        if(days[1]) {
+            toReturn += "T";
+        } else {
+            toReturn += "_";
+        }
+        if(days[2]) {
+            toReturn += "W";
+        } else {
+            toReturn += "_";
+        }
+        if(days[3]) {
+            toReturn += "R";
+        } else {
+            toReturn += "_";
+        }
+        if(days[4]) {
+            toReturn += "F";
+        } else {
+            toReturn += "_";
+        }
+        return toReturn;
+    }
 }
