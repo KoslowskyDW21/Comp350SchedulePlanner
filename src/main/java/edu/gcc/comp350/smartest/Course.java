@@ -146,7 +146,7 @@ public class Course {
      */
     public static Course findCourse(String courseCode) {
         for (Course course : database) {
-            if (course.getCourseCode().equals(courseCode)) {
+            if (course.getCourseCode().equalsIgnoreCase(courseCode)) {
                 return course;
             }
         }
