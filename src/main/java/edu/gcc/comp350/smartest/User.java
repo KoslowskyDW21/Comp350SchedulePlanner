@@ -1,13 +1,14 @@
 package edu.gcc.comp350.smartest;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 public class User {
     private int userID;
     private String name;
     private String major;
     public ArrayList<Schedule> savedSchedules;
-
+    private ArrayList<Course> completedCourses;
     private ArrayList<Course> gradReqs;
 
     public String getMajor() {
@@ -36,8 +37,10 @@ public class User {
         this.userID = userID;
         this.name = name;
         this.major = major;
-        this.gradReqs = new ArrayList<>();
         this.savedSchedules = new ArrayList<>();
+        this.gradReqs = new ArrayList<>();
+        this.completedCourses = new ArrayList<>();
+        setCompSciReq();
     }
 
     public User() {
@@ -46,20 +49,64 @@ public class User {
         this.major = "Computer Science";
         this.gradReqs = new ArrayList<>();
         this.savedSchedules = new ArrayList<>();
+        this.completedCourses = new ArrayList<>();
+        setCompSciReq();
     }
 
-    //TODO: Check that there are no schedule conflicts or something
-
-    public void changeName(String newName) {
-
+    private void setCompSciReq() {
+        gradReqs.add(Course.findCourse("COMP141A"));
+        gradReqs.add(Course.findCourse("COMP155A"));
+        gradReqs.add(Course.findCourse("COMP205A"));
+        gradReqs.add(Course.findCourse("COMP220A"));
+        gradReqs.add(Course.findCourse("COMP222A"));
+        gradReqs.add(Course.findCourse("COMP233A"));
+        gradReqs.add(Course.findCourse("COMP244A"));
+        gradReqs.add(Course.findCourse("COMP314A"));
+        gradReqs.add(Course.findCourse("COMP325A"));
+        gradReqs.add(Course.findCourse("COMP340A"));
+        gradReqs.add(Course.findCourse("COMP342A"));
+        gradReqs.add(Course.findCourse("COMP350A"));
+        gradReqs.add(Course.findCourse("COMP401A"));
+        gradReqs.add(Course.findCourse("COMP422A"));
+        gradReqs.add(Course.findCourse("COMP435A"));
+        gradReqs.add(Course.findCourse("COMP441A"));
+        gradReqs.add(Course.findCourse("COMP442A"));
+        gradReqs.add(Course.findCourse("COMP443A"));
+        gradReqs.add(Course.findCourse("COMP445A"));
+        gradReqs.add(Course.findCourse("COMP446A"));
+        gradReqs.add(Course.findCourse("COMP448A"));
+        gradReqs.add(Course.findCourse("COMP451A"));
+        gradReqs.add(Course.findCourse("COMP452A"));
+        gradReqs.add(Course.findCourse("COMP475A"));
     }
 
-    public void changeMajor(String newMajor) {
-
+    public ArrayList<Course> getClassesLeftToTake() {
+        ArrayList<Course> classesLeft = new ArrayList<>();
+        for(Course gradCourse : gradReqs) {
+            boolean courseTaken = false;
+            for(Course takenCourse : completedCourses) {
+                if(gradCourse.getCourseCode().equals(takenCourse.getCourseCode())) {
+                    courseTaken = true;
+                    break;
+                }
+            }
+            if(!courseTaken) {
+                classesLeft.add(gradCourse);
+            }
+        }
+        return classesLeft;
     }
 
-    public void setGradReqs(ArrayList<Course> req) {
+    public void addTakenCourse(Course course) {
+        completedCourses.add(course);
+    }
 
+    public void removeTakenCourse(Course course) {
+        completedCourses.remove(course);
+    }
+
+    public ArrayList<Course> getCompletedCourses() {
+        return completedCourses;
     }
 
     /**

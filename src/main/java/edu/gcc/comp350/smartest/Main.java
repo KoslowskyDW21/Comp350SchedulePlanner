@@ -100,6 +100,7 @@ public class Main {
                 case "e":
                     System.out.println("EDIT INFO");
                     System.out.println("Would you like to edit name or major? [n/m]");
+                    System.out.println("Would you like to add or remove completed courses? [add/rem]");
                     System.out.print(":");
                     editInfo();
                     break;
@@ -176,11 +177,21 @@ public class Main {
     public static void viewInfo() {
         System.out.println("Name: " + mainUser.getName());
         System.out.println("Major: " + mainUser.getMajor());
-        System.out.print("Grad Reqs: ");
+        System.out.println("Graduation Requirements: ");
         for (Course gradReq : mainUser.getGradReqs()) {
-            System.out.print(gradReq.getName() + ", ");
+            System.out.print(gradReq);
+        }
+        if(mainUser.getGradReqs().isEmpty()) {
+            System.out.println("No graduation requirements");
         }
         System.out.println();
+        System.out.println("Completed Courses:");
+        for (Course completedCourse : mainUser.getCompletedCourses()) {
+            System.out.println(completedCourse);
+        }
+        if(mainUser.getCompletedCourses().isEmpty()) {
+            System.out.println("No completed courses");
+        }
     }
 
     public static void editInfo() {
@@ -196,15 +207,33 @@ public class Main {
                 System.out.print("Enter new major: ");
                 mainUser.setMajor(scnIn.nextLine());
                 break;
+            case "add":
+                System.out.println("Enter Course Code to be added to completed courses, or type 'back' to return: ");
+                currInput = scnIn.nextLine();
+                Course course = Course.findCourse(currInput);
+                if(course != null) {
+                    mainUser.addTakenCourse(course);
+                } else {
+                    System.out.println("Could not find course in database");
+                }
+                break;
+            case "rem":
+                System.out.println("Enter Course Code to be removed from completed courses, or type 'back' to return: ");
+                currInput = scnIn.nextLine();
+                Course courseToRemove = Course.findCourse(currInput);
+                if(courseToRemove != null) {
+                    mainUser.removeTakenCourse(courseToRemove);
+                } else {
+                    System.out.println("Could not find course in database");
+                }
+                break;
             default:
                 break;
         }
     }
 
-    // TODO: decide whether to just put this in scheduleAction and get rid of this method
     public static void generateSchedule() {
         System.out.println("GENERATE SCHEDULE");
-        System.out.println("GENERATING...");
         mainUser.savedSchedules.getFirst().createRecommendedSchedule();
     }
 
