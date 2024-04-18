@@ -122,10 +122,23 @@ public class User {
             writer.write(name + "\n");
             writer.write(major + "\n");
 
+            // Write the course codes of taken courses
+            boolean firstCourse = true;
+            for (Course course : completedCourses) {
+                if (!firstCourse) {
+                    writer.write(", "); // Separate courses by comma
+                } else {
+                    firstCourse = false;
+                }
+                String line = String.format("%s", course.getCourseCode());
+                writer.write(line);
+            }
+            writer.newLine();
+
             // Write each course code for all the saved schedules to a file
             // Courses are separated by commas, schedules by newlines
             for(Schedule schedule : savedSchedules) {
-                boolean firstCourse = true;
+                firstCourse = true;
                 for (Course course : schedule.getCurrentCourses()) {
                     if (!firstCourse) {
                         writer.write(", "); // Separate courses by comma
@@ -161,8 +174,14 @@ public class User {
             String major = reader.readLine();
             Main.mainUser = new User(userID, name, major);
 
-            // Read each saved Schedule from the file
+            // Read list of previously taken courses
+            String[] takenClassCodes = reader.readLine().split(", ");
+            for(String code : takenClassCodes) {
+                Course course = Course.findCourse(code);
+                Main.mainUser.addTakenCourse(course);
+            }
             String line;
+            // Read each saved Schedule from the file
             while ((line = reader.readLine()) != null) {
                 Schedule schedule = new Schedule();
                 String[] courseCodes = line.split(", ");
