@@ -1,4 +1,4 @@
-0
-David
-Computer Science
-MNGT211A
+100
+David Koslowsky
+dropped out
+TEST000A, ACCT201A, COMP233A
