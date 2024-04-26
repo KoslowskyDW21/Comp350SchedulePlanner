@@ -249,8 +249,59 @@ public class Main extends Application {
     }
 
     public static void generateSchedule() {
-        System.out.println("GENERATE SCHEDULE");
-        mainUser.savedSchedules.getFirst().createRecommendedSchedule();
+        int numClasses;
+        do {
+            System.out.print("Enter an integer between 1 and 6: ");
+            while (!scnIn.hasNextInt()) {
+                System.out.println("That's not an integer!");
+                scnIn.next(); // discard non-integer input
+                System.out.print("Enter an integer between 1 and 6: ");
+            }
+            numClasses = scnIn.nextInt();
+        } while (numClasses < 1 || numClasses > 6);
+        ArrayList<Course> classesLeft = mainUser.getClassesLeftToTake();
+        ArrayList<Course> recommendedSchedule = mainUser.savedSchedules.getFirst()
+                .createRecommendedSchedule(classesLeft, numClasses);
+        // Print or return the recommended schedule
+        for (Course course : recommendedSchedule) {
+            System.out.print(course);
+        }
+        while(true) {
+            System.out.print("Type 'all' to make this your current schedule, 'add' to add a specific course to your schedule, or type 'back' to return: ");
+            String query = scnIn.nextLine();
+            if(query.equals("back")){
+                return;
+            }
+            if(query.equals("all")) {
+                mainUser.savedSchedules.remove(mainUser.savedSchedules.getFirst());
+                Schedule newSchedule = new Schedule();
+                for(Course course : recommendedSchedule) {
+                    newSchedule.addCourse(course);
+                }
+                mainUser.savedSchedules.add(newSchedule);
+                System.out.println("New schedule created!");
+            }
+            if(query.equals("add")) {
+                System.out.println("Type the course code of the course you would like to add");
+                query = scnIn.nextLine();
+                boolean added = false;
+                for (Course c : recommendedSchedule){
+                    if(Search.convertString(query).equals(Search.convertString(c.getCourseCode()))){
+                        if(mainUser.savedSchedules.getFirst().addCourse(c) == 0) {
+                            System.out.println("Course added to Schedule!");
+                        }
+                        else{
+                            System.out.println("Course overlaps with one already in schedule!");
+                        }
+                        added = true;
+                        break;
+                    }
+                }
+                if(!added){
+                    System.out.println("Invalid/Incorrect Course Code.");
+                }
+            }
+        }
     }
 
     public static void viewSchedule() {
@@ -260,7 +311,7 @@ public class Main extends Application {
         }
         else {
             for (Course course : currCourses) {
-                System.out.println(course.getCourseCode() + " ---- " + course.getStartTimes());
+                System.out.print(course);
             }
             //System.out.println(sched);
         }
