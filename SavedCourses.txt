@@ -1,4 +1,5 @@
-David
-Computer Science
-COMP475A, COMP452A
-COMP443A, COMP441A
+100
+David Koslowsky
+dropped out
+
+TEST000A, ACCT201A, COMP233A

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<!--<?import javafx.scene.*?>-->
+<!--<?import javafx.scene.control.*?>-->
+<!--<?import javafx.scene.layout.*?>-->
+<!--<?import javafx.geometry.Insets?>-->
+<!--<?import javafx.scene.control.Label?>-->
+<!--<?import javafx.scene.layout.VBox?>-->
+<!--<?import javafx.scene.control.Button?>-->
+<!--<AnchorPane id="AnchorPane"-->
+<!--            xmlns="http://javafx.com/javafx"-->
+<!--            xmlns:fx="http://javafx.com/fxml"-->
+<!--            fx:controller="edu.gcc.comp350.smartest.tempCourseSearchController"-->
+<!--            prefHeight="400.0" prefWidth="600.0">-->
+<!--    <Label fx:id="labell" layoutX="126" layoutY="120" minHeight="16" minWidth="69"/>-->
+<!--    <Button fx:id="button" layoutX="126.0" layoutY="90" onAction="#onTestButtonClick" text="Click Me!!"/>-->
+<!--</AnchorPane>-->
+<!--&lt;!&ndash;<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"&ndash;&gt;-->
+<!--&lt;!&ndash;        fx:controller="edu.gcc.comp350.smartest.tempCourseSearchController">&ndash;&gt;-->
+<!--&lt;!&ndash;    <padding>&ndash;&gt;-->
+<!--&lt;!&ndash;        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>&ndash;&gt;-->
+<!--&lt;!&ndash;    </padding>&ndash;&gt;-->
+<!--&lt;!&ndash;    <Label fx:id="welcomeText"/>&ndash;&gt;-->
+<!--&lt;!&ndash;    <Button text="Hello!" onAction="#onHelloButtonClick"/>&ndash;&gt;-->
+<!--&lt;!&ndash;</VBox>&ndash;&gt;-->
+
+<AnchorPane id="AnchorPane" prefHeight="500" prefWidth="800" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gcc.comp350.smartest.tempCourseSearchController">
+    <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
+
+    <Button fx:id="backButton" onAction="#onBackButtonClick" prefHeight="50.0" prefWidth="100.0" text="BACK" textAlignment="CENTER" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="25.0">
+      <font>
+         <Font size="24.0" />
+      </font></Button>
+    <Label fx:id="backLabel" alignment="CENTER" textAlignment="CENTER" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="100.0">
+      <font>
+         <Font size="14.0" />
+      </font></Label>
+
+   <TextField fx:id="searchBar" onAction="#onEnter" prefHeight="50.0" prefWidth="450.0" promptText="Search by Code or Name" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="25.0">
+      <font>
+         <Font size="24.0" />
+      </font>
+   </TextField>
+
+   <Button fx:id="advancedSearchButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Advanced Search" textAlignment="CENTER" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </Button>
+
+   <ListView editable="true" prefHeight="375.0" prefWidth="700.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="200.0" />
+
+    <Button fx:id="searchButton" mnemonicParsing="false" onAction="#onSearchButtonClick" text="search" AnchorPane.bottomAnchor="0.0" />
+
+</AnchorPane>

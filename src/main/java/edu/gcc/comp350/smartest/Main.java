@@ -1,11 +1,8 @@
 package edu.gcc.comp350.smartest;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
 
 import javafx.application.Application;
@@ -17,7 +14,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        Scene scene = new Scene(fxmlLoader.load(), 800, 500);
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
