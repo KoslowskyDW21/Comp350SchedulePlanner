@@ -13,7 +13,8 @@ import javafx.stage.Stage;
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/hello-view.fxml"));
+        //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/CourseSearch.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 800, 500);
         stage.setTitle("Hello!");
         stage.setScene(scene);
@@ -22,9 +23,12 @@ public class Main extends Application {
 
     public static Scanner scnIn;
     public static User mainUser;
+    public static Search search;
 
     public static void main(String[] args) {
-        launch();
+        search = new Search();
+
+        //launch();
         // Create the course database
         try {
             Search.ParseClasses();
@@ -33,14 +37,18 @@ public class Main extends Application {
         } catch (IOException e) {
             System.out.println("IOException: " + e);
         }
+        launch();
 
         // Load previous user and schedule info
         User.LoadCoursesFromFile();
         if(mainUser.savedSchedules.isEmpty()) {
             mainUser.savedSchedules.add(new Schedule());
         }
+        //launch();
 
         consoleSoftwareLoop();
+
+        //launch();
 
         // Save to the file before closing
         mainUser.SaveToFile();
@@ -57,7 +65,8 @@ public class Main extends Application {
     }*/
 
     public static void consoleSoftwareLoop() {
-        Search search = new Search();
+        //Search search = new Search();
+        //search = new Search();
         scnIn = new Scanner(System.in);
         String currInput = "";
 
