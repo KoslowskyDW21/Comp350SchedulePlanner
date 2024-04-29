@@ -34,7 +34,7 @@
       <font>
          <Font size="24.0" />
       </font></Button>
-    <Label fx:id="backLabel" alignment="CENTER" textAlignment="CENTER" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="100.0">
+    <Label fx:id="backLabel" alignment="CENTER" textAlignment="CENTER" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="75.0">
       <font>
          <Font size="14.0" />
       </font></Label>
@@ -45,13 +45,13 @@
       </font>
    </TextField>
 
-   <Button fx:id="advancedSearchButton" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Advanced Search" textAlignment="CENTER" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+   <Button fx:id="advancedSearchButton" onAction="#onAdvancedSearchButtonClick" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Advanced Search" textAlignment="CENTER" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
       <font>
          <Font size="16.0" />
       </font>
    </Button>
 
-   <ListView fx:id="listResults" editable="true" prefHeight="375.0" prefWidth="700.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="100.0" />
+   <ListView fx:id="listRes" editable="true" prefHeight="375.0" prefWidth="700.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="100.0" />
 
 
 </AnchorPane>

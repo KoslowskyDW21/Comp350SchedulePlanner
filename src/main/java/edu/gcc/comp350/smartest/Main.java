@@ -8,7 +8,9 @@ import java.util.Scanner;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 public class Main extends Application {
     @Override
@@ -19,6 +21,9 @@ public class Main extends Application {
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
+
+        //Window window = new Window(stage);
+        //PopupWindow popupWindow = new PopupWindow() {};
     }
 
     public static Scanner scnIn;
