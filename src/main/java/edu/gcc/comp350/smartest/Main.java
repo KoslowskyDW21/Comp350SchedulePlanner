@@ -1,33 +1,39 @@
 package edu.gcc.comp350.smartest;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 public class Main extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/hello-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/CourseSearch.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 800, 500);
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
+
+        //Window window = new Window(stage);
+        //PopupWindow popupWindow = new PopupWindow() {};
     }
 
     public static Scanner scnIn;
     public static User mainUser;
+    public static Search search;
 
     public static void main(String[] args) {
-        launch();
+        search = new Search();
+
+        //launch();
         // Create the course database
         try {
             Search.ParseClasses();
@@ -36,6 +42,7 @@ public class Main extends Application {
         } catch (IOException e) {
             System.out.println("IOException: " + e);
         }
+        launch();
 
         // Load previous user and schedule info
         User.LoadCoursesFromFile();
@@ -45,7 +52,10 @@ public class Main extends Application {
         System.out.println(Course.database.getFirst().getDescription());
         System.out.println(Course.database.get(1).getDescription());
 
+
         consoleSoftwareLoop();
+
+        //launch();
 
         // Save to the file before closing
         mainUser.SaveToFile();
@@ -62,7 +72,8 @@ public class Main extends Application {
     }*/
 
     public static void consoleSoftwareLoop() {
-        Search search = new Search();
+        //Search search = new Search();
+        //search = new Search();
         scnIn = new Scanner(System.in);
         String currInput = "";
 
