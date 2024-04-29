@@ -42,6 +42,8 @@ public class Main extends Application {
         if(mainUser.savedSchedules.isEmpty()) {
             mainUser.savedSchedules.add(new Schedule());
         }
+        System.out.println(Course.database.getFirst().getDescription());
+        System.out.println(Course.database.get(1).getDescription());
 
         consoleSoftwareLoop();
 
@@ -223,6 +225,34 @@ public class Main extends Application {
                 System.out.print("Enter new major: ");
                 mainUser.setMajor(scnIn.nextLine());
                 break;
+//            case "y":
+//                System.out.println("Enter 1 for Freshman, 2 for Sophomore, 3 for Junior, 4 for Senior:");
+//                currInput = scnIn.nextLine();
+//                if(scnIn.hasNextInt()) {
+//                    int num = Integer.parseInt(currInput);
+//                    if(1 <= num && num <= 4) {
+//                        mainUser.setSemester(num);
+//                    } else {
+//                        System.out.println("Invalid input");
+//                    }
+//                } else {
+//                    System.out.println("Invalid input");
+//                }
+//                break;
+//            case "s":
+//                System.out.println("Enter 1 for Fall, 2 for Spring:");
+//                currInput = scnIn.nextLine();
+//                if(scnIn.hasNextInt()) {
+//                    int num = Integer.parseInt(currInput);
+//                    if(1 <= num && num <= 2) {
+//                        mainUser.setSemester(num);
+//                    } else {
+//                        System.out.println("Invalid input");
+//                    }
+//                } else {
+//                    System.out.println("Invalid input");
+//                }
+//                break;
             case "add":
                 System.out.println("Enter Course Code to be added to completed courses, or type 'back' to return: ");
                 currInput = scnIn.nextLine();
@@ -244,24 +274,37 @@ public class Main extends Application {
                 }
                 break;
             default:
-                break;
+                System.out.println("Command '" + currInput + "' not recognized");
         }
     }
 
     public static void generateSchedule() {
         int numClasses;
         do {
-            System.out.print("Enter an integer between 1 and 6: ");
+            System.out.print("How many credits do you want this semester? (integer between 12 and 18): ");
             while (!scnIn.hasNextInt()) {
                 System.out.println("That's not an integer!");
                 scnIn.next(); // discard non-integer input
-                System.out.print("Enter an integer between 1 and 6: ");
+                System.out.print("How many credits do you want this semester? (integer between 12 and 18): ");
             }
             numClasses = scnIn.nextInt();
-        } while (numClasses < 1 || numClasses > 6);
+            scnIn.nextLine();
+        } while (numClasses < 12 || numClasses > 18);
         ArrayList<Course> classesLeft = mainUser.getClassesLeftToTake();
-        ArrayList<Course> recommendedSchedule = mainUser.savedSchedules.getFirst()
-                .createRecommendedSchedule(classesLeft, numClasses);
+        System.out.println("Select the type of schedule generation you want [fast/accurate]");
+        String input = scnIn.nextLine();
+        ArrayList<Course> recommendedSchedule;
+        switch (input.toLowerCase()) {
+            case "fast":
+                recommendedSchedule = Schedule.createRecommendedSchedule(classesLeft, numClasses);
+                break;
+            case "accurate":
+                recommendedSchedule = Schedule.createRecommendedScheduleSlow(classesLeft, numClasses);
+                break;
+            default:
+                System.out.println("Invalid input: '" + input + "'");
+                return;
+        }
         // Print or return the recommended schedule
         for (Course course : recommendedSchedule) {
             System.out.print(course);
