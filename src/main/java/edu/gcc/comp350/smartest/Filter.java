@@ -3,13 +3,21 @@ package edu.gcc.comp350.smartest;
 public class Filter {
     // filter class with apply to results method that all filters inherit from
 
+
     private int credits;
+    // slider
     private int startTime;
+    // slider
     private int endTime;
+    // dropdown
     private int levelMin;
+    // dropdown
     private int levelMax;
+    // textfield
     private String profName;
+    // dropdown
     private String department;
+    // checkboxes
     private boolean[] days;
 
     public Filter(){
