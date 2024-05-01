@@ -22,6 +22,9 @@ import javafx.stage.Window;
 import javafx.util.Callback;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class tempCourseSearchController {
@@ -61,8 +64,10 @@ public class tempCourseSearchController {
     //private Button searchButton;
     @FXML
     private Label backLabel;
+    //@FXML
+    //private Label label;
     @FXML
-    private Label label;
+    private Label testLabel;
 
     @FXML
     private TextField searchBar;
@@ -74,9 +79,45 @@ public class tempCourseSearchController {
     ListView<Course> listRes = new ListView<>();
     ObservableList<Course> items2 = FXCollections.observableArrayList();
 
+    @FXML
+    private Label startTimeLabel;
+    @FXML
+    public ChoiceBox<String> startTime = new ChoiceBox<>();
+    //ObservableList<String> startTimes = FXCollections.observableArrayList();
+//    ObservableList<String> startTimes = FXCollections.observableArrayList("8:00", "8:30", "9:00", "9:30",
+//            "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30",
+//            "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30",
+//            "18:00", "18:30", "19:00", "19:30", "20:00", "20:30");
+    private String[] startTimesArr = {"8:00", "8:30", "9:00", "9:30",
+            "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30",
+            "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30",
+            "18:00", "18:30", "19:00", "19:30", "20:00", "20:30"};
+
+    @FXML
+    private Label endTimeLabel;
+    @FXML
+    private ChoiceBox<String> endTime = new ChoiceBox<>();
+//    ObservableList<String> endTimes = FXCollections.observableArrayList("9:00", "9:30", "10:00", "10:30",
+//            "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
+//            "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30",
+//            "19:00", "19:30", "20:00", "20:30", "21:00", "21:30");
+    private String[] endTimesArr = {"9:00", "9:30", "10:00", "10:30",
+            "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
+            "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30",
+            "19:00", "19:30", "20:00", "20:30", "21:00", "21:30"};
+
 
     public void initialize() {
         // TODO
+//        startTimes = FXCollections.observableArrayList("8:00", "8:30", "9:00", "9:30",
+//                "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30",
+//                "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30",
+//                "18:00", "18:30", "19:00", "19:30", "20:00", "20:30");
+//        endTimes = FXCollections.observableArrayList("9:00", "9:30", "10:00", "10:30",
+//                "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
+//                "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30",
+//                "19:00", "19:30", "20:00", "20:30", "21:00", "21:30");
+
     }
 
     /*@FXML
@@ -89,6 +130,7 @@ public class tempCourseSearchController {
         backLabel.setText("went back");
     }
 
+
     @FXML
     protected void onAdvancedSearchButtonClick() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/CourseSearchAdvancedSearchPopup.fxml"));
@@ -98,7 +140,96 @@ public class tempCourseSearchController {
         stage.setScene(sc);
         stage.setX(832);
         stage.setY(47);
+        //startTime.getItems().setAll(startTimesArr);
+        //endTime.getItems().setAll(endTimesArr);
+//        startTime.setItems(startTimes);
+//        ArrayList<String> startTs = new ArrayList<String>(Arrays.asList("8:00", "8:30", "9:00", "9:30",
+//                "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30",
+//                "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30",
+//                "18:00", "18:30", "19:00", "19:30", "20:00", "20:30"));
+//        startTimes.addAll(startTs);
+
+        //startTime.getItems().setAll(test);
+
+        //startTime = new ChoiceBox<>(startTimes);
+        //ChoiceBox<String> startT = (ChoiceBox<String>) sc.lookup("#startTime");
+        //startTime.setValue("MEEP!");
         stage.show();
+    }
+
+    @FXML
+    protected void startTimeDropDown() {
+        startTime.getItems().setAll(startTimesArr);
+        System.out.println("set");
+        if (endTime.getValue() == null) { return; }
+        System.out.println("still going");
+
+//        String currEnd = endTime.getValue().replace(":", "");
+//        System.out.println(currEnd);
+//        int currEndNum = Integer.parseInt(currEnd);
+//
+//        for (String str : startTime.getItems()) {
+//            System.out.println("yeet" + str);
+//            if (currEndNum < Integer.parseInt(str.replace(":", ""))) {
+//                System.out.println("yup");
+//                startTime.getItems().remove(str);
+//            }
+//        }
+
+//        ObservableList<String> starts = startTime.getItems();
+//        for (int i = 0; i < starts.size(); i++) {
+//            System.out.println(i);
+//            // if end time filter earlier than this option, disable it
+//            if (currEndNum < Integer.parseInt(starts.get(i))) {
+//                System.out.println("yea bro");
+//                startTime.getItems().remove(i);
+//            }
+//        }
+
+        //startTime.show();
+//        for (String str : startTime.getItems()) {
+//            System.out.println(str);
+//        }
+//        testLabel.setText("pReSseD");
+    }
+    @FXML
+    protected void endTimeDropDown() {
+        endTime.getItems().setAll(endTimesArr);
+        if (startTime.getValue() == null) { return; }
+
+    }
+    @FXML
+    protected void startTimeSet() {
+        //if (startTime.getValue() == null) { return; }
+        String temp = startTime.getValue().replace(":", "");
+        int tempNum = Integer.parseInt(temp);
+        System.out.println(String.valueOf(tempNum));
+        Main.search.getActiveFilters().setStartTime(tempNum);
+        //testLabel.setText(String.valueOf(Main.search.getActiveFilters().getStartTime()));
+        System.out.println("Hey");
+
+        //String currEnd = endTime.getValue().replace(":", "");
+        //System.out.println(currEnd);
+        //int currEndNum = Integer.parseInt(currEnd);
+
+        if (endTime.getValue() == null) { return; }
+
+        for (String str : endTime.getItems()) {
+            System.out.println("yeet" + str);
+            if (tempNum > Integer.parseInt(str.replace(":", ""))) {
+                System.out.println("yup");
+                endTime.getItems().remove(str);
+            }
+        }
+    }
+    @FXML
+    protected void endTimeSet() {
+        if (endTime.getValue() == null) { return; }
+        String temp = endTime.getValue().replace(":", "");
+        int tempNum = Integer.parseInt(temp);
+        System.out.println(String.valueOf(tempNum));
+        Main.search.getActiveFilters().setEndTime(tempNum);
+        testLabel.setText(String.valueOf(Main.search.getActiveFilters().getEndTime()));
     }
 
     @FXML
@@ -154,7 +285,7 @@ public class tempCourseSearchController {
     }
 
 
-    // this code from https://stackoverflow.com/questions/15661500/javafx-listview-item-with-an-image-button
+    // this code adapted from https://stackoverflow.com/questions/15661500/javafx-listview-item-with-an-image-button
     static class XCell extends ListCell<Course> {
 
         HBox hbox = new HBox();
@@ -169,6 +300,8 @@ public class tempCourseSearchController {
             super();
             hbox.getChildren().addAll(label, pane, getDetailsButton);
             HBox.setHgrow(pane, Priority.ALWAYS);
+            //setStyle("-fx-control-inner-background: " + lastCourse.getColor() + " ;");
+            //setStyle("-fx-control-inner-background: " + "blue" + " ;");
             getDetailsButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
@@ -200,6 +333,7 @@ public class tempCourseSearchController {
 
                 stage.setTitle(lastCourse.getCourseCode());
                 stage.setScene(sc);
+
 
                 Label cCode = (Label) sc.lookup("#courseCode");
                 Label cName = (Label) sc.lookup("#courseName");

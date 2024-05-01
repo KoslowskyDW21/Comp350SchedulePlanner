@@ -29,9 +29,11 @@ public class Main extends Application {
     public static Scanner scnIn;
     public static User mainUser;
     public static Search search;
+    //public static Filter mainFilter;
 
     public static void main(String[] args) {
         search = new Search();
+        //mainFilter = new Filter();
 
         //launch();
         // Create the course database
