@@ -26,7 +26,7 @@ public class Info implements Initializable {
     @FXML private TextField majorText;
 
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        if(Main.mainUser != null) {
+        if(Main.mainUser.getUserID() != -1) {
             setNameAndMajor();
         }
     }
@@ -41,11 +41,17 @@ public class Info implements Initializable {
 
     @FXML
     protected void onEditClick() {
-        String name = nameText.getText();
-        String major = majorText.getText();
+        String name = Main.mainUser.getName();
+        if(Main.mainUser.getName().isEmpty()) {
+            name = nameText.getText();
+        }
+        String major = Main.mainUser.getMajor();
+        if(Main.mainUser.getMajor().isEmpty()) {
+            major = majorText.getText();
+        }
         nameLabel.setText("Name: " + name);
         majorLabel.setText("Major: " + major);
-        if(Main.mainUser == null) {
+        if(Main.mainUser.getUserID() == -1) {
             Main.mainUser = new User(0, name, major);
             Main.mainUser.SaveToFile();
         }

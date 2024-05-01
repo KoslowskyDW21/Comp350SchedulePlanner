@@ -91,9 +91,9 @@ public class User {
     }
 
     public User() {
-        this.userID = 0;
-        this.name = "John Student";
-        this.major = "Computer Science";
+        this.userID = -1;
+        this.name = "";
+        this.major = "";
         this.gradReqs = new ArrayList<>();
         this.savedSchedules = new ArrayList<>();
         this.completedCourses = new ArrayList<>();
@@ -171,6 +171,7 @@ public class User {
 
             // Write the course codes of taken courses
             boolean firstCourse = true;
+
             for (Course course : completedCourses) {
                 if (!firstCourse) {
                     writer.write(", "); // Separate courses by comma
@@ -222,12 +223,15 @@ public class User {
             Main.mainUser = new User(userID, name, major);
 
             // Read list of previously taken courses
-            String[] takenClassCodes = reader.readLine().split(", ");
-            for(String code : takenClassCodes) {
-                Course course = Course.findCourse(code);
-                Main.mainUser.addTakenCourse(course);
+            String line = reader.readLine();
+            if(line != null && !line.isEmpty()) {
+                String[] takenClassCodes = line.split(", ");
+                for (String code : takenClassCodes) {
+                    Course course = Course.findCourse(code);
+                    Main.mainUser.addTakenCourse(course);
+                }
             }
-            String line;
+
             // Read each saved Schedule from the file
             while ((line = reader.readLine()) != null) {
                 Schedule schedule = new Schedule();
