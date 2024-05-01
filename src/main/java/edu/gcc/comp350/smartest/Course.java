@@ -13,17 +13,27 @@ public class Course {
     private final String endTime;
     private final String description;
     private final int numCredits;
-    private final ArrayList<Course[]> preReqs;
-    private final ArrayList<Course[]> coReqs;
+    /*private final ArrayList<Course[]> preReqs;
+    private final ArrayList<Course[]> coReqs;*/
+    private final ArrayList<Course> preReqs;
+    private final ArrayList<Course> coReqs;
     private final int numSeats;
     private final String days;
     private final String semester;
 
-    public ArrayList<Course[]> getPreReqs() {
+    /*public ArrayList<Course[]> getPreReqs() {
         return preReqs;
     }
 
     public ArrayList<Course[]> getCoReqs() {
+        return coReqs;
+    }*/
+
+    public ArrayList<Course> getPreReqs() {
+        return preReqs;
+    }
+
+    public ArrayList<Course> getCoReqs() {
         return coReqs;
     }
 
@@ -52,8 +62,12 @@ public class Course {
      * constructor for testing purposes
      * allows for manual setting of each parameter in a course
      */
-    public Course(String courseCode, String name, String professor, String color, String description,
+    /*public Course(String courseCode, String name, String professor, String color, String description,
                   int numCredits, ArrayList<Course[]> preReqs, ArrayList<Course[]> coReqs,
+                  String startTime, String endTime, int numSeats, String days, String semester, String department, int level) {*/
+
+    public Course(String courseCode, String name, String professor, String color, String description,
+                  int numCredits, ArrayList<Course> preReqs, ArrayList<Course> coReqs,
                   String startTime, String endTime, int numSeats, String days, String semester, String department, int level) {
         this.courseCode = courseCode;
         this.name = name;
@@ -198,6 +212,7 @@ public class Course {
     public int getNumCredits() {
         return numCredits;
     }
+    public String getNumCreditsToString() {return String.valueOf(numCredits);}
     public float getStartTime() {
         return parseArr(startTime);
     }
@@ -223,8 +238,37 @@ public class Course {
         return crsTime;
     }
 
+    public int getNumSeats() {
+        return numSeats;
+    }
+    public String getNumSeatsToString() {
+        return String.valueOf(numSeats);
+    }
+    public String getSemester() {
+        return semester;
+    }
+
+    public String getPreReqsToString() {
+        String preR = "";
+        for (Course course : preReqs) {
+            preR.concat(course.getCourseCode() + "   ");
+        }
+        return preR;
+    }
+
+    public String getCoReqsToString() {
+        String coR = "";
+        for (Course course : coReqs) {
+            coR.concat(course.getCourseCode() + "   ");
+        }
+        return coR;
+    }
+
     public String toString() {
         return courseCode + " - " + name + " (" + startTime + " - " + endTime + " " + days.replace("_", "") + ")\n";
     }
+
+
+
 }
 
