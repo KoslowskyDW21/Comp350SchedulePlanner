@@ -9,7 +9,7 @@
    <children>
       <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
          <image>
-            <Image url="@GCC%20Crest.png" />
+            <Image url="@GCC Crest.png" />
          </image></ImageView>
       <Button fx:id="schedule" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#test" prefHeight="30.0" prefWidth="250.0" style="-fx-background-color: #3272ff;" text="Schedule" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="260.0" AnchorPane.leftAnchor="275.0" AnchorPane.rightAnchor="275.0">
          <font>

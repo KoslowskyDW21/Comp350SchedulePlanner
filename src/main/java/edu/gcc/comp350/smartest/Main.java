@@ -33,8 +33,9 @@ public class Main extends Application {
     public static void main(String[] args) {
         search = new Search();
         //mainFilter = new Filter();
+        setUp();
 
-        //launch();
+        launch();
         // Create the course database
         //setUp();
     }
@@ -47,7 +48,6 @@ public class Main extends Application {
         } catch (IOException e) {
             System.out.println("IOException: " + e);
         }
-        launch();
 
         // Load previous user and schedule info
         User.LoadCoursesFromFile();
@@ -58,7 +58,7 @@ public class Main extends Application {
         System.out.println(Course.database.get(1).getDescription());
 
 
-        consoleSoftwareLoop();
+        //consoleSoftwareLoop();
 
         //launch();
 
