@@ -83,11 +83,6 @@ public class tempCourseSearchController {
     private Label startTimeLabel;
     @FXML
     public ChoiceBox<String> startTime = new ChoiceBox<>();
-    //ObservableList<String> startTimes = FXCollections.observableArrayList();
-//    ObservableList<String> startTimes = FXCollections.observableArrayList("8:00", "8:30", "9:00", "9:30",
-//            "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30",
-//            "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30",
-//            "18:00", "18:30", "19:00", "19:30", "20:00", "20:30");
     private String[] startTimesArr = {"8:00", "8:30", "9:00", "9:30",
             "10:00", "10:30", "11:00", "11:30", "12:00", "12:30", "13:00", "13:30",
             "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30",
@@ -97,14 +92,34 @@ public class tempCourseSearchController {
     private Label endTimeLabel;
     @FXML
     private ChoiceBox<String> endTime = new ChoiceBox<>();
-//    ObservableList<String> endTimes = FXCollections.observableArrayList("9:00", "9:30", "10:00", "10:30",
-//            "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
-//            "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30",
-//            "19:00", "19:30", "20:00", "20:30", "21:00", "21:30");
     private String[] endTimesArr = {"9:00", "9:30", "10:00", "10:30",
             "11:00", "11:30", "12:00", "12:30", "13:00", "13:30", "14:00", "14:30",
             "15:00", "15:30", "16:00", "16:30", "17:00", "17:30", "18:00", "18:30",
             "19:00", "19:30", "20:00", "20:30", "21:00", "21:30"};
+
+    @FXML
+    private Label levelMinLabel;
+    @FXML
+    public ChoiceBox<String> levelMin = new ChoiceBox<>();
+    private String[] levelMinArr = {"100", "200", "300", "400"};
+
+    @FXML
+    private Label levelMaxLabel;
+    @FXML
+    private ChoiceBox<String> levelMax = new ChoiceBox<>();
+    private String[] levelMaxArr = {"200", "300", "400", "500"};
+
+    @FXML
+    private TextField professorTextField = new TextField();
+
+    @FXML
+    private ChoiceBox<String> department = new ChoiceBox<>();
+    private String[] departmentArr = {"ACCT", "ART", "ASTR", "BIOL", "CHEM",
+        "CMIN", "COMM", "COMP", "DESI", "ECON", "EDUC", "ELEE", "ENGL", "ENGR",
+        "ENTR", "EXER", "FNCE", "FREN", "GEOL", "GREK", "HEBR", "HIST", "HUMA",
+        "INBS", "LATN", "MARK", "MATH", "MECE", "MNGT", "MUSI", "NURS", "PHIL",
+        "PHYE", "PHYS", "POLS", "PSYC", "RELI", "ROBO", "SCIC", "SEDU", "SOCI",
+        "SOCW", "SPAN", "SSFT", "THEA", "WRIT"};
 
 
     public void initialize() {
@@ -157,79 +172,155 @@ public class tempCourseSearchController {
         stage.show();
     }
 
-    @FXML
+
+    @FXML // onMouseClicked
     protected void startTimeDropDown() {
-        startTime.getItems().setAll(startTimesArr);
-        System.out.println("set");
-        if (endTime.getValue() == null) { return; }
-        System.out.println("still going");
-
-//        String currEnd = endTime.getValue().replace(":", "");
-//        System.out.println(currEnd);
-//        int currEndNum = Integer.parseInt(currEnd);
-//
-//        for (String str : startTime.getItems()) {
-//            System.out.println("yeet" + str);
-//            if (currEndNum < Integer.parseInt(str.replace(":", ""))) {
-//                System.out.println("yup");
-//                startTime.getItems().remove(str);
-//            }
-//        }
-
-//        ObservableList<String> starts = startTime.getItems();
-//        for (int i = 0; i < starts.size(); i++) {
-//            System.out.println(i);
-//            // if end time filter earlier than this option, disable it
-//            if (currEndNum < Integer.parseInt(starts.get(i))) {
-//                System.out.println("yea bro");
-//                startTime.getItems().remove(i);
-//            }
-//        }
-
-        //startTime.show();
-//        for (String str : startTime.getItems()) {
-//            System.out.println(str);
-//        }
-//        testLabel.setText("pReSseD");
+        if (endTime.getValue() == null) {
+            restrictStartTimes(2030);
+        }
+        else {
+            int time = Integer.parseInt(endTime.getValue().replace(":", ""));
+            restrictStartTimes(time);
+        }
     }
-    @FXML
-    protected void endTimeDropDown() {
-        endTime.getItems().setAll(endTimesArr);
+    @FXML // onAction
+    protected void startTimeSet() {
         if (startTime.getValue() == null) { return; }
 
-    }
-    @FXML
-    protected void startTimeSet() {
-        //if (startTime.getValue() == null) { return; }
         String temp = startTime.getValue().replace(":", "");
         int tempNum = Integer.parseInt(temp);
-        System.out.println(String.valueOf(tempNum));
         Main.search.getActiveFilters().setStartTime(tempNum);
-        //testLabel.setText(String.valueOf(Main.search.getActiveFilters().getStartTime()));
-        System.out.println("Hey");
 
-        //String currEnd = endTime.getValue().replace(":", "");
-        //System.out.println(currEnd);
-        //int currEndNum = Integer.parseInt(currEnd);
+        System.out.println(Main.search.getActiveFilters().getStartTime());
+    }
+    protected void restrictStartTimes(int time) {
+        //System.out.println("restrictStartTimes " + time);
 
-        if (endTime.getValue() == null) { return; }
+        startTime.getItems().clear();
 
-        for (String str : endTime.getItems()) {
-            System.out.println("yeet" + str);
-            if (tempNum > Integer.parseInt(str.replace(":", ""))) {
-                System.out.println("yup");
-                endTime.getItems().remove(str);
+        for (String str : startTimesArr) {
+            if (time > Integer.parseInt(str.replace(":", ""))) {
+                startTime.getItems().add(str);
             }
         }
     }
-    @FXML
+
+    @FXML // onMouseClicked
+    protected void endTimeDropDown() {
+        if (startTime.getValue() == null) {
+            restrictEndTimes(900);
+        }
+        else {
+            int time = Integer.parseInt(startTime.getValue().replace(":", ""));
+            restrictEndTimes(time);
+        }
+    }
+    @FXML // onAction
     protected void endTimeSet() {
         if (endTime.getValue() == null) { return; }
+
         String temp = endTime.getValue().replace(":", "");
         int tempNum = Integer.parseInt(temp);
-        System.out.println(String.valueOf(tempNum));
         Main.search.getActiveFilters().setEndTime(tempNum);
-        testLabel.setText(String.valueOf(Main.search.getActiveFilters().getEndTime()));
+
+        System.out.println(Main.search.getActiveFilters().getEndTime());
+    }
+    protected void restrictEndTimes(int time) {
+        //System.out.println("restrictEndTimes " + time);
+
+        endTime.getItems().clear();
+
+        for (String str : endTimesArr) {
+            if (time < Integer.parseInt(str.replace(":", ""))) {
+                endTime.getItems().add(str);
+            }
+        }
+    }
+
+
+    @FXML // onMouseClicked
+    protected void levelMinDropDown() {
+        if (levelMax.getValue() == null) {
+            restrictLevelMin(500);
+        }
+        else {
+            int level = Integer.parseInt(levelMax.getValue());
+            restrictLevelMin(level);
+        }
+    }
+    @FXML // onAction
+    protected void levelMinSet() {
+        if (levelMin.getValue() == null) { return; }
+
+        String temp = levelMin.getValue();
+        int tempNum = Integer.parseInt(temp);
+        Main.search.getActiveFilters().setLevelMin(tempNum);
+
+        System.out.println(Main.search.getActiveFilters().getLevelMin());
+    }
+    protected void restrictLevelMin(int level) {
+        levelMin.getItems().clear();
+
+        for (String str : levelMinArr) {
+            if (level > Integer.parseInt(str)) {
+                levelMin.getItems().add(str);
+            }
+        }
+    }
+
+    @FXML // onMouseClicked
+    protected void levelMaxDropDown() {
+        if (levelMin.getValue() == null) {
+            restrictLevelMax(100);
+        }
+        else {
+            int level = Integer.parseInt(levelMin.getValue());
+            restrictLevelMax(level);
+        }
+    }
+    @FXML // onAction
+    protected void levelMaxSet() {
+        if (levelMax.getValue() == null) { return; }
+
+        String temp = levelMax.getValue();
+        int tempNum = Integer.parseInt(temp);
+        Main.search.getActiveFilters().setLevelMax(tempNum);
+
+        System.out.println(Main.search.getActiveFilters().getLevelMax());
+    }
+    protected void restrictLevelMax(int level) {
+        levelMax.getItems().clear();
+
+        for (String str : levelMaxArr) {
+            if (level < Integer.parseInt(str)) {
+                levelMax.getItems().add(str);
+            }
+        }
+    }
+
+    @FXML // onAction
+    protected void professorSet() {
+        if (professorTextField.getText() == null) { return; }
+
+        String tempProfName = professorTextField.getText();
+        Main.search.getActiveFilters().setProfName(tempProfName);
+
+        System.out.println(Main.search.getActiveFilters().getProfName());
+    }
+
+    @FXML // onMouseClicked
+    protected void departmentDropDown() {
+        if (department.getItems().isEmpty()) {
+            department.getItems().addAll(departmentArr);
+        }
+
+    }
+    @FXML // onAction
+    protected void departmentSet() {
+        String tempDepartment = department.getValue();
+        Main.search.getActiveFilters().setDepartment(tempDepartment);
+
+        System.out.println(Main.search.getActiveFilters().getDepartment());
     }
 
     @FXML
@@ -447,3 +538,79 @@ public class tempCourseSearchController {
 
 
 }
+
+
+//@FXML
+//protected void startTimeDropDown() {
+//    startTime.getItems().setAll(startTimesArr);
+//    System.out.println("set");
+//    if (endTime.getValue() == null) { return; }
+//    System.out.println("still going");
+//
+////        String currEnd = endTime.getValue().replace(":", "");
+////        System.out.println(currEnd);
+////        int currEndNum = Integer.parseInt(currEnd);
+////
+////        for (String str : startTime.getItems()) {
+////            System.out.println("yeet" + str);
+////            if (currEndNum < Integer.parseInt(str.replace(":", ""))) {
+////                System.out.println("yup");
+////                startTime.getItems().remove(str);
+////            }
+////        }
+//
+////        ObservableList<String> starts = startTime.getItems();
+////        for (int i = 0; i < starts.size(); i++) {
+////            System.out.println(i);
+////            // if end time filter earlier than this option, disable it
+////            if (currEndNum < Integer.parseInt(starts.get(i))) {
+////                System.out.println("yea bro");
+////                startTime.getItems().remove(i);
+////            }
+////        }
+//
+//    //startTime.show();
+////        for (String str : startTime.getItems()) {
+////            System.out.println(str);
+////        }
+////        testLabel.setText("pReSseD");
+//}
+//@FXML
+//protected void endTimeDropDown() {
+//    endTime.getItems().setAll(endTimesArr);
+//    if (startTime.getValue() == null) { return; }
+//
+//}
+//@FXML
+//protected void startTimeSet() {
+//    //if (startTime.getValue() == null) { return; }
+//    String temp = startTime.getValue().replace(":", "");
+//    int tempNum = Integer.parseInt(temp);
+//    System.out.println(String.valueOf(tempNum));
+//    Main.search.getActiveFilters().setStartTime(tempNum);
+//    //testLabel.setText(String.valueOf(Main.search.getActiveFilters().getStartTime()));
+//    System.out.println("Hey");
+//
+//    //String currEnd = endTime.getValue().replace(":", "");
+//    //System.out.println(currEnd);
+//    //int currEndNum = Integer.parseInt(currEnd);
+//
+//    if (endTime.getValue() == null) { return; }
+//
+//    for (String str : endTime.getItems()) {
+//        System.out.println("yeet" + str);
+//        if (tempNum > Integer.parseInt(str.replace(":", ""))) {
+//            System.out.println("yup");
+//            endTime.getItems().remove(str);
+//        }
+//    }
+//}
+//@FXML
+//protected void endTimeSet() {
+//    if (endTime.getValue() == null) { return; }
+//    String temp = endTime.getValue().replace(":", "");
+//    int tempNum = Integer.parseInt(temp);
+//    System.out.println(String.valueOf(tempNum));
+//    Main.search.getActiveFilters().setEndTime(tempNum);
+//    testLabel.setText(String.valueOf(Main.search.getActiveFilters().getEndTime()));
+//}
