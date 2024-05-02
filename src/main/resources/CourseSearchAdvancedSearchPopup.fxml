@@ -51,10 +51,30 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <CheckBox contentDisplay="CENTER" layoutX="70.0" layoutY="445.0" mnemonicParsing="false" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="435.0" />
-      <CheckBox contentDisplay="CENTER" layoutX="100.0" layoutY="445.0" mnemonicParsing="false" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="435.0" />
-      <CheckBox contentDisplay="CENTER" mnemonicParsing="false" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="435.0" />
-      <CheckBox contentDisplay="CENTER" layoutX="70.0" layoutY="445.0" mnemonicParsing="false" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="435.0" />
-      <CheckBox contentDisplay="CENTER" layoutX="100.0" layoutY="445.0" mnemonicParsing="false" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="435.0" />
+      <CheckBox fx:id="daysCheckM" contentDisplay="CENTER" layoutX="70.0" layoutY="445.0" mnemonicParsing="false" onAction="#daysSet" selected="true" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="435.0" />
+      <CheckBox fx:id="daysCheckT" contentDisplay="CENTER" layoutX="100.0" layoutY="445.0" mnemonicParsing="false" onAction="#daysSet" selected="true" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="62.0" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="435.0" />
+      <CheckBox fx:id="daysCheckW" contentDisplay="CENTER" mnemonicParsing="false" onAction="#daysSet" selected="true" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="92.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="435.0" />
+      <CheckBox fx:id="daysCheckR" contentDisplay="CENTER" layoutX="70.0" layoutY="445.0" mnemonicParsing="false" onAction="#daysSet" selected="true" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="122.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="435.0" />
+      <CheckBox fx:id="daysCheckF" contentDisplay="CENTER" layoutX="100.0" layoutY="445.0" mnemonicParsing="false" onAction="#daysSet" selected="true" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="152.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="435.0" />
+      <Label alignment="CENTER" text="M" textFill="WHITE" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="455.0">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label alignment="CENTER" layoutX="10.0" layoutY="10.0" text="T" textFill="WHITE" AnchorPane.leftAnchor="60.0" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="455.0">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label alignment="CENTER" layoutX="20.0" layoutY="20.0" text="W" textFill="WHITE" AnchorPane.leftAnchor="90.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="455.0">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label alignment="CENTER" layoutX="20.0" layoutY="20.0" text="R" textFill="WHITE" AnchorPane.leftAnchor="120.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="455.0">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <Label alignment="CENTER" layoutX="30.0" layoutY="30.0" text="F" textFill="WHITE" AnchorPane.leftAnchor="150.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="455.0">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
    </children>
 </AnchorPane>

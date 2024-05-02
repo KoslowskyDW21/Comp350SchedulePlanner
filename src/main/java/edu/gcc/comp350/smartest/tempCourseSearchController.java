@@ -20,6 +20,7 @@ import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Callback;
+import org.controlsfx.control.action.Action;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -28,6 +29,10 @@ import java.util.Arrays;
 import java.util.List;
 
 public class tempCourseSearchController {
+    private Stage stage;
+    private Scene scene;
+    private Parent root;
+
     @FXML
     public Label courseCode;
     @FXML
@@ -121,6 +126,23 @@ public class tempCourseSearchController {
         "PHYE", "PHYS", "POLS", "PSYC", "RELI", "ROBO", "SCIC", "SEDU", "SOCI",
         "SOCW", "SPAN", "SSFT", "THEA", "WRIT"};
 
+    @FXML
+    private CheckBox daysCheckM;
+    //private boolean daysBoolM = false;
+    @FXML
+    private CheckBox daysCheckT;
+    //private boolean daysBoolT = false;
+    @FXML
+    private CheckBox daysCheckW;
+    //private boolean daysBoolW = false;
+    @FXML
+    private CheckBox daysCheckR;
+    //private boolean daysBoolR = false;
+    @FXML
+    private CheckBox daysCheckF;
+    //private boolean daysBoolF = false;
+    private boolean[] daysBools = {true, true, true, true, true};
+
 
     public void initialize() {
         // TODO
@@ -141,8 +163,12 @@ public class tempCourseSearchController {
     }*/
 
     @FXML
-    protected void onBackButtonClick() {
-        backLabel.setText("went back");
+    protected void onBackButtonClick(ActionEvent event) throws IOException {
+        root = FXMLLoader.load(getClass().getResource("/home.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
     }
 
 
@@ -321,6 +347,18 @@ public class tempCourseSearchController {
         Main.search.getActiveFilters().setDepartment(tempDepartment);
 
         System.out.println(Main.search.getActiveFilters().getDepartment());
+    }
+
+    @FXML // onAction
+    protected void daysSet() {
+        daysBools[0] = daysCheckM.isSelected();
+        daysBools[1] = daysCheckT.isSelected();
+        daysBools[2] = daysCheckW.isSelected();
+        daysBools[3] = daysCheckR.isSelected();
+        daysBools[4] = daysCheckF.isSelected();
+
+        Main.search.getActiveFilters().setDays(daysBools);
+        System.out.println(Arrays.toString(Main.search.getActiveFilters().getDays()));
     }
 
     @FXML
