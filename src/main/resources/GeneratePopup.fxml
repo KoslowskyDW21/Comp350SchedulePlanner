@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #303030;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gcc.comp350.smartest.GenerateController">
+   <children>
+      <Button fx:id="fast" mnemonicParsing="false" text="Fast" translateX="450.0" translateY="275.0" />
+      <Button fx:id="slow" mnemonicParsing="false" text="Accurate" translateX="100.0" translateY="275.0" />
+      <Label text="Choose your credits, then select your generate method" textFill="WHITE" translateX="20.0" translateY="20.0" />
+      <TextField fx:id="cred" translateX="225.0" translateY="175.0" />
+   </children>
+</AnchorPane>

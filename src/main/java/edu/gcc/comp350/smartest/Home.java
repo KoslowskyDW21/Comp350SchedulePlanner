@@ -50,7 +50,12 @@ public class Home implements Initializable {
         stage.show();
     }
 
-    public void test() {
-        System.out.println("It works.");
+    public void test(ActionEvent event) throws IOException{
+        root = FXMLLoader.load(getClass().getResource("/Schedule.fxml"));
+        stage = (Stage)((Node)event.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+
     }
 }

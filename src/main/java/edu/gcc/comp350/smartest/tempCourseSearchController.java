@@ -19,10 +19,13 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Callback;
 import org.controlsfx.control.action.Action;
+import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
@@ -37,6 +40,7 @@ public class tempCourseSearchController implements Initializable {
     private Scene scene;
     private Parent root;
 
+    public static Stage stage2;
     @FXML
     public Label courseCode;
     @FXML
@@ -335,14 +339,15 @@ public class tempCourseSearchController implements Initializable {
         listRes.setCellFactory(new Callback<ListView<Course>, ListCell<Course>>() {
             @Override
             public ListCell<Course> call(ListView<Course> param) {
-                XCell xcell = new XCell();
+                XCell xcell;
+                xcell = new XCell();
                 return xcell;
             }
         });
     }
 
     @FXML
-    public void onAddCourseButtonClick() {
+    public void onAddCourseButtonClick() throws IOException {
         XCell.onAddCourseButtonClick2();
     }
 
@@ -357,7 +362,14 @@ public class tempCourseSearchController implements Initializable {
         Circle completionColor = new Circle();
         Course lastCourse;
 
-        public XCell() {
+        static Course addCourse;
+
+        static Stage popupStage;
+        static Stage bigStage;
+
+        public XCell()
+        {
+
             super();
             hbox.getChildren().addAll(label, pane, seatsColor, completionColor, getDetailsButton);
             HBox.setHgrow(pane, Priority.ALWAYS);
@@ -385,13 +397,17 @@ public class tempCourseSearchController implements Initializable {
 
         @FXML
         private void courseDetailsPopup(ActionEvent event) {
-            //Stage popupStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            //Stage bigStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
             try {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/CourseSearchDetailsPopup.fxml"));
                 Parent root = loader.load();
                 Stage stage = new Stage();
                 Scene sc = new Scene(root);
+
+                popupStage = stage;
+                addCourse = lastCourse;
+                bigStage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
                 stage.setTitle(lastCourse.getCourseCode());
                 stage.setScene(sc);
@@ -430,7 +446,38 @@ public class tempCourseSearchController implements Initializable {
 
         @FXML
         public static void onAddCourseButtonClick2() {
-            // todo: add course to schedule
+            //load thing, pass in lastCourse.
+            int added = Main.mainUser.savedSchedules.getFirst().addCourse(addCourse);
+            try{
+                FXMLLoader loader = new FXMLLoader(XCell.class.getResource("/AddMessage.fxml"));
+                Parent root = loader.load();
+                Stage stage = new Stage();
+                Scene sc = new Scene(root);
+                stage.setScene(sc);
+
+                Label message = (Label)sc.lookup("#Message");
+                if(added == 0){
+                    message.setText("Course Added to Schedule");
+                }
+                else{
+                    message.setText("Course conflicts with one in Schedule");
+                }
+
+                Button btn = (Button)sc.lookup("#ScheduleButton");
+                EventHandler<ActionEvent> current = btn.getOnAction();
+                btn.setOnAction(event-> {
+                    current.handle(event);
+                    bigStage.close();
+                });
+
+                stage.show();
+            }
+            catch(Exception e){
+                System.out.println(e.toString());
+            }
+            popupStage.close();
+
+
         }
 
 
@@ -449,6 +496,8 @@ public class tempCourseSearchController implements Initializable {
                 completionColor.setFill(Paint.valueOf(lastCourse.getCompletionColor()));
             }
         }
+
+
 
     }
 

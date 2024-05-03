@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #303030;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gcc.comp350.smartest.AddMessage">
+    <Button fx:id="ScheduleButton" alignment="CENTER" onAction="#LoadSchedule" prefHeight="45.0" prefWidth="200.0" style="-fx-background-color: #3272FF;" text="Course Schedule" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="195.0" AnchorPane.topAnchor="175.0">
+        <font>
+            <Font size="22.0" />
+        </font></Button>
+    <Label fx:id="Message" text="MESSAGE" textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="75.0">
+        <font>
+            <Font size="32.0" />
+        </font>
+    </Label>
+
+</AnchorPane>

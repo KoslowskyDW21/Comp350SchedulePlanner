@@ -5,31 +5,51 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gcc.comp350.smartest.ScheduleController">
-<FlowPane fx:id="calendar" hgap="10.0" layoutX="14.0" layoutY="116.0" prefHeight="498.0" prefWidth="716.0" vgap="5.0" />
+<AnchorPane minHeight="500.0" prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #303030;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gcc.comp350.smartest.ScheduleController">
+   <Button mnemonicParsing="false" onAction="#switchToHome" prefHeight="30.0" prefWidth="75.0" style="-fx-background-color: #3272ff;" text="Back" textFill="WHITE" translateX="20.0" translateY="20.0">
+      <font>
+         <Font name="Arial Bold" size="12.0" />
+      </font>
+   </Button>
+   <Button mnemonicParsing="false" onAction="#switchToCourseSearch" prefHeight="30.0" prefWidth="125.0" style="-fx-background-color: #3272ff;" text="Course Search" textFill="WHITE" translateX="650.0" translateY="20.0">
+      <font>
+         <Font name="Arial Bold" size="12.0" />
+      </font>
+   </Button>
+<FlowPane fx:id="calendar" hgap="10.0" layoutX="14.0" layoutY="116.0" prefHeight="375.0" prefWidth="716.0" vgap="5.0" AnchorPane.leftAnchor="40.0" AnchorPane.topAnchor="116.0" />
 <HBox alignment="CENTER" layoutX="163.0" layoutY="14.0" prefHeight="44.0" prefWidth="419.0" spacing="5.0">
-   <children>
-      <Button mnemonicParsing="false" onAction="#backOneMonth" text="&lt;" />
-      <Text fx:id="year" strokeType="OUTSIDE" strokeWidth="0.0" text="FALL">
-         <font>
-            <Font size="22.0" />
-         </font>
-      </Text>
-      <Text fx:id="month" strokeType="OUTSIDE" strokeWidth="0.0" text="2024">
-         <font>
-            <Font size="22.0" />
-         </font>
-      </Text>
-      <Button mnemonicParsing="false" onAction="#forwardOneMonth" text="&gt;" />
-   </children>
+      <children>
+         <ChoiceBox fx:id="Semester" prefWidth="150.0" translateX="-60.0" />
+         <Button mnemonicParsing="false" onAction="#generatePopup" text="Generate Schedule" />
+      </children>
 </HBox>
-<HBox alignment="CENTER" layoutX="14.0" layoutY="78.0" prefHeight="44.0" prefWidth="716.0" spacing="120">
+<HBox alignment="CENTER" layoutX="14.0" layoutY="78.0" prefHeight="44.0" prefWidth="716.0" spacing="120" AnchorPane.leftAnchor="20.0">
    <children>
-      <Text layoutX="143.2" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mo" textAlignment="CENTER" />
-      <Text layoutX="143.2" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tu" textAlignment="CENTER" />
-      <Text layoutX="143.2" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="We" textAlignment="CENTER" />
-      <Text layoutX="143.2" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Th" textAlignment="CENTER" />
-      <Text layoutX="143.2" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fr" textAlignment="CENTER" />
+      <Text fill="WHITE" layoutX="143.2" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mo" textAlignment="CENTER">
+      <font>
+         <Font name="Arial Bold" />
+      </font>
+      </Text>
+      <Text fill="WHITE" layoutX="143.2" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tu" textAlignment="CENTER">
+      <font>
+         <Font name="Arial Bold" />
+      </font>
+      </Text>
+      <Text fill="WHITE" layoutX="143.2" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="We" textAlignment="CENTER">
+         <font>
+            <Font name="Arial Bold" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="143.2" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Th" textAlignment="CENTER">
+         <font>
+            <Font name="Arial Bold" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="143.2" layoutY="37.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fr" textAlignment="CENTER">
+         <font>
+            <Font name="Arial Bold" />
+         </font>
+      </Text>
    </children>
    <padding>
       <Insets right="9.0" />

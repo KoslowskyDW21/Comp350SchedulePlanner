@@ -53,6 +53,7 @@ public class Main extends Application {
         User.LoadCoursesFromFile();
         if(mainUser.savedSchedules.isEmpty()) {
             mainUser.savedSchedules.add(new Schedule());
+            mainUser.savedSchedules.add(new Schedule());
         }
         //System.out.println(Course.database.getFirst().getDescription());
         //System.out.println(Course.database.get(1).getDescription());
