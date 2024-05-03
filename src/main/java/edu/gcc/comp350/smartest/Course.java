@@ -9,6 +9,8 @@ public class Course {
     private final String name;
     private final String professor;
     private String color;
+    private String seatsColor;
+    private String completionColor;
     private final String startTime;
     private final String endTime;
     private final String description;
@@ -20,6 +22,13 @@ public class Course {
     private final int numSeats;
     private final String days;
     private final String semester;
+
+    private final String yesSeatsHex = "#29ce3f";
+    private final String noSeatsHex = "#ce2929";
+    private final String completeHex = "#824cd9";
+    private final String incompleteGradReqHex = "#29adce";
+    private final String defaultHex = "#ebebeb";
+
 
     /*public ArrayList<Course[]> getPreReqs() {
         return preReqs;
@@ -56,6 +65,9 @@ public class Course {
         this.semester = "Fall";
         this.department = "COMP";
         this.level = 100;
+
+        assignSeatColor();
+        setCompletionColorDefault();
     }
 
     /**
@@ -84,6 +96,9 @@ public class Course {
         this.semester = semester;
         this.department = department;
         this.level = level;
+
+        assignSeatColor();
+        setCompletionColorDefault();
     }
 
     /**
@@ -150,6 +165,9 @@ public class Course {
         } else { //tokens[5] == 30
             semester = "Spring";
         }
+
+        assignSeatColor();
+        setCompletionColorDefault();
     }
 
     /**
@@ -167,9 +185,29 @@ public class Course {
         return null; // Course not found
     }
 
+    private void assignSeatColor() {
+        if (numSeats > 0) {
+            seatsColor = yesSeatsHex;
+        }
+        else {
+            seatsColor = noSeatsHex;
+        }
+    }
+
+    public void setCompletionColorComplete() {
+        completionColor = completeHex;
+    }
+    public void setCompletionColorIncompleteGradReq() {
+        completionColor = incompleteGradReqHex;
+    }
+    public void setCompletionColorDefault() {
+        completionColor = defaultHex;
+    }
+
     private void changeColor(String color) {
 
     }
+
 
     public String getDays() {
         return days;
@@ -197,6 +235,14 @@ public class Course {
 
     public String getColor() {
         return color;
+    }
+
+    public String getSeatsColor() {
+        return seatsColor;
+    }
+
+    public String getCompletionColor() {
+        return  completionColor;
     }
 
     public String getStartTimes() {

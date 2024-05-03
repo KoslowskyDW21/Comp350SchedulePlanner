@@ -23,6 +23,6 @@
       </font>
    </Button>
 
-   <ListView fx:id="listRes" editable="true" prefHeight="375.0" prefWidth="700.0" style="-fx-background-color: #BBBBBB;" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="100.0" />
+   <ListView fx:id="listRes" editable="true" prefHeight="375.0" prefWidth="700.0" style="-fx-background-color: #303030; -fx-border-color: #BBBBBB;" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="100.0" />
     
 </AnchorPane>

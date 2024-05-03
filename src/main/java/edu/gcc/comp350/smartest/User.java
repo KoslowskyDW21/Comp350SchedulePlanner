@@ -101,31 +101,48 @@ public class User {
     }
 
     private void setCompSciReq() {
-        gradReqs.add(Course.findCourse("COMP141A"));
-        gradReqs.add(Course.findCourse("COMP155A"));
-        gradReqs.add(Course.findCourse("COMP205A"));
-        gradReqs.add(Course.findCourse("COMP220A"));
-        gradReqs.add(Course.findCourse("COMP222A"));
-        gradReqs.add(Course.findCourse("COMP233A"));
-        gradReqs.add(Course.findCourse("COMP244A"));
-        gradReqs.add(Course.findCourse("COMP314A"));
-        gradReqs.add(Course.findCourse("COMP325A"));
-        gradReqs.add(Course.findCourse("COMP340A"));
-        gradReqs.add(Course.findCourse("COMP342A"));
-        gradReqs.add(Course.findCourse("COMP350A"));
-        gradReqs.add(Course.findCourse("COMP401A"));
-        gradReqs.add(Course.findCourse("COMP422A"));
-        gradReqs.add(Course.findCourse("COMP435A"));
-        gradReqs.add(Course.findCourse("COMP441A"));
-        gradReqs.add(Course.findCourse("COMP442A"));
-        gradReqs.add(Course.findCourse("COMP443A"));
-        gradReqs.add(Course.findCourse("COMP445A"));
-        gradReqs.add(Course.findCourse("COMP446A"));
-        gradReqs.add(Course.findCourse("COMP448A"));
-        gradReqs.add(Course.findCourse("COMP451A"));
-        gradReqs.add(Course.findCourse("COMP452A"));
-        gradReqs.add(Course.findCourse("COMP475A"));
+        String[] compSciGradReqs = { "COMP141A", "COMP155A", "COMP205A", "COMP220A", "COMP222A",
+                "COMP233A", "COMP244A", "COMP314A", "COMP325A", "COMP340A", "COMP342A", "COMP350A",
+                "COMP401A", "COMP422A", "COMP435A", "COMP441A", "COMP442A", "COMP443A", "COMP445A",
+                "COMP446A", "COMP448A", "COMP451A", "COMP452A", "COMP475A"
+        };
+
+        for (String courseStr : compSciGradReqs) {
+            Course course = Course.findCourse(courseStr);
+            gradReqs.add(course);
+            course.setCompletionColorIncompleteGradReq();
+        }
     }
+
+//    private void setCompSciReq() {
+//        String[] compSciGradReqs = {
+//                "COMP141A", "COMP155A"
+//        };
+//        gradReqs.add(Course.findCourse("COMP141A"));
+//        gradReqs.add(Course.findCourse("COMP155A"));
+//        gradReqs.add(Course.findCourse("COMP205A"));
+//        gradReqs.add(Course.findCourse("COMP220A"));
+//        gradReqs.add(Course.findCourse("COMP222A"));
+//        gradReqs.add(Course.findCourse("COMP233A"));
+//        gradReqs.add(Course.findCourse("COMP244A"));
+//        gradReqs.add(Course.findCourse("COMP314A"));
+//        gradReqs.add(Course.findCourse("COMP325A"));
+//        gradReqs.add(Course.findCourse("COMP340A"));
+//        gradReqs.add(Course.findCourse("COMP342A"));
+//        gradReqs.add(Course.findCourse("COMP350A"));
+//        gradReqs.add(Course.findCourse("COMP401A"));
+//        gradReqs.add(Course.findCourse("COMP422A"));
+//        gradReqs.add(Course.findCourse("COMP435A"));
+//        gradReqs.add(Course.findCourse("COMP441A"));
+//        gradReqs.add(Course.findCourse("COMP442A"));
+//        gradReqs.add(Course.findCourse("COMP443A"));
+//        gradReqs.add(Course.findCourse("COMP445A"));
+//        gradReqs.add(Course.findCourse("COMP446A"));
+//        gradReqs.add(Course.findCourse("COMP448A"));
+//        gradReqs.add(Course.findCourse("COMP451A"));
+//        gradReqs.add(Course.findCourse("COMP452A"));
+//        gradReqs.add(Course.findCourse("COMP475A"));
+//    }
 
     public ArrayList<Course> getClassesLeftToTake() {
         ArrayList<Course> classesLeft = new ArrayList<>();
@@ -146,10 +163,18 @@ public class User {
 
     public void addTakenCourse(Course course) {
         completedCourses.add(course);
+        course.setCompletionColorComplete();
     }
 
     public void removeTakenCourse(Course course) {
         completedCourses.remove(course);
+
+        if (gradReqs.contains(course)) { // if it's a gradReq
+            course.setCompletionColorIncompleteGradReq();
+        }
+        else { // if it's not a gradReq
+            course.setCompletionColorDefault();
+        }
     }
 
     public ArrayList<Course> getCompletedCourses() {
