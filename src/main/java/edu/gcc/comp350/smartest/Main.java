@@ -38,6 +38,7 @@ public class Main extends Application {
         launch();
         // Create the course database
         //setUp();
+        mainUser.SaveToFile();
     }
 
     public static void setUp() {
@@ -53,6 +54,11 @@ public class Main extends Application {
         User.LoadCoursesFromFile();
         if(mainUser.savedSchedules.isEmpty()) {
             mainUser.savedSchedules.add(new Schedule());
+            mainUser.savedSchedules.add(new Schedule());
+            mainUser.savedSchedules.add(new Schedule());
+        }
+
+        if(mainUser.savedSchedules.size() < 3){
             mainUser.savedSchedules.add(new Schedule());
         }
         //System.out.println(Course.database.getFirst().getDescription());

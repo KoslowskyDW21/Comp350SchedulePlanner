@@ -4,7 +4,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" prefHeight="545.0" prefWidth="200.0" style="-fx-background-color: #303030;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gcc.comp350.smartest.tempCourseSearchController">
+
+<AnchorPane fx:id="ap" prefHeight="500.0" prefWidth="200.0" style="-fx-background-color: #303030;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gcc.comp350.smartest.tempCourseSearchController">
    <children>
       <Label fx:id="advancedSearchHeader" alignment="CENTER" layoutX="89.0" layoutY="4.0" text="Advanced Search" textAlignment="RIGHT" textFill="WHITE" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="10.0">
          <font>
@@ -81,7 +82,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="semesterBox" layoutX="25.0" layoutY="110.0" onAction="#levelMinSet" onMouseClicked="#semesterSet" prefWidth="150.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="500.0" />
+      <ChoiceBox fx:id="semesterBox" layoutX="25.0" layoutY="110.0" onAction="#semesterSet" prefWidth="150.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="500.0" />
 
    </children>
 </AnchorPane>
