@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #303030;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gcc.comp350.smartest.Info">
+   <children>
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" translateX="580.0" translateY="20.0">
+         <image>
+            <Image url="@GCC%20Crest.png" />
+         </image></ImageView>
+      <Label fx:id="nameLabel" text="Name: " textFill="WHITE" translateX="30.0" translateY="100.0">
+         <font>
+            <Font name="Arial Bold" size="20.0" />
+         </font>
+      </Label>
+      <Label fx:id="majorLabel" text="Major: " textFill="WHITE" translateX="30.0" translateY="150.0">
+         <font>
+            <Font name="Arial Bold" size="20.0" />
+         </font>
+      </Label>
+      <Button mnemonicParsing="false" onAction="#switchToHome" prefHeight="30.0" prefWidth="75.0" style="-fx-background-color: #3272ff;" text="Back" textFill="WHITE" translateX="20.0" translateY="20.0">
+         <font>
+            <Font name="Arial Bold" size="12.0" />
+         </font></Button>
+      <Button mnemonicParsing="false" onAction="#onEditClick" prefHeight="30.0" prefWidth="250.0" style="-fx-background-color: #3272ff;" text="Edit" textFill="WHITE" translateX="275.0" translateY="235.0">
+         <font>
+            <Font name="Arial Bold" size="12.0" />
+         </font>
+      </Button>
+      <TextField fx:id="nameText" prefHeight="30.0" prefWidth="200.0" promptText="Name" translateX="300.0" translateY="275.0" />
+      <TextField fx:id="majorText" prefHeight="30.0" prefWidth="200.0" promptText="Major" translateX="300.0" translateY="315.0" />
+   </children>
+</AnchorPane>

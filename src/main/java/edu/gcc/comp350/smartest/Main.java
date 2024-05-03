@@ -1,41 +1,46 @@
 package edu.gcc.comp350.smartest;
 
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
-import java.util.Objects;
 import java.util.Scanner;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.stage.PopupWindow;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 public class Main extends Application {
-    public static Scanner scnIn;
-    public static User mainUser = new User();
-
     @Override
     public void start(Stage stage) throws IOException {
-        Schedule s = new Schedule();
-        s.addCourse(new Course("2020,10,ACCT,201,A,PRINCIPLES OF ACCOUNTING I,3,30,30,M,,W,,F,9:00:00 AM,9:50:00 AM,Stone,Jennifer,Nicole,Online materials fee"));
-        s.addCourse(new Course("2020,10,ACCT,303,A,COST ACCOUNTING,3,35,27,,T,,R,,8:00:00 AM,9:15:00 AM,McFeaters,Michelle,,ACCT 202"));
-        s.addCourse(new Course("2020,30,CHEM,112,B,GENERAL CHEMISTRY II,3,48,38,M,,W,,F,11:00:00 AM,11:50:00 AM,Kriley,Charles,Chuck,CHM 111 or 105; Online Mat Fee"));
-        mainUser.savedSchedules.add(s);
-
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Schedule.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Hello!");
+        Parent root = FXMLLoader.load(getClass().getResource("/home.fxml"));
+        Scene scene = new Scene(root, 800, 500);
         stage.setScene(scene);
         stage.show();
+
+        //Window window = new Window(stage);
+        //PopupWindow popupWindow = new PopupWindow() {};
     }
 
+    public static Scanner scnIn;
+    public static User mainUser;
+    public static Search search;
+    //public static Filter mainFilter;
 
     public static void main(String[] args) {
+        search = new Search();
+        //mainFilter = new Filter();
+        setUp();
+
         launch();
         // Create the course database
+        //setUp();
+    }
+
+    public static void setUp() {
         try {
             Search.ParseClasses();
         } catch (FileNotFoundException e) {
@@ -49,8 +54,13 @@ public class Main extends Application {
         if(mainUser.savedSchedules.isEmpty()) {
             mainUser.savedSchedules.add(new Schedule());
         }
+        //System.out.println(Course.database.getFirst().getDescription());
+        //System.out.println(Course.database.get(1).getDescription());
 
-        consoleSoftwareLoop();
+
+        //consoleSoftwareLoop();
+
+        //launch();
 
         // Save to the file before closing
         mainUser.SaveToFile();
@@ -67,7 +77,8 @@ public class Main extends Application {
     }*/
 
     public static void consoleSoftwareLoop() {
-        Search search = new Search();
+        //Search search = new Search();
+        //search = new Search();
         scnIn = new Scanner(System.in);
         String currInput = "";
 
@@ -230,6 +241,34 @@ public class Main extends Application {
                 System.out.print("Enter new major: ");
                 mainUser.setMajor(scnIn.nextLine());
                 break;
+//            case "y":
+//                System.out.println("Enter 1 for Freshman, 2 for Sophomore, 3 for Junior, 4 for Senior:");
+//                currInput = scnIn.nextLine();
+//                if(scnIn.hasNextInt()) {
+//                    int num = Integer.parseInt(currInput);
+//                    if(1 <= num && num <= 4) {
+//                        mainUser.setSemester(num);
+//                    } else {
+//                        System.out.println("Invalid input");
+//                    }
+//                } else {
+//                    System.out.println("Invalid input");
+//                }
+//                break;
+//            case "s":
+//                System.out.println("Enter 1 for Fall, 2 for Spring:");
+//                currInput = scnIn.nextLine();
+//                if(scnIn.hasNextInt()) {
+//                    int num = Integer.parseInt(currInput);
+//                    if(1 <= num && num <= 2) {
+//                        mainUser.setSemester(num);
+//                    } else {
+//                        System.out.println("Invalid input");
+//                    }
+//                } else {
+//                    System.out.println("Invalid input");
+//                }
+//                break;
             case "add":
                 System.out.println("Enter Course Code to be added to completed courses, or type 'back' to return: ");
                 currInput = scnIn.nextLine();
@@ -251,13 +290,77 @@ public class Main extends Application {
                 }
                 break;
             default:
-                break;
+                System.out.println("Command '" + currInput + "' not recognized");
         }
     }
 
     public static void generateSchedule() {
-        System.out.println("GENERATE SCHEDULE");
-        mainUser.savedSchedules.getFirst().createRecommendedSchedule();
+        int numClasses;
+        do {
+            System.out.print("How many credits do you want this semester? (integer between 12 and 18): ");
+            while (!scnIn.hasNextInt()) {
+                System.out.println("That's not an integer!");
+                scnIn.next(); // discard non-integer input
+                System.out.print("How many credits do you want this semester? (integer between 12 and 18): ");
+            }
+            numClasses = scnIn.nextInt();
+            scnIn.nextLine();
+        } while (numClasses < 12 || numClasses > 18);
+        ArrayList<Course> classesLeft = mainUser.getClassesLeftToTake();
+        System.out.println("Select the type of schedule generation you want [fast/accurate]");
+        String input = scnIn.nextLine();
+        ArrayList<Course> recommendedSchedule;
+        switch (input.toLowerCase()) {
+            case "fast":
+                recommendedSchedule = Schedule.createRecommendedSchedule(classesLeft, numClasses);
+                break;
+            case "accurate":
+                recommendedSchedule = Schedule.createRecommendedScheduleSlow(classesLeft, numClasses);
+                break;
+            default:
+                System.out.println("Invalid input: '" + input + "'");
+                return;
+        }
+        // Print or return the recommended schedule
+        for (Course course : recommendedSchedule) {
+            System.out.print(course);
+        }
+        while(true) {
+            System.out.print("Type 'all' to make this your current schedule, 'add' to add a specific course to your schedule, or type 'back' to return: ");
+            String query = scnIn.nextLine();
+            if(query.equals("back")){
+                return;
+            }
+            if(query.equals("all")) {
+                mainUser.savedSchedules.remove(mainUser.savedSchedules.getFirst());
+                Schedule newSchedule = new Schedule();
+                for(Course course : recommendedSchedule) {
+                    newSchedule.addCourse(course);
+                }
+                mainUser.savedSchedules.add(newSchedule);
+                System.out.println("New schedule created!");
+            }
+            if(query.equals("add")) {
+                System.out.println("Type the course code of the course you would like to add");
+                query = scnIn.nextLine();
+                boolean added = false;
+                for (Course c : recommendedSchedule){
+                    if(Search.convertString(query).equals(Search.convertString(c.getCourseCode()))){
+                        if(mainUser.savedSchedules.getFirst().addCourse(c) == 0) {
+                            System.out.println("Course added to Schedule!");
+                        }
+                        else{
+                            System.out.println("Course overlaps with one already in schedule!");
+                        }
+                        added = true;
+                        break;
+                    }
+                }
+                if(!added){
+                    System.out.println("Invalid/Incorrect Course Code.");
+                }
+            }
+        }
     }
 
     public static void viewSchedule() {
@@ -267,7 +370,7 @@ public class Main extends Application {
         }
         else {
             for (Course course : currCourses) {
-                System.out.println(course.getCourseCode() + " ---- " + course.getStartTimes());
+                System.out.print(course);
             }
             //System.out.println(sched);
         }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #303030;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gcc.comp350.smartest.tempCourseSearchController">
+   <children>
+      <Button fx:id="addCourseButton" alignment="CENTER" onAction="#onAddCourseButtonClick" prefHeight="45.0" prefWidth="150.0" style="-fx-background-color: #3272FF;" text="Add Course" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
+         <font>
+            <Font size="22.0" />
+         </font></Button>
+      <Label fx:id="courseCode" text="[COURSE CODE]" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
+         <font>
+            <Font size="32.0" />
+         </font>
+      </Label>
+      <Label fx:id="courseName" text="[COURSE NAME]" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="65.0">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="courseProfessor" text="[Professor]" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="140.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="courseDays" text="[Days]" textAlignment="RIGHT" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="180.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="courseTime" text="[StartTime - EndTime]" textFill="WHITE" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="220.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="courseSemester" text="[Semester]" textAlignment="RIGHT" textFill="WHITE" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="140.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="courseCredits" text="[Credits]" textAlignment="RIGHT" textFill="WHITE" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="180.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="courseNumSeats" text="[NumSeats]" textAlignment="RIGHT" textFill="WHITE" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="220.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label fx:id="courseDescription" text="[Course Description blah blah laksdjfo askjdfosaf rnadvkoivub askjefoiasfhs adf theraidfuasoidhfaer sdfjoasdhf]" textFill="WHITE" wrapText="true" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="300.0" />
+      <Label fx:id="coursePreReqs" text="[PreReqs]" textFill="WHITE" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="courseCoReqs" text="[CoReqs]" textFill="WHITE" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="300.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

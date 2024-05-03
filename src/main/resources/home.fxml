@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: #303030;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gcc.comp350.smartest.Home">
+   <children>
+      <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <image>
+            <Image url="@GCC Crest.png" />
+         </image></ImageView>
+      <Button fx:id="schedule" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#test" prefHeight="30.0" prefWidth="250.0" style="-fx-background-color: #3272ff;" text="Schedule" textAlignment="CENTER" textFill="WHITE" AnchorPane.bottomAnchor="280.0" AnchorPane.leftAnchor="275.0" AnchorPane.rightAnchor="275.0">
+         <font>
+            <Font name="Arial Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button fx:id="search" mnemonicParsing="false" onAction="#switchToSearch" prefHeight="30.0" prefWidth="250.0" style="-fx-background-color: #3272ff;" text="Course Search" textFill="WHITE" AnchorPane.bottomAnchor="235.0" AnchorPane.leftAnchor="275.0" AnchorPane.rightAnchor="275.0" AnchorPane.topAnchor="235.0">
+         <font>
+            <Font name="Arial Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button mnemonicParsing="false" onAction="#switchToInfo" prefHeight="30.0" prefWidth="250.0" style="-fx-background-color: #3272ff;" text="User Info" textFill="WHITE" AnchorPane.leftAnchor="275.0" AnchorPane.rightAnchor="275.0" AnchorPane.topAnchor="280.0">
+         <font>
+            <Font name="Arial Bold" size="12.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

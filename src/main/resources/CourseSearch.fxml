@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane id="AnchorPane" prefHeight="500" prefWidth="800" style="-fx-background-color: #303030;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gcc.comp350.smartest.tempCourseSearchController">
+
+    <Button fx:id="backButton" onAction="#onBackButtonClick" prefHeight="50.0" prefWidth="100.0" style="-fx-background-color: #3272FF;" text="BACK" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="25.0" AnchorPane.topAnchor="25.0">
+      <font>
+         <Font size="24.0" />
+      </font></Button>
+
+   <TextField fx:id="searchBar" onAction="#onEnter" prefHeight="50.0" prefWidth="450.0" promptText="Search by Code or Name" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="25.0">
+      <font>
+         <Font size="24.0" />
+      </font>
+   </TextField>
+
+   <Button fx:id="advancedSearchButton" mnemonicParsing="false" onAction="#onAdvancedSearchButtonClick" prefHeight="50.0" prefWidth="150.0" style="-fx-background-color: #3272FF;" text="Advanced Search" textAlignment="CENTER" textFill="WHITE" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="25.0">
+      <font>
+         <Font size="16.0" />
+      </font>
+   </Button>
+
+   <ListView fx:id="listRes" editable="true" prefHeight="375.0" prefWidth="700.0" style="-fx-background-color: #BBBBBB;" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="100.0" />
+    
+</AnchorPane>

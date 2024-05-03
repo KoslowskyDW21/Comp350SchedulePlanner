@@ -10,6 +10,19 @@ public class User {
     public ArrayList<Schedule> savedSchedules;
     private ArrayList<Course> completedCourses;
     private ArrayList<Course> gradReqs;
+    private Semester curSemester;
+    private Year curYear;
+
+    public enum Semester {
+        FALL,
+        SPRING
+    }
+    public enum Year {
+        FRESHMAN,
+        SOPHOMORE,
+        JUNIOR,
+        SENIOR
+    }
 
     public String getMajor() {
         return major;
@@ -29,6 +42,38 @@ public class User {
         this.major = major;
     }
 
+    public void setSemester(int semester) {
+        switch (semester) {
+            case 1:
+                curSemester = Semester.FALL;
+                break;
+            case 2:
+                curSemester = Semester.SPRING;
+                break;
+            default:
+                System.out.println("Invalid input");
+        }
+    }
+
+    public void setYear(int year) {
+        switch (year) {
+            case 1:
+                curYear = Year.FRESHMAN;
+                break;
+            case 2:
+                curYear = Year.SOPHOMORE;
+                break;
+            case 3:
+                curYear = Year.JUNIOR;
+                break;
+            case 4:
+                curYear = Year.SENIOR;
+                break;
+            default:
+                System.out.println("Invalid input");
+        }
+    }
+
     public ArrayList<Course> getGradReqs() {
         return gradReqs;
     }
@@ -41,12 +86,14 @@ public class User {
         this.gradReqs = new ArrayList<>();
         this.completedCourses = new ArrayList<>();
         setCompSciReq();
+        curSemester = Semester.FALL;
+        curYear = Year.FRESHMAN;
     }
 
     public User() {
-        this.userID = 0;
-        this.name = "John Student";
-        this.major = "Computer Science";
+        this.userID = -1;
+        this.name = "";
+        this.major = "";
         this.gradReqs = new ArrayList<>();
         this.savedSchedules = new ArrayList<>();
         this.completedCourses = new ArrayList<>();
@@ -124,6 +171,7 @@ public class User {
 
             // Write the course codes of taken courses
             boolean firstCourse = true;
+
             for (Course course : completedCourses) {
                 if (!firstCourse) {
                     writer.write(", "); // Separate courses by comma
@@ -175,12 +223,15 @@ public class User {
             Main.mainUser = new User(userID, name, major);
 
             // Read list of previously taken courses
-            String[] takenClassCodes = reader.readLine().split(", ");
-            for(String code : takenClassCodes) {
-                Course course = Course.findCourse(code);
-                Main.mainUser.addTakenCourse(course);
+            String line = reader.readLine();
+            if(line != null && !line.isEmpty()) {
+                String[] takenClassCodes = line.split(", ");
+                for (String code : takenClassCodes) {
+                    Course course = Course.findCourse(code);
+                    Main.mainUser.addTakenCourse(course);
+                }
             }
-            String line;
+
             // Read each saved Schedule from the file
             while ((line = reader.readLine()) != null) {
                 Schedule schedule = new Schedule();
