@@ -9,6 +9,7 @@ public class Search {
     private ArrayList<Course> results;
     private Filter activeFilters;
 
+
     public Search() {
         this.userInput = "";
         this.results = new ArrayList<Course>();
@@ -19,8 +20,17 @@ public class Search {
         Scanner scn = new Scanner(new File("2020-2021.csv"));
         scn.nextLine();
         while (scn.hasNext()) {
-            Course.database.add(new Course(scn.nextLine()));
+            Course c = new Course(scn.nextLine());
+            if(c.getSemester().equals("Fall")){
+                Course.falldatabase.add(c);
+            }
+            else{
+                Course.springdatabase.add(c);
+            }
         }
+
+
+
     }
 
     public String getUserInput() {
@@ -51,14 +61,26 @@ public class Search {
 
     private ArrayList<Course> parseDatabase() {
         results.clear();
-
-        for (Course course : Course.database) {
+        if(activeFilters.getSemester() == 0){
+        for (Course course : Course.falldatabase) {
             String codeConverted = convertString(course.getCourseCode());
             String nameConverted = convertString(course.getName());
             if ((codeConverted.contains(userInput) // search by code
                     || nameConverted.contains(userInput)) // search by name
                     && matchesFilters(course)) { // matches course with current filters
                 results.add(course);
+            }
+        }
+        }
+        else{
+            for (Course course : Course.springdatabase) {
+                String codeConverted = convertString(course.getCourseCode());
+                String nameConverted = convertString(course.getName());
+                if ((codeConverted.contains(userInput) // search by code
+                        || nameConverted.contains(userInput)) // search by name
+                        && matchesFilters(course)) { // matches course with current filters
+                    results.add(course);
+                }
             }
         }
 

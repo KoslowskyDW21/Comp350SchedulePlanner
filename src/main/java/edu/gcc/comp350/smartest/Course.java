@@ -2,7 +2,9 @@ package edu.gcc.comp350.smartest;
 import java.util.ArrayList;
 
 public class Course {
-    public static ArrayList<Course> database = new ArrayList<>();
+    public static ArrayList<Course> springdatabase = new ArrayList<>();
+
+    public static ArrayList<Course> falldatabase = new ArrayList<>();
     private final String courseCode;
     private final String department;
     private final int level;
@@ -177,7 +179,12 @@ public class Course {
      * return null if no matching courseCode is found in the database
      */
     public static Course findCourse(String courseCode) {
-        for (Course course : database) {
+        for (Course course : falldatabase ) {
+            if (course.getCourseCode().equalsIgnoreCase(courseCode)) {
+                return course;
+            }
+        }
+        for (Course course : springdatabase ) {
             if (course.getCourseCode().equalsIgnoreCase(courseCode)) {
                 return course;
             }

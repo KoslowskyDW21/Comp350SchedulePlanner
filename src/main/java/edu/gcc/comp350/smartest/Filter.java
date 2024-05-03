@@ -20,6 +20,8 @@ public class Filter {
     // checkboxes
     private boolean[] days;
 
+    private int semester;
+
     public Filter(){
         this.credits = -1;
         this.startTime = 800;
@@ -29,6 +31,7 @@ public class Filter {
         this.profName = "";
         this.department = "";
         this.days = new boolean[] {true, true, true, true, true};
+        this.semester = 0;
     }
 
     public static void addDepartmentFilter(Search search, String department) {
@@ -105,6 +108,12 @@ public class Filter {
         search.modifyFilter(daysFilter);
     }
 
+    public static void changeSemester(Search search, int s){
+        Filter semFilter = search.getActiveFilters();
+        semFilter.setSemester(s);
+        search.modifyFilter(semFilter);
+    }
+
     public void setDays(boolean[] days) {
         System.arraycopy(days, 0, this.days, 0, 5);
     }
@@ -174,6 +183,16 @@ public class Filter {
     public void setDepartment(String department) {
         this.department = department;
     }
+
+    public int getSemester(){
+        return semester;
+    }
+
+    public void setSemester(int s){
+        semester = s;
+    }
+
+
 
     public String filterToString() {
         String filterVals = "";

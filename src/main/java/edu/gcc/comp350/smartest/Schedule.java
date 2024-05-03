@@ -6,6 +6,7 @@ public class Schedule {
     private ArrayList<String> filledTimeslots;
     private ArrayList<Course> currentCourses;
 
+
     public ArrayList<Course> getCurrentCourses() {
         return currentCourses;
     }
@@ -13,6 +14,7 @@ public class Schedule {
     public Schedule() {
         this.filledTimeslots = new ArrayList<>();
         this.currentCourses = new ArrayList<>();
+
     }
 
     public int addCourse(Course course) {
@@ -65,11 +67,20 @@ public class Schedule {
      * @param n the number of credits the user wants their schedule to total to
      * @return the recommended schedule that results from the algorithm
      */
-    public static ArrayList<Course> createRecommendedSchedule(ArrayList<Course> classesLeft, int n) {
+    public static ArrayList<Course> createRecommendedSchedule(ArrayList<Course> classesLeft, int n, int sem) {
         ArrayList<Course> recommendedSchedule = new ArrayList<>();
         int currentNumCredits = 0;
+        ArrayList<Course> cl = new ArrayList<>();
+        for(Course c : classesLeft){
+            if(Course.falldatabase.contains(c) && sem == 0){
+                cl.add(c);
+            }
+            else if(Course.springdatabase.contains(c) && sem == 1){
+                cl.add(c);
+            }
+        }
         // Iterate through each course in the list
-        for (Course currentCourse : classesLeft) {
+        for (Course currentCourse : cl) {
             // Check that the current course will not go over the credit load
             // Also check that the current course does not overlap anything in the schedule
             boolean overlaps = currentNumCredits + currentCourse.getNumCredits() > n
@@ -94,12 +105,21 @@ public class Schedule {
      * @param n the number of credits the user wants their schedule to total to
      * @return the recommended schedule that results from the algorithm
      */
-    public static ArrayList<Course> createRecommendedScheduleSlow(ArrayList<Course> classesLeft, int n) {
+    public static ArrayList<Course> createRecommendedScheduleSlow(ArrayList<Course> classesLeft, int n, int sem) {
+        ArrayList<Course> cl = new ArrayList<>();
+        for(Course c : classesLeft){
+            if(Course.falldatabase.contains(c) && sem == 0){
+                cl.add(c);
+            }
+            else if(Course.springdatabase.contains(c) && sem == 1){
+                cl.add(c);
+            }
+        }
         ArrayList<Course> recommendedSchedule = new ArrayList<>();
         ArrayList<Course> currentSchedule = new ArrayList<>();
         int[] maxCredits = new int[]{0}; // Using an array to pass as reference
 
-        backtrack(classesLeft, n, 0, currentSchedule, recommendedSchedule, maxCredits);
+        backtrack(cl, n, 0, currentSchedule, recommendedSchedule, maxCredits);
 
         return recommendedSchedule;
     }

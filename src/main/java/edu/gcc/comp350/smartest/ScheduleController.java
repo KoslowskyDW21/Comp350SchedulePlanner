@@ -34,7 +34,7 @@ public class ScheduleController implements Initializable {
 
     Schedule schedule;
 
-    public int semester;
+    public static int semester;
 
 
 
@@ -59,17 +59,21 @@ public class ScheduleController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        semester = 0;
         Semester.setItems(FXCollections.observableArrayList(
                 "FALL 2024", "SPRING 2025"));
-        Semester.setValue("FALL 2024");
+        if(semester == 0) {
+            Semester.setValue("FALL 2024");
+        }
+        else{
+            Semester.setValue("SPRING 2025");
+        }
         drawCalendar();
     }
 
     @FXML
     public void GenerateSlowClick(ActionEvent event, int credits){
         Schedule s = new Schedule();
-        for(Course crs : Schedule.createRecommendedScheduleSlow(Main.mainUser.getClassesLeftToTake(), credits)){
+        for(Course crs : Schedule.createRecommendedScheduleSlow(Main.mainUser.getClassesLeftToTake(), credits, semester)){
             s.addCourse(crs);
         }
         Main.mainUser.savedSchedules.set(semester, s);
@@ -79,7 +83,7 @@ public class ScheduleController implements Initializable {
     @FXML
     public void GenerateFastClick(ActionEvent event, int credits){
         Schedule s = new Schedule();
-        for(Course crs : Schedule.createRecommendedSchedule(Main.mainUser.getClassesLeftToTake(), credits)){
+        for(Course crs : Schedule.createRecommendedSchedule(Main.mainUser.getClassesLeftToTake(), credits, semester)){
             s.addCourse(crs);
         }
         System.out.println(s.getCurrentCourses().size());

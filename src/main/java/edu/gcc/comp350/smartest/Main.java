@@ -313,10 +313,10 @@ public class Main extends Application {
         ArrayList<Course> recommendedSchedule;
         switch (input.toLowerCase()) {
             case "fast":
-                recommendedSchedule = Schedule.createRecommendedSchedule(classesLeft, numClasses);
+                recommendedSchedule = Schedule.createRecommendedSchedule(classesLeft, numClasses, 0);
                 break;
             case "accurate":
-                recommendedSchedule = Schedule.createRecommendedScheduleSlow(classesLeft, numClasses);
+                recommendedSchedule = Schedule.createRecommendedScheduleSlow(classesLeft, numClasses, 0);
                 break;
             default:
                 System.out.println("Invalid input: '" + input + "'");

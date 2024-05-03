@@ -36,11 +36,14 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class tempCourseSearchController implements Initializable {
+
     private Stage stage;
     private Scene scene;
     private Parent root;
 
-    public static Stage stage2;
+    @FXML
+    public ChoiceBox<String> semesterBox;
+
     @FXML
     public Label courseCode;
     @FXML
@@ -141,6 +144,7 @@ public class tempCourseSearchController implements Initializable {
         Filter.removeProfessorFilter(Main.search);
         Filter.removeDepartmentFilter(Main.search);
         Filter.removeDays(Main.search);
+
     }
 
 
@@ -162,8 +166,15 @@ public class tempCourseSearchController implements Initializable {
         stage.setScene(sc);
         stage.setX(832);
         stage.setY(47);
+
+        semesterBox = (ChoiceBox)sc.lookup("#semesterBox");
+        semesterBox.setItems(FXCollections.observableArrayList(
+                "FALL", "SPRING"));
+        semesterBox.setValue("FALL");
+
         stage.show();
     }
+
 
 
     @FXML // onMouseClicked
@@ -323,6 +334,18 @@ public class tempCourseSearchController implements Initializable {
         //System.out.println(Arrays.toString(Main.search.getActiveFilters().getDays()));
     }
 
+    @FXML //onAction
+    protected void semesterSet(){
+        if(semesterBox.getValue().equals("FALL")) {
+            Main.search.getActiveFilters().setSemester(0);
+            ScheduleController.semester = 0;
+        }
+        else{
+            Main.search.getActiveFilters().setSemester(1);
+            ScheduleController.semester = 1;
+        }
+    }
+
     @FXML
     public void onEnter(ActionEvent ae){
         listRes.getItems().clear();
@@ -345,6 +368,8 @@ public class tempCourseSearchController implements Initializable {
             }
         });
     }
+
+
 
     @FXML
     public void onAddCourseButtonClick() throws IOException {
