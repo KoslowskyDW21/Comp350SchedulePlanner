@@ -42,11 +42,11 @@ public class Info implements Initializable {
     @FXML
     protected void onEditClick() {
         String name = Main.mainUser.getName();
-        if(Main.mainUser.getName().isEmpty()) {
+        if(name.isEmpty() || !name.equals(nameText.getText())) {
             name = nameText.getText();
         }
         String major = Main.mainUser.getMajor();
-        if(Main.mainUser.getMajor().isEmpty()) {
+        if(major.isEmpty() || !major.equals(majorText.getText())) {
             major = majorText.getText();
         }
         nameLabel.setText("Name: " + name);
