@@ -1,4 +1,4 @@
 100
 David Koslowsky
 dropped out
-TEST000A, ACCT201A, COMP233A
+ACCT201A, COMP233A

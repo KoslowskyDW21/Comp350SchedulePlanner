@@ -14,17 +14,24 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 public class Main extends Application {
+    public static Scanner scnIn;
+    public static User mainUser = new User();
+
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/hello-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        Schedule s = new Schedule();
+        s.addCourse(new Course("2020,10,ACCT,201,A,PRINCIPLES OF ACCOUNTING I,3,30,30,M,,W,,F,9:00:00 AM,9:50:00 AM,Stone,Jennifer,Nicole,Online materials fee"));
+        s.addCourse(new Course("2020,10,ACCT,303,A,COST ACCOUNTING,3,35,27,,T,,R,,8:00:00 AM,9:15:00 AM,McFeaters,Michelle,,ACCT 202"));
+        s.addCourse(new Course("2020,30,CHEM,112,B,GENERAL CHEMISTRY II,3,48,38,M,,W,,F,11:00:00 AM,11:50:00 AM,Kriley,Charles,Chuck,CHM 111 or 105; Online Mat Fee"));
+        mainUser.savedSchedules.add(s);
+
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/Schedule.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
     }
 
-    public static Scanner scnIn;
-    public static User mainUser;
 
     public static void main(String[] args) {
         launch();
