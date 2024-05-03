@@ -2,10 +2,12 @@ package edu.gcc.comp350.smartest;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.css.converter.PaintConverter;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -15,6 +17,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Callback;
@@ -22,11 +26,13 @@ import org.controlsfx.control.action.Action;
 
 import java.io.IOException;
 import java.lang.reflect.Array;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.ResourceBundle;
 
-public class tempCourseSearchController {
+public class tempCourseSearchController implements Initializable {
     private Stage stage;
     private Scene scene;
     private Parent root;
@@ -123,8 +129,14 @@ public class tempCourseSearchController {
     private boolean[] daysBools = {true, true, true, true, true};
 
 
-    public void initialize() {
-
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        Filter.removeStartTimeFilter(Main.search);
+        Filter.removeEndTimeFilter(Main.search);
+        Filter.removeLevelFilter(Main.search);
+        Filter.removeProfessorFilter(Main.search);
+        Filter.removeDepartmentFilter(Main.search);
+        Filter.removeDays(Main.search);
     }
 
 
@@ -341,21 +353,34 @@ public class tempCourseSearchController {
         Label label = new Label("(empty)");
         Pane pane = new Pane();
         Button getDetailsButton = new Button("DETAILS");
+        Circle seatsColor = new Circle();
+        Circle completionColor = new Circle();
         Course lastCourse;
 
         public XCell() {
             super();
-            hbox.getChildren().addAll(label, pane, getDetailsButton);
+            hbox.getChildren().addAll(label, pane, seatsColor, completionColor, getDetailsButton);
             HBox.setHgrow(pane, Priority.ALWAYS);
-            //setStyle("-fx-control-inner-background: " + lastCourse.getColor() + " ;");
-            //setStyle("-fx-control-inner-background: " + "blue" + " ;");
+            setStyle("-fx-control-inner-background: #303030;");
+
             getDetailsButton.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
                     courseDetailsPopup(event);
                 }
             });
+            getDetailsButton.setTranslateX(0);
             getDetailsButton.setTranslateY(8);
+
+            seatsColor.setTranslateX(-20);
+            seatsColor.setTranslateY(12);
+            seatsColor.setRadius(10);
+            seatsColor.setStrokeWidth(0);
+
+            completionColor.setTranslateX(-15);
+            completionColor.setTranslateY(12);
+            completionColor.setRadius(10);
+            completionColor.setStrokeWidth(0);
         }
 
         @FXML
@@ -419,6 +444,9 @@ public class tempCourseSearchController {
                 lastCourse = course;
                 label.setText(course!=null ? String.valueOf(course) : "<null>");
                 setGraphic(hbox);
+
+                seatsColor.setFill(Paint.valueOf(lastCourse.getSeatsColor()));
+                completionColor.setFill(Paint.valueOf(lastCourse.getCompletionColor()));
             }
         }
 

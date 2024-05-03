@@ -51,7 +51,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <CheckBox fx:id="daysCheckM" contentDisplay="CENTER" layoutX="70.0" layoutY="445.0" mnemonicParsing="false" onAction="#daysSet" selected="true" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="435.0" />
+      <CheckBox fx:id="daysCheckM" contentDisplay="CENTER" layoutX="70.0" layoutY="445.0" mnemonicParsing="false" onAction="#daysSet" selected="true" style="-fx-skin: blue;" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="435.0" />
       <CheckBox fx:id="daysCheckT" contentDisplay="CENTER" layoutX="100.0" layoutY="445.0" mnemonicParsing="false" onAction="#daysSet" selected="true" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="62.0" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="435.0" />
       <CheckBox fx:id="daysCheckW" contentDisplay="CENTER" mnemonicParsing="false" onAction="#daysSet" selected="true" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="92.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="435.0" />
       <CheckBox fx:id="daysCheckR" contentDisplay="CENTER" layoutX="70.0" layoutY="445.0" mnemonicParsing="false" onAction="#daysSet" selected="true" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="122.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="435.0" />
