@@ -5,9 +5,9 @@ public class Filter {
 
 
     private int credits;
-    // slider
+    // dropdown
     private int startTime;
-    // slider
+    // dropdown
     private int endTime;
     // dropdown
     private int levelMin;

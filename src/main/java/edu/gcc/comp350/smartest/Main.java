@@ -54,8 +54,8 @@ public class Main extends Application {
         if(mainUser.savedSchedules.isEmpty()) {
             mainUser.savedSchedules.add(new Schedule());
         }
-        System.out.println(Course.database.getFirst().getDescription());
-        System.out.println(Course.database.get(1).getDescription());
+        //System.out.println(Course.database.getFirst().getDescription());
+        //System.out.println(Course.database.get(1).getDescription());
 
 
         //consoleSoftwareLoop();
