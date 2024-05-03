@@ -172,7 +172,10 @@ public class tempCourseSearchController implements Initializable {
                 "FALL", "SPRING"));
         semesterBox.setValue("FALL");
 
+        //System.out.println("yo");
+
         stage.show();
+        //System.out.println("ayo");
     }
 
 
