@@ -4,6 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
+
 <AnchorPane fx:id="ap" prefHeight="500.0" prefWidth="200.0" style="-fx-background-color: #303030;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.gcc.comp350.smartest.tempCourseSearchController">
    <children>
       <Label fx:id="advancedSearchHeader" alignment="CENTER" layoutX="89.0" layoutY="4.0" text="Advanced Search" textAlignment="RIGHT" textFill="WHITE" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="25.0" AnchorPane.topAnchor="10.0">
@@ -51,9 +52,9 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <CheckBox fx:id="daysCheckM" contentDisplay="CENTER" layoutX="70.0" layoutY="445.0" mnemonicParsing="false" onAction="#daysSet" selected="true" style="-fx-skin: blue;" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="435.0" />
+      <CheckBox fx:id="daysCheckM" contentDisplay="CENTER" layoutX="70.0" layoutY="445.0" mnemonicParsing="false" onAction="#daysSet" selected="true" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="435.0" />
       <CheckBox fx:id="daysCheckT" contentDisplay="CENTER" layoutX="100.0" layoutY="445.0" mnemonicParsing="false" onAction="#daysSet" selected="true" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="62.0" AnchorPane.rightAnchor="120.0" AnchorPane.topAnchor="435.0" />
-      <CheckBox fx:id="daysCheckW" contentDisplay="CENTER" mnemonicParsing="false" onAction="#daysSet" selected="true" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="92.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="435.0" />
+      <CheckBox fx:id="daysCheckW" contentDisplay="CENTER" layoutX="100.0" layoutY="445.0" mnemonicParsing="false" onAction="#daysSet" selected="true" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="92.0" AnchorPane.rightAnchor="90.0" AnchorPane.topAnchor="435.0" />
       <CheckBox fx:id="daysCheckR" contentDisplay="CENTER" layoutX="70.0" layoutY="445.0" mnemonicParsing="false" onAction="#daysSet" selected="true" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="122.0" AnchorPane.rightAnchor="60.0" AnchorPane.topAnchor="435.0" />
       <CheckBox fx:id="daysCheckF" contentDisplay="CENTER" layoutX="100.0" layoutY="445.0" mnemonicParsing="false" onAction="#daysSet" selected="true" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="152.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="435.0" />
       <Label alignment="CENTER" text="M" textFill="WHITE" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="455.0">
