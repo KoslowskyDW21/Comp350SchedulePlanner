@@ -50,6 +50,7 @@
       <Label alignment="CENTER" text="Days" textFill="WHITE" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="410.0">
          <font>
             <Font size="14.0" />
+            <Font size="14.0" />
          </font>
       </Label>
       <CheckBox fx:id="daysCheckM" contentDisplay="CENTER" layoutX="70.0" layoutY="445.0" mnemonicParsing="false" onAction="#daysSet" selected="true" textAlignment="CENTER" textFill="WHITE" AnchorPane.leftAnchor="32.0" AnchorPane.rightAnchor="150.0" AnchorPane.topAnchor="435.0" />
@@ -82,7 +83,7 @@
             <Font size="14.0" />
          </font>
       </Label>
-      <ChoiceBox fx:id="semesterBox" layoutX="25.0" layoutY="110.0" onAction="#semesterSet" prefWidth="150.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="500.0" />
+      <ChoiceBox fx:id="semesterBox" layoutX="25.0" layoutY="110.0" onAction="#semesterSet" onMouseClicked="#semesterDropDown" prefWidth="150.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="500.0" />
 
    </children>
 </AnchorPane>

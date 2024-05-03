@@ -38,6 +38,7 @@ public class Main extends Application {
         launch();
         // Create the course database
         //setUp();
+
         mainUser.SaveToFile();
     }
 
@@ -61,6 +62,7 @@ public class Main extends Application {
         if(mainUser.savedSchedules.size() < 3){
             mainUser.savedSchedules.add(new Schedule());
         }
+        //System.out.println("YO " + mainUser.savedSchedules.getFirst().toString());
         //System.out.println(Course.database.getFirst().getDescription());
         //System.out.println(Course.database.get(1).getDescription());
 
@@ -71,6 +73,7 @@ public class Main extends Application {
 
         // Save to the file before closing
         mainUser.SaveToFile();
+        //System.out.println("yeesh");
     }
 
     /*public static void akSearchTest() {
