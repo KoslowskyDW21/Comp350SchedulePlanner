@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
@@ -18,6 +19,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.controlsfx.control.action.Action;
 
 import java.io.IOException;
 import java.net.URL;
@@ -118,9 +120,12 @@ public class ScheduleController implements Initializable {
         for(Course crs : Schedule.createRecommendedScheduleSlow(Main.mainUser.getClassesLeftToTake(), credits, semester)){
             s.addCourse(crs);
         }
-        Main.mainUser.savedSchedules.set(semester, s);
+        Main.mainUser.savedSchedules.set(2, s);
         calendar.getChildren().clear();
+        int sem = semester;
+        semester = 2;
         drawCalendar();
+        acceptPopup(event, sem);
     }
     @FXML
     public void GenerateFastClick(ActionEvent event, int credits){
@@ -129,9 +134,27 @@ public class ScheduleController implements Initializable {
             s.addCourse(crs);
         }
         System.out.println(s.getCurrentCourses().size());
-        Main.mainUser.savedSchedules.set(semester, s);
+        Main.mainUser.savedSchedules.set(2, s);
+        int sem = semester;
+        semester = 2;
         calendar.getChildren().clear();
         drawCalendar();
+        acceptPopup(event, sem);
+    }
+
+    public void acceptSchedule(boolean accepted, int sem){
+        if(accepted){
+            Schedule sched = Main.mainUser.savedSchedules.get(2);
+            Main.mainUser.savedSchedules.set(sem, sched);
+            semester = sem;
+            calendar.getChildren().clear();
+            drawCalendar();
+        }
+        else{
+            semester = sem;
+            calendar.getChildren().clear();
+            drawCalendar();
+        }
     }
 
     @FXML
@@ -159,14 +182,17 @@ public class ScheduleController implements Initializable {
             for (int j = 0; j < 5; j++) {
                 StackPane stackPane = new StackPane();
                 Rectangle rectangle = new Rectangle();
-                rectangle.setFill(Color.WHITE);
-                rectangle.setStroke(Color.BLACK);
+                stackPane.setStyle("-fx-background-color: white");
+                //rectangle.setStroke(Color.BLACK);
+                rectangle.setFill(Color.TRANSPARENT);
                 rectangle.setStrokeWidth(strokeWidth);
                 double rectangleWidth = (calendarWidth / 5) - strokeWidth - spacingH;
-                rectangle.setWidth(rectangleWidth);
+                rectangle.setWidth((rectangleWidth));
+                stackPane.setMinWidth(rectangleWidth);
                 double rectangleHeight = (calendarHeight / 11) - strokeWidth - spacingV;
                 rectangle.setHeight(rectangleHeight);
-                stackPane.getChildren().add(rectangle);
+                stackPane.setMinHeight(rectangleHeight);
+
 
 
                 for(int k = 0; k < schedule.getCurrentCourses().size(); k++) {
@@ -182,18 +208,21 @@ public class ScheduleController implements Initializable {
                             if(end.charAt(4) == ':'){
                                 end = end.substring(0, 4);
                             }
+
+                            /*if((curr.parseArr(curr.getEndTimes()))/100 - 8 > i){
+                                stackPane.setPrefHeight(rectangleHeight + (curr.parseArr(curr.getEndTimes()))/50 - 8);
+                                rectangle.setHeight(rectangleHeight + (curr.parseArr(curr.getEndTimes()))/50 - 8);
+                            }*/
+                            stackPane.getChildren().add(rectangle);
                             Text date = new Text(curr.getCourseCode() +"\n" + start + "-" + end);
                             date.setFont(Font.font("Arial Bold"));
                             date.setStyle("-fx-text-fill: white;");
-                            rectangle.setFill(Paint.valueOf(curr.getCompletionColor()));
+                            rectangle.setStroke(Paint.valueOf(curr.getCompletionColor()));
+                            stackPane.setStyle("-fx-background-color: " + curr.getCompletionColor());
                             double textTranslationY = -(rectangleHeight / 2) *.05;
                             date.setTranslateY(textTranslationY);
                             stackPane.getChildren().add(date);
                             stackPane.setOnMouseClicked(event -> courseDetailsPopup(event, curr));
-
-
-
-
 
                             /*StackPane stickyNotesPane = new StackPane();
                             stickyNotesPane.setPrefSize(200, 80);
@@ -262,6 +291,16 @@ public class ScheduleController implements Initializable {
 
             TextField tf = (TextField) sc.lookup("#cred");
             tf.setText("15");
+            tf.setOnAction(a ->{
+                Label label = (Label) sc.lookup("#err");
+                if(Integer.parseInt(tf.getText()) > 18 || Integer.parseInt(tf.getText()) < 12){
+                    tf.setText("15");
+                    label.setText("Schedules must be between 12 and 18 credits");
+                }
+                else{
+                    label.setText("");
+                }
+            });
             Button fast = (Button) sc.lookup("#fast");
             fast.setOnAction(e -> {
                 GenerateFastClick(e, Integer.parseInt(tf.getText()));
@@ -270,6 +309,44 @@ public class ScheduleController implements Initializable {
             Button slow = (Button) sc.lookup("#slow");
             slow.setOnAction(e -> {
                 GenerateSlowClick(e, Integer.parseInt(tf.getText()));
+                stage.close();
+            });
+            stage.show();
+        }
+        catch (Exception e) {
+            System.out.println(e.toString());
+        }
+    }
+
+    @FXML
+    public void acceptPopup(ActionEvent event, int sem){
+        try{
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("/GeneratePopup.fxml"));
+            Parent root = loader.load();
+            Stage stage = new Stage();
+            Scene sc = new Scene(root);
+            stage.setScene(sc);
+
+            TextField tf = (TextField) sc.lookup("#cred");
+            Label lbl = (Label) sc.lookup("#lbl");
+            AnchorPane par =(AnchorPane) tf.getParent();
+            par.getChildren().remove(tf);
+            par.getChildren().remove(lbl);
+
+            Label label = (Label) sc.lookup("#msg");
+            label.setText("Would you like to replace your current schedule with the generated one?");
+
+            Button fast = (Button) sc.lookup("#fast");
+            fast.setTranslateX(250);
+            fast.setText("Reject");
+            fast.setOnAction(e -> {
+                acceptSchedule(false, sem);
+                stage.close();
+            });
+            Button slow = (Button) sc.lookup("#slow");
+            slow.setText("Accept");
+            slow.setOnAction(e -> {
+                acceptSchedule(true, sem);
                 stage.close();
             });
             stage.show();
