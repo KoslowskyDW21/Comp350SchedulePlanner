@@ -22,6 +22,11 @@ public class Schedule {
             if(Overlaps(c, course)) {
                 return 1;
             }
+            String codeC = c.getCourseCode();
+            String codeCourse = course.getCourseCode();
+            if(codeC.substring(0,codeC.length()-1).equals(codeCourse.substring(0,codeCourse.length()-1))) {
+                return 1;
+            }
         }
         currentCourses.add(course);
         return 0;

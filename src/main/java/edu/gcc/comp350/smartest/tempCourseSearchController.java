@@ -349,6 +349,8 @@ public class tempCourseSearchController implements Initializable {
         }
     }
 
+
+
     @FXML
     public void onEnter(ActionEvent ae){
         listRes.getItems().clear();
@@ -377,6 +379,11 @@ public class tempCourseSearchController implements Initializable {
     @FXML
     public void onAddCourseButtonClick() throws IOException {
         XCell.onAddCourseButtonClick2();
+    }
+
+    @FXML
+    public void addCompleted() {
+        XCell.addCompleted2();
     }
 
 
@@ -421,6 +428,25 @@ public class tempCourseSearchController implements Initializable {
             completionColor.setTranslateY(12);
             completionColor.setRadius(10);
             completionColor.setStrokeWidth(0);
+        }
+
+
+        public static void addCompleted2() {
+            if(notDuplicate()) {
+                Main.mainUser.addTakenCourse(addCourse);
+                Main.mainUser.SaveToFile();
+            }
+        }
+
+        private static boolean notDuplicate() {
+                for(Course course : Main.mainUser.getCompletedCourses()) {
+                    String c = course.getCourseCode();
+                    String a = addCourse.getCourseCode();
+                    if(c.substring(0,c.length()-1).equals(a.substring(0,a.length()-1))) {
+                        return false;
+                    }
+                }
+            return true;
         }
 
         @FXML
