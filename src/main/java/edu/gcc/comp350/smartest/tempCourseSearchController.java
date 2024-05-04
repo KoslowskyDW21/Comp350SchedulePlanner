@@ -41,8 +41,6 @@ public class tempCourseSearchController implements Initializable {
     private Scene scene;
     private Parent root;
 
-    @FXML
-    public ChoiceBox<String> semesterBox;
 
     @FXML
     public Label courseCode;
@@ -135,6 +133,11 @@ public class tempCourseSearchController implements Initializable {
     private CheckBox daysCheckF;
     private boolean[] daysBools = {true, true, true, true, true};
 
+    @FXML
+    private ChoiceBox<String> semesterBox = new ChoiceBox<>();
+    private String[] semesterBoxArr = {"FALL", "SPRING"};
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -167,15 +170,15 @@ public class tempCourseSearchController implements Initializable {
         stage.setX(832);
         stage.setY(47);
 
-        semesterBox = (ChoiceBox)sc.lookup("#semesterBox");
-        semesterBox.setItems(FXCollections.observableArrayList(
-                "FALL", "SPRING"));
-        semesterBox.setValue("FALL");
+        //semesterBox = (ChoiceBox)sc.lookup("#semesterBox");
+//        semesterBox.setItems(FXCollections.observableArrayList(
+//                "FALL", "SPRING"));
+
 
         //System.out.println("yo");
 
         stage.show();
-        //System.out.println("ayo");
+        //semesterBox.setValue("FALL");
     }
 
 
@@ -337,14 +340,25 @@ public class tempCourseSearchController implements Initializable {
         //System.out.println(Arrays.toString(Main.search.getActiveFilters().getDays()));
     }
 
-    @FXML //onAction
+    @FXML // onMouseClicked
+    protected void semesterDropDown() {
+        if (semesterBox.getItems().isEmpty()) {
+            semesterBox.getItems().addAll(semesterBoxArr);
+        }
+    }
+    @FXML // onAction
     protected void semesterSet(){
         if(semesterBox.getValue().equals("FALL")) {
             Main.search.getActiveFilters().setSemester(0);
+            Main.mainUser.setSemester(0);
+            Filter.changeSemester(Main.search, 0);
             ScheduleController.semester = 0;
         }
-        else{
+        else if (semesterBox.getValue().equals("SPRING")){
+            //System.out.println("spring");
             Main.search.getActiveFilters().setSemester(1);
+            Main.mainUser.setSemester(1);
+            Filter.changeSemester(Main.search, 1);
             ScheduleController.semester = 1;
         }
     }
