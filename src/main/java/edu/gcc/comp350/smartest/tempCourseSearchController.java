@@ -33,9 +33,6 @@ public class tempCourseSearchController implements Initializable {
     private Parent root;
 
     @FXML
-    ChoiceBox<String> semesterBox;
-
-    @FXML
     public Label courseCode;
     @FXML
     public Label courseName;
@@ -126,6 +123,11 @@ public class tempCourseSearchController implements Initializable {
     private CheckBox daysCheckF;
     private boolean[] daysBools = {true, true, true, true, true};
 
+    @FXML
+    private ChoiceBox<String> semesterBox = new ChoiceBox<>();
+    private String[] semesterBoxArr = {"FALL", "SPRING"};
+
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -160,6 +162,7 @@ public class tempCourseSearchController implements Initializable {
         stage.setX(832);
         stage.setY(47);
 
+
         AnchorPane ap = (AnchorPane) sc.lookup("#ap");
         AtomicBoolean hovered = new AtomicBoolean(false);
         ap.hoverProperty().addListener((obs, oldVal, newValue) -> {
@@ -185,10 +188,15 @@ public class tempCourseSearchController implements Initializable {
                 "FALL", "SPRING"));
         semesterBox.setValue("FALL");
 
+        //semesterBox = (ChoiceBox)sc.lookup("#semesterBox");
+//        semesterBox.setItems(FXCollections.observableArrayList(
+//                "FALL", "SPRING"));
+
+
         //System.out.println("yo");
 
         stage.show();
-        //System.out.println("ayo");
+        //semesterBox.setValue("FALL");
     }
 
 
@@ -350,19 +358,33 @@ public class tempCourseSearchController implements Initializable {
         //System.out.println(Arrays.toString(Main.search.getActiveFilters().getDays()));
     }
 
-    @FXML //onAction
+    @FXML // onMouseClicked
+    protected void semesterDropDown() {
+        if (semesterBox.getItems().isEmpty()) {
+            semesterBox.getItems().addAll(semesterBoxArr);
+        }
+    }
+    @FXML // onAction
     protected void semesterSet(){
         if(semesterBox.getValue().equals("FALL")) {
             Main.search.getActiveFilters().setSemester(0);
+
+            Main.mainUser.setSemester(0);
+
             Filter.changeSemester(Main.search, 0);
             ScheduleController.semester = 0;
         }
-        else{
+        else if (semesterBox.getValue().equals("SPRING")){
+            //System.out.println("spring");
             Main.search.getActiveFilters().setSemester(1);
+
+            Main.mainUser.setSemester(1);
             Filter.changeSemester(Main.search, 1);
             ScheduleController.semester = 1;
         }
     }
+
+
 
     @FXML
     public void onEnter(ActionEvent ae){
@@ -392,6 +414,11 @@ public class tempCourseSearchController implements Initializable {
     @FXML
     public void onAddCourseButtonClick() throws IOException {
         XCell.onAddCourseButtonClick2();
+    }
+
+    @FXML
+    public void addCompleted() {
+        XCell.addCompleted2();
     }
 
 
@@ -436,6 +463,25 @@ public class tempCourseSearchController implements Initializable {
             completionColor.setTranslateY(12);
             completionColor.setRadius(10);
             completionColor.setStrokeWidth(0);
+        }
+
+
+        public static void addCompleted2() {
+            if(notDuplicate()) {
+                Main.mainUser.addTakenCourse(addCourse);
+                Main.mainUser.SaveToFile();
+            }
+        }
+
+        private static boolean notDuplicate() {
+                for(Course course : Main.mainUser.getCompletedCourses()) {
+                    String c = course.getCourseCode();
+                    String a = addCourse.getCourseCode();
+                    if(c.substring(0,c.length()-1).equals(a.substring(0,a.length()-1))) {
+                        return false;
+                    }
+                }
+            return true;
         }
 
         @FXML

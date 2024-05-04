@@ -44,15 +44,18 @@ public class User {
 
     public void setSemester(int semester) {
         switch (semester) {
-            case 1:
+            case 0:
                 curSemester = Semester.FALL;
                 break;
-            case 2:
+            case 1:
                 curSemester = Semester.SPRING;
                 break;
             default:
-                System.out.println("Invalid input");
+                System.out.println("Invalid input - " + semester);
         }
+    }
+    public Semester getCurSemester() {
+        return curSemester;
     }
 
     public void setYear(int year) {
@@ -257,19 +260,24 @@ public class User {
                 }
             }
 
+            String line2 = reader.readLine();
             // Read each saved Schedule from the file
-            while ((line = reader.readLine()) != null) {
+            while ((line2 = reader.readLine()) != null) {
+                //System.out.println("LINE: " + line);
                 Schedule schedule = new Schedule();
-                String[] courseCodes = line.split(", ");
+                String[] courseCodes = line2.split(", ");
                 for (String courseCode : courseCodes) {
                     Course course = Course.findCourse(courseCode);
                     if (course != null) {
                         schedule.addCourse(course);
+                        //System.out.println(courseCode);
                     } else {
                         System.out.println("Course not found in database: " + courseCode);
                     }
                 }
+                //System.out.println("adding " + schedule.getCurrentCourses());
                 Main.mainUser.savedSchedules.add(schedule);
+                //System.out.println("added");
             }
         } catch (IOException e) {
             e.printStackTrace();

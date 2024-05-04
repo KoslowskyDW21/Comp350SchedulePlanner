@@ -41,18 +41,19 @@ public class ScheduleController implements Initializable {
 
 
     @FXML
-    ChoiceBox<String> Semester;
+    ChoiceBox<String> Semester = new ChoiceBox<>();
+    private String[] semesterBoxArr = {"FALL", "SPRING"};
 
     @FXML
     public void changeSemester(ActionEvent event, int currSemester){
         calendar.getChildren().clear();
         if(currSemester == 0){
             semester = 1;
-            drawCalendar();
+            //drawCalendar();
         }
         else{
             semester = 0;
-            drawCalendar();
+            //drawCalendar();
         }
     }
 
@@ -61,16 +62,57 @@ public class ScheduleController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        Semester.setItems(FXCollections.observableArrayList(
-                "FALL 2024", "SPRING 2025"));
+
+        semesterDropDown();
+        if (Semester.getItems().isEmpty()) {
+            Semester.getItems().addAll(semesterBoxArr);
+        }
+        Semester.setOnAction(event ->{
+            try {
+                semesterSet(event);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+
         if(semester == 0) {
-            Semester.setValue("FALL 2024");
+            Semester.setValue("FALL");
+
         }
-        else{
-            Semester.setValue("SPRING 2025");
+        else if (semester == 1) {
+            Semester.setValue("SPRING");
         }
+        else {
+            Semester.setValue("FALL");
+        }
+    }
+
+    @FXML // onMouseClicked
+    protected void semesterDropDown() {
+        if (Semester.getItems().isEmpty()) {
+            Semester.getItems().addAll(semesterBoxArr);
+        }
+    }
+    @FXML // onAction
+    protected void semesterSet(ActionEvent event) throws IOException {
+        if(Semester.getValue().equals("FALL")) {
+            System.out.println("FALL1");
+            Main.search.getActiveFilters().setSemester(0);
+            Filter.changeSemester(Main.search, 0);
+            semester = 0;
+        }
+        else if (Semester.getValue().equals("SPRING")){
+            System.out.println("SPRING1");
+            Main.search.getActiveFilters().setSemester(1);
+            Filter.changeSemester(Main.search, 1);
+            semester = 1;
+        }
+
+        calendar.getChildren().clear();
         drawCalendar();
     }
+
+
 
     @FXML
     public void GenerateSlowClick(ActionEvent event, int credits){
@@ -126,9 +168,9 @@ public class ScheduleController implements Initializable {
     private void drawCalendar() {
         schedule = Main.mainUser.savedSchedules.get(semester);
         String r = (String) ((ChoiceBox) Semester).getValue();
-        Semester.setOnAction(event ->{
-            changeSemester(event, semester);
-        });
+//        Semester.setOnAction(event ->{
+//            changeSemester(event, semester);
+//        });
         double calendarWidth = calendar.getPrefWidth();
         double calendarHeight = 375;
         double strokeWidth = 1;
