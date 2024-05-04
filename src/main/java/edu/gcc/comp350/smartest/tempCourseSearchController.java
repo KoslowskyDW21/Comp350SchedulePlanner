@@ -2,7 +2,6 @@ package edu.gcc.comp350.smartest;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.css.converter.PaintConverter;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -12,28 +11,20 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 import javafx.util.Callback;
-import org.controlsfx.control.action.Action;
-import org.controlsfx.control.tableview2.filter.filtereditor.SouthFilter;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class tempCourseSearchController implements Initializable {
 
@@ -42,7 +33,7 @@ public class tempCourseSearchController implements Initializable {
     private Parent root;
 
     @FXML
-    public ChoiceBox<String> semesterBox;
+    ChoiceBox<String> semesterBox;
 
     @FXML
     public Label courseCode;
@@ -144,6 +135,8 @@ public class tempCourseSearchController implements Initializable {
         Filter.removeProfessorFilter(Main.search);
         Filter.removeDepartmentFilter(Main.search);
         Filter.removeDays(Main.search);
+        ScheduleController.semester = 0;
+        Filter.changeSemester(Main.search, 0);
 
     }
 
@@ -167,7 +160,27 @@ public class tempCourseSearchController implements Initializable {
         stage.setX(832);
         stage.setY(47);
 
-        semesterBox = (ChoiceBox)sc.lookup("#semesterBox");
+        AnchorPane ap = (AnchorPane) sc.lookup("#ap");
+        AtomicBoolean hovered = new AtomicBoolean(false);
+        ap.hoverProperty().addListener((obs, oldVal, newValue) -> {
+            if (!newValue) {
+                hovered.set(false);
+                    for (Node child : ap.getChildren()) {
+                        if (child.isHover()) {
+                            System.out.println(child);
+                            hovered.set(true);
+                        }
+                    }
+                if(!hovered.get()) {
+                    stage.close();
+                }
+            }
+        });
+
+
+
+        semesterBox = (ChoiceBox<String>) (sc.lookup("#semesterBox"));
+
         semesterBox.setItems(FXCollections.observableArrayList(
                 "FALL", "SPRING"));
         semesterBox.setValue("FALL");
@@ -341,10 +354,12 @@ public class tempCourseSearchController implements Initializable {
     protected void semesterSet(){
         if(semesterBox.getValue().equals("FALL")) {
             Main.search.getActiveFilters().setSemester(0);
+            Filter.changeSemester(Main.search, 0);
             ScheduleController.semester = 0;
         }
         else{
             Main.search.getActiveFilters().setSemester(1);
+            Filter.changeSemester(Main.search, 1);
             ScheduleController.semester = 1;
         }
     }
