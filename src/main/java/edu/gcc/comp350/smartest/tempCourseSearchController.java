@@ -13,6 +13,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
@@ -519,7 +520,6 @@ public class tempCourseSearchController implements Initializable {
             }
             popupStage.close();
 
-
         }
 
 
@@ -538,8 +538,6 @@ public class tempCourseSearchController implements Initializable {
                 completionColor.setFill(Paint.valueOf(lastCourse.getCompletionColor()));
             }
         }
-
-
 
     }
 
