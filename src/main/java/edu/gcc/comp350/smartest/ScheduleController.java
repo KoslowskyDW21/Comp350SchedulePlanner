@@ -75,11 +75,10 @@ public class ScheduleController implements Initializable {
             }
         });
 
-        if(semester == 0) {
+        /*if(semester == 0) {
             Semester.setValue("FALL");
-
-        }
-        else if (semester == 1) {
+        }*/
+        if (semester == 1) {
             Semester.setValue("SPRING");
         }
         else {
