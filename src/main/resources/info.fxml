@@ -21,16 +21,32 @@
             <Font name="Arial Bold" size="20.0" />
          </font>
       </Label>
+      <ListView fx:id="prevCourses" prefHeight="280.0" prefWidth="460.0" style="-fx-background-color: #303030;" translateX="305.0" translateY="200.0" />
+      <Label text="Courses Previously Taken: " textFill="WHITE" translateX="30.0" translateY="200.0">
+         <font>
+            <Font name="Arial Bold" size="20.0" />
+         </font>
+      </Label>
       <Button mnemonicParsing="false" onAction="#switchToHome" prefHeight="30.0" prefWidth="75.0" style="-fx-background-color: #3272ff;" text="Back" textFill="WHITE" translateX="20.0" translateY="20.0">
          <font>
             <Font name="Arial Bold" size="12.0" />
          </font></Button>
-      <Button mnemonicParsing="false" onAction="#onEditClick" prefHeight="30.0" prefWidth="250.0" style="-fx-background-color: #3272ff;" text="Edit" textFill="WHITE" translateX="275.0" translateY="235.0">
+      <Button fx:id="test" mnemonicParsing="false" onAction="#removeCoursePopup" prefHeight="30.0" prefWidth="250.0" style="-fx-background-color: #3272ff;" text="Remove Previous Courses" textFill="WHITE" translateX="30.0" translateY="275.0">
          <font>
             <Font name="Arial Bold" size="12.0" />
          </font>
       </Button>
-      <TextField fx:id="nameText" prefHeight="30.0" prefWidth="200.0" promptText="Name" translateX="300.0" translateY="275.0" />
-      <TextField fx:id="majorText" prefHeight="30.0" prefWidth="200.0" promptText="Major" translateX="300.0" translateY="315.0" />
+      <Button mnemonicParsing="false" onAction="#addCompletedCourses" prefHeight="30.0" prefWidth="250.0" style="-fx-background-color: #3272ff;" text="Add Previous Courses" textFill="WHITE" translateX="30.0" translateY="235.0">
+         <font>
+            <Font name="System Bold" size="12.0" />
+         </font>
+      </Button>
+      <Button mnemonicParsing="false" onAction="#onEditClick" prefHeight="30.0" prefWidth="250.0" style="-fx-background-color: #3272ff;" text="Edit" textFill="WHITE" translateX="30.0" translateY="360.0">
+         <font>
+            <Font name="Arial Bold" size="12.0" />
+         </font>
+      </Button>
+      <TextField fx:id="nameText" prefHeight="30.0" prefWidth="250.0" promptText="Name" translateX="30.0" translateY="410.0" />
+      <TextField fx:id="majorText" prefHeight="30.0" prefWidth="250.0" promptText="Major" translateX="30.0" translateY="450.0" />
    </children>
 </AnchorPane>
