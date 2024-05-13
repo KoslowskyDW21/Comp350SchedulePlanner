@@ -175,8 +175,17 @@ public class tempCourseSearchController implements Initializable {
                             System.out.println(child);
                             hovered.set(true);
                         }
+                        if(child.getClass() == ChoiceBox.class){
+                            ChoiceBox<String> cb = (ChoiceBox<String>) child;
+                            if(cb.isShowing()){
+                                hovered.set(true);
+                            }
+                        }
                     }
                 if(!hovered.get()) {
+                    if(semesterBox.getValue() != null){
+                        semesterSet();
+                    }
                     stage.close();
                 }
             }
@@ -184,11 +193,11 @@ public class tempCourseSearchController implements Initializable {
 
 
 
-        semesterBox = (ChoiceBox<String>) (sc.lookup("#semesterBox"));
+        /*semesterBox = (ChoiceBox<String>) (sc.lookup("#semesterBox"));
 
         semesterBox.setItems(FXCollections.observableArrayList(
                 "FALL", "SPRING"));
-        semesterBox.setValue("FALL");
+        semesterBox.setValue("FALL");*/
 
         //semesterBox = (ChoiceBox)sc.lookup("#semesterBox");
 //        semesterBox.setItems(FXCollections.observableArrayList(
